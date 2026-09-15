@@ -4,7 +4,7 @@ Configuration Obsidian portable : réglages, snippets CSS et plugins locaux.
 
 ## Installation
 
-Ouvrir Windows Terminal en mode **normal** (pas administrateur) : `Win + X` puis `I`. Puis coller :
+Ouvrir Windows Terminal (`Win + X` puis `I`) et coller :
 
 ```powershell
 irm https://raw.githubusercontent.com/ahmed-mili/obsidian-config/main/install.ps1 | iex
