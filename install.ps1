@@ -8,7 +8,7 @@
   irm https://raw.githubusercontent.com/ahmed-mili/obsidian-config/main/install.ps1 | iex
 
   Cree le vault dans C:\Efrei. Ne touche jamais a un dossier existant :
-  si C:\Efrei existe deja, le script s'arrete sans rien modifier.
+  si C:\Efrei existe deja, demande un autre nom de dossier a creer.
 #>
 
 $ErrorActionPreference = 'Stop'
@@ -24,9 +24,11 @@ function Write-Skip($msg) { Write-Host "    $msg" -ForegroundColor DarkGray }
 
 # --- 1. Vault cible --------------------------------------------------------
 $vault = 'C:\Efrei'
-if (Test-Path $vault) {
-    Write-Host "Le dossier $vault existe deja. Deplace-le ou renomme-le, puis relance : rien n'a ete modifie." -ForegroundColor Yellow
-    return
+while (Test-Path $vault) {
+    Write-Host "Le dossier $vault existe deja et ne sera pas modifie." -ForegroundColor Yellow
+    $name = (Read-Host 'Nom du nouveau dossier a creer a la racine de C:').Trim()
+    if (-not $name) { continue }
+    $vault = Join-Path 'C:\' $name
 }
 New-Item -ItemType Directory -Path $vault | Out-Null
 $obsidianDir = Join-Path $vault '.obsidian'
