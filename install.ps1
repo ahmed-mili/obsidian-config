@@ -43,6 +43,7 @@ if (Test-Path $obsidianDir) {
     Write-Skip "Un .obsidian existe deja, sauvegarde dans $(Split-Path $backup -Leaf)"
     Copy-Item $obsidianDir $backup -Recurse
 }
+New-Item -ItemType Directory -Force -Path $obsidianDir | Out-Null
 Copy-Item (Join-Path $src '*') $obsidianDir -Recurse -Force
 Remove-Item $tmp -Recurse -Force
 
