@@ -5,6 +5,7 @@
   dans un vault, avec le theme AnuPpuccin et les plugins communautaires.
 
 .USAGE
+  Dans PowerShell normal (pas administrateur) :
   irm https://raw.githubusercontent.com/ahmed-mili/obsidian-config/main/install.ps1 | iex
 
   Cree le vault dans C:\Efrei. Ne touche jamais a un dossier existant :
