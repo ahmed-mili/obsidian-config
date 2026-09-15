@@ -80,18 +80,19 @@
 .dashboard .metadata-container,
 .dashboard .frontmatter { display: none !important; }
 
-/* ===== BANNIERE ===== */
-.dashboard .internal-embed.image-embed,
-.dashboard .internal-embed.media-embed {
+/* ===== BANNIERE — fond d'ecran du plugin vault-background, pas une image fixe =====
+   --vault-background-image est posee en inline sur <body> par vault-background ;
+   comme les custom properties heritent par defaut, ce div la recupere telle quelle
+   et affiche exactement le meme fond que le reste du vault (change avec Ctrl+Alt+B). */
+.dashboard .dashboard-hero {
   display: block;
   margin: 4px auto 20px;
   max-width: 920px;
-}
-.dashboard .image-embed img {
-  width: 100%;
   height: 200px;
-  object-fit: cover;
   border-radius: 16px;
+  background-image: var(--vault-background-image, none);
+  background-size: cover;
+  background-position: center;
   filter: brightness(0.92) saturate(1.05);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
@@ -533,21 +534,14 @@
 .dashboard a[data-href="Ressources"]{--tc:99,102,241;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-library%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22m16%206%204%2014%22%20%2F%3E%20%3Cpath%20d%3D%22M12%206v14%22%20%2F%3E%20%3Cpath%20d%3D%22M8%208v12%22%20%2F%3E%20%3Cpath%20d%3D%22M4%204v16%22%20%2F%3E%20%3C%2Fsvg%3E")}
 .dashboard a[data-href="Templates"]{--tc:107,114,128;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-layout-template%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%20%3Cpath%20d%3D%22M9%2021V9%22%20%2F%3E%20%3C%2Fsvg%3E")}
 .dashboard a[data-href="Projets"]{--tc:20,184,166;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-target%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%226%22%20%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222%22%20%2F%3E%20%3C%2Fsvg%3E")}
-.dashboard a[data-href="Pièces jointes"]{--tc:161,161,170;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-paperclip%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22m21.44%2011.05-9.19%209.19a6%206%200%200%201-8.49-8.49l8.57-8.57A4%204%200%201%201%2018%208.84l-8.59%208.59a2%202%200%200%201-2.83-2.83l8.49-8.48%22%20%2F%3E%20%3C%2Fsvg%3E")}
 .dashboard a[data-href="YOUTUBE"]{--tc:255,0,0;--ic:url("data:image/svg+xml,%3Csvg%20role%3D%22img%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EYouTube%3C%2Ftitle%3E%3Cpath%20d%3D%22M23.498%206.186a3.016%203.016%200%200%200-2.122-2.136C19.505%203.545%2012%203.545%2012%203.545s-7.505%200-9.377.505A3.017%203.017%200%200%200%20.502%206.186C0%208.07%200%2012%200%2012s0%203.93.502%205.814a3.016%203.016%200%200%200%202.122%202.136c1.871.505%209.376.505%209.376.505s7.505%200%209.377-.505a3.015%203.015%200%200%200%202.122-2.136C24%2015.93%2024%2012%2024%2012s0-3.93-.502-5.814zM9.545%2015.568V8.432L15.818%2012l-6.273%203.568z%22%2F%3E%3C%2Fsvg%3E")}
 .dashboard a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"][href*="file=%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9"]{--tc:202,138,4;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-languages%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22m5%208%206%206%22%20%2F%3E%20%3Cpath%20d%3D%22m4%2014%206-6%202-3%22%20%2F%3E%20%3Cpath%20d%3D%22M2%205h12%22%20%2F%3E%20%3Cpath%20d%3D%22M7%202h1%22%20%2F%3E%20%3Cpath%20d%3D%22m22%2022-5-10-5%2010%22%20%2F%3E%20%3Cpath%20d%3D%22M14%2018h6%22%20%2F%3E%20%3C%2Fsvg%3E")}
 .dashboard a[href*="obsidian://new"]{--tc:148,163,184;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%3Csvg%20class%3D%22lucide%20lucide-plus%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M5%2012h14%22%2F%3E%3Cpath%20d%3D%22M12%205v14%22%2F%3E%3C%2Fsvg%3E")}
 .dashboard a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"]{--tc:22,163,74;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-moon-star%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M18%205h4%22%20%2F%3E%20%3Cpath%20d%3D%22M20%203v4%22%20%2F%3E%20%3Cpath%20d%3D%22M20.985%2012.486a9%209%200%201%201-9.473-9.472c.405-.022.617.46.402.803a6%206%200%200%200%208.268%208.268c.344-.215.825-.004.803.401%22%20%2F%3E%20%3C%2Fsvg%3E")}
 
-/* ===== Quick Access : icones Lucide des 4 boutons d'action ===== */
-.dashboard a[href*="commandid=daily-notes"]{--tc:14,165,233;--ic:
-url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-calendar-check%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M8%202v4%22%20%2F%3E%20%3Cpath%20d%3D%22M16%202v4%22%20%2F%3E%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%224%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2010h18%22%20%2F%3E%20%3Cpath%20d%3D%22m9%2016%202%202%204-4%22%20%2F%3E%20%3C%2Fsvg%3E")
-}
+/* ===== Quick Access : icones Lucide des boutons d'action ===== */
 .dashboard .callout[data-callout="quick"] a[href*="obsidian://new"]{--tc:139,92,246;--ic:
 url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-square-pen%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%203H5a2%202%200%200%200-2%202v14a2%202%200%200%200%202%202h14a2%202%200%200%200%202-2v-7%22%20%2F%3E%20%3Cpath%20d%3D%22M18.375%202.625a1%201%200%200%201%203%203l-9.013%209.014a2%202%200%200%201-.853.505l-2.873.84a.5.5%200%200%201-.62-.62l.84-2.873a2%202%200%200%201%20.506-.852z%22%20%2F%3E%20%3C%2Fsvg%3E")
-}
-.dashboard a[href*="full-calendar-new-event"]{--tc:245,158,11;--ic:
-url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-calendar-plus%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M16%2019h6%22%20%2F%3E%20%3Cpath%20d%3D%22M16%202v4%22%20%2F%3E%20%3Cpath%20d%3D%22M19%2016v6%22%20%2F%3E%20%3Cpath%20d%3D%22M21%2012.598V6a2%202%200%200%200-2-2H5a2%202%200%200%200-2%202v14a2%202%200%200%200%202%202h8.5%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2010h18%22%20%2F%3E%20%3Cpath%20d%3D%22M8%202v4%22%20%2F%3E%20%3C%2Fsvg%3E")
 }
 .dashboard a[href*="commandid=graph"]{--tc:34,197,94;--ic:
 url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-git-fork%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2218%22%20r%3D%223%22%20%2F%3E%20%3Ccircle%20cx%3D%226%22%20cy%3D%226%22%20r%3D%223%22%20%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%226%22%20r%3D%223%22%20%2F%3E%20%3Cpath%20d%3D%22M18%209v2c0%20.6-.4%201-1%201H7c-.6%200-1-.4-1-1V9%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2012v3%22%20%2F%3E%20%3C%2Fsvg%3E")

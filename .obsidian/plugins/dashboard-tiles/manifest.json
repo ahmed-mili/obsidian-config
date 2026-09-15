@@ -1,0 +1,9 @@
+{
+  "id": "dashboard-tiles",
+  "name": "Dashboard Tiles",
+  "version": "0.1.0",
+  "minAppVersion": "1.6.6",
+  "description": "Edite les tuiles des callouts [!portals] d'un Dashboard (ajout, retrait, drag & drop entre groupes) sans toucher au Markdown a la main. Ecrit exclusivement via l'API Vault d'Obsidian pour rester compatible avec Relay.",
+  "author": "Ahmed",
+  "isDesktopOnly": false
+}

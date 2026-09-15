@@ -1,0 +1,82 @@
+.dashboard-tiles-modal {
+  width: min(560px, 90vw);
+}
+
+.dt-section {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+.dt-section:last-child {
+  border-bottom: none;
+}
+
+.dt-section-title {
+  margin: 0 0 8px 0;
+  font-size: 0.95em;
+  color: var(--text-muted);
+}
+
+.dt-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 8px;
+}
+
+.dt-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  cursor: grab;
+}
+.dt-item.dt-dragging {
+  opacity: 0.4;
+}
+
+.dt-item-handle {
+  color: var(--text-faint);
+  cursor: grab;
+}
+
+.dt-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dt-item-remove {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none;
+  color: var(--text-faint) !important;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.dt-item-remove:hover {
+  color: var(--text-error) !important;
+}
+
+.dt-add-btn {
+  margin-top: 8px;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px dashed var(--background-modifier-border);
+  color: var(--text-muted) !important;
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.dt-add-btn:hover {
+  color: var(--text-normal) !important;
+  border-color: var(--interactive-accent);
+}
