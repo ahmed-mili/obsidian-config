@@ -7,11 +7,12 @@
 # Device-specific Obsidian state and generated results.
 /.obsidian/workspace.json
 /.obsidian/workspace-mobile.json
+/.obsidian/community-plugins.json
 /.obsidian/quiz-blocks-results/
 
 # Credentials, personal usage data, and machine-specific paths.
 /.obsidian/plugins/editing-toolbar/data.json
-/.obsidian/plugins/execute-code-efrei/data.json
+/.obsidian/plugins/execute-code-fork/data.json
 /.obsidian/plugins/pdf-academique-preview/data.json
 /.obsidian/plugins/quiz-blocks/data.json
 /.obsidian/plugins/system3-relay/data.json
@@ -51,9 +52,10 @@
 
 # Specific to the Efrei vault: this repo only tracks the generic Obsidian setup.
 /.obsidian/plugins/moodle-sync/
-/.obsidian/plugins/execute-code-efrei/
+/.obsidian/plugins/execute-code-fork/
 /.obsidian/plugins/quiz-blocks/
 /.obsidian/plugins/pdf-academique-preview/
+/.obsidian/plugins/mdtopdf/
 /.obsidian/plugins/homepage/data.json
 /.obsidian/snippets/efrei-icons/
 /.obsidian/snippets/quiz-analogy-callout.css
@@ -64,3 +66,4 @@
 /.obsidian/templates.json
 /.obsidian/daily-notes.json
 !/install.ps1
+!/plugins.json

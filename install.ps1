@@ -67,8 +67,12 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     Copy-Item (Join-Path $src '*') $vault -Recurse -Force
     Remove-Item $tmp -Recurse -Force
 }
+# Liste des plugins a activer (plugins.json du depot) -> community-plugins.json du vault.
+# community-plugins.json n'est pas versionne : Obsidian y ecrit aussi les plugins locaux a la machine.
+$wanted = @(Get-Content (Join-Path $vault 'plugins.json') -Raw | ConvertFrom-Json)
+[IO.File]::WriteAllText((Join-Path $obsidianDir 'community-plugins.json'), (ConvertTo-Json -InputObject $wanted))  # UTF-8 sans BOM
 # Ne garder que ce qui appartient au vault : les fichiers du depot n'ont rien a y faire.
-foreach ($extra in '.git', '.github', '.gitignore', 'install.ps1') {
+foreach ($extra in '.git', '.github', '.gitignore', 'install.ps1', 'plugins.json') {
     $path = Join-Path $vault $extra
     if (Test-Path -LiteralPath $path) { Remove-Item -LiteralPath $path -Recurse -Force }
 }
@@ -85,13 +89,12 @@ foreach ($file in 'theme.css', 'manifest.json') {
 
 # --- 4. Plugins communautaires --------------------------------------------
 Write-Step "Plugins communautaires"
-$wanted   = Get-Content (Join-Path $obsidianDir 'community-plugins.json') -Raw | ConvertFrom-Json
 $registry = Invoke-RestMethod $Registry -UseBasicParsing
 foreach ($id in $wanted) {
     $dir = Join-Path $obsidianDir "plugins\$id"
     if (Test-Path (Join-Path $dir 'main.js')) { Write-Skip "$id : deja present"; continue }
     $entry = $registry | Where-Object id -eq $id
-    if (-not $entry) { Write-Skip "$id : plugin local absent du registre, ignore"; continue }
+    if (-not $entry) { Write-Host "    $id : absent du registre communautaire, verifie plugins.json" -ForegroundColor Yellow; continue }
     Write-Host "    $id" -ForegroundColor Green
     New-Item -ItemType Directory -Force -Path $dir | Out-Null
     foreach ($file in 'main.js', 'manifest.json') {
