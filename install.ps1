@@ -24,13 +24,19 @@ function Write-Skip($msg) { Write-Host "    $msg" -ForegroundColor DarkGray }
 
 # --- 1. Vault cible --------------------------------------------------------
 $vault = 'C:\Efrei'
-while (Test-Path $vault) {
+while (Test-Path -LiteralPath $vault) {
     Write-Host "Le dossier $vault existe deja et ne sera pas modifie." -ForegroundColor Yellow
     $name = (Read-Host 'Nom du nouveau dossier a creer a la racine de C:').Trim()
-    if (-not $name) { continue }
+    # Nom simple uniquement : pas de chemin, pas de remontee, pas de caracteres interdits.
+    if ($name -notmatch '^[\p{L}\p{N} _-]{1,64}$') {
+        Write-Host "Nom invalide : lettres, chiffres, espaces, tirets uniquement." -ForegroundColor Red
+        continue
+    }
     $vault = Join-Path 'C:\' $name
 }
-New-Item -ItemType Directory -Path $vault | Out-Null
+# Garde-fou final : on ne cree QUE si le dossier n'existe pas (New-Item sans -Force echoue sinon).
+if (Test-Path -LiteralPath $vault) { throw "Refus : $vault existe." }
+New-Item -ItemType Directory -Path $vault -ErrorAction Stop | Out-Null
 $obsidianDir = Join-Path $vault '.obsidian'
 
 # --- 2. Configuration ------------------------------------------------------
@@ -42,7 +48,8 @@ Invoke-WebRequest -Uri $ZipUrl -OutFile $zip -UseBasicParsing
 Expand-Archive -Path $zip -DestinationPath $tmp -Force
 $src = Join-Path (Get-ChildItem $tmp -Directory | Select-Object -First 1).FullName '.obsidian'
 
-New-Item -ItemType Directory -Force -Path $obsidianDir | Out-Null
+if (Test-Path -LiteralPath $obsidianDir) { throw "Refus : $obsidianDir existe deja." }
+New-Item -ItemType Directory -Path $obsidianDir | Out-Null
 Copy-Item (Join-Path $src '*') $obsidianDir -Recurse -Force
 Remove-Item $tmp -Recurse -Force
 
