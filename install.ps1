@@ -7,8 +7,8 @@
 .USAGE
   irm https://raw.githubusercontent.com/ahmed-mili/obsidian-config/main/install.ps1 | iex
 
-  Variable optionnelle avant la commande :
-    $env:OBSIDIAN_VAULT = "C:\chemin\vers\MonVault"   # sinon demande a l'ecran
+  Cree le vault dans C:\Efrei. Ne touche jamais a un dossier existant :
+  si C:\Efrei existe deja, le script s'arrete sans rien modifier.
 #>
 
 $ErrorActionPreference = 'Stop'
@@ -23,10 +23,12 @@ function Write-Step($msg) { Write-Host "==> $msg" -ForegroundColor Cyan }
 function Write-Skip($msg) { Write-Host "    $msg" -ForegroundColor DarkGray }
 
 # --- 1. Vault cible --------------------------------------------------------
-$vault = $env:OBSIDIAN_VAULT
-if (-not $vault) { $vault = Read-Host 'Chemin du vault (sera cree s''il n''existe pas)' }
-$vault = [IO.Path]::GetFullPath($vault.Trim('"'))
-New-Item -ItemType Directory -Force -Path $vault | Out-Null
+$vault = 'C:\Efrei'
+if (Test-Path $vault) {
+    Write-Host "Le dossier $vault existe deja. Deplace-le ou renomme-le, puis relance : rien n'a ete modifie." -ForegroundColor Yellow
+    return
+}
+New-Item -ItemType Directory -Path $vault | Out-Null
 $obsidianDir = Join-Path $vault '.obsidian'
 
 # --- 2. Configuration ------------------------------------------------------
@@ -38,11 +40,6 @@ Invoke-WebRequest -Uri $ZipUrl -OutFile $zip -UseBasicParsing
 Expand-Archive -Path $zip -DestinationPath $tmp -Force
 $src = Join-Path (Get-ChildItem $tmp -Directory | Select-Object -First 1).FullName '.obsidian'
 
-if (Test-Path $obsidianDir) {
-    $backup = "$obsidianDir.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
-    Write-Skip "Un .obsidian existe deja, sauvegarde dans $(Split-Path $backup -Leaf)"
-    Copy-Item $obsidianDir $backup -Recurse
-}
 New-Item -ItemType Directory -Force -Path $obsidianDir | Out-Null
 Copy-Item (Join-Path $src '*') $obsidianDir -Recurse -Force
 Remove-Item $tmp -Recurse -Force
