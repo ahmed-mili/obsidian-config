@@ -63,3 +63,4 @@
 /.obsidian/workspaces.json
 /.obsidian/templates.json
 /.obsidian/daily-notes.json
+!/install.ps1
