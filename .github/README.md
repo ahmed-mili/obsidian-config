@@ -1,18 +1,28 @@
 # Obsidian Config
 
-Configuration Obsidian générique et portable : réglages de l'application, thème, hotkeys, snippets CSS réutilisables et plugins locaux (dashboard à tuiles, fond d'écran de vault, etc.).
+Configuration Obsidian portable : réglages, snippets CSS et plugins locaux.
 
-Aucune note, aucun document, aucun identifiant. Tout ce qui est propre à un vault en particulier (espaces de travail, page d'accueil, icônes et plugins spécifiques à un contexte) est exclu via `.gitignore`.
+## Prérequis
+
+- Obsidian 1.6.6 ou plus récent
+- Thème [AnuPpuccin](https://github.com/AnubisNekhet/AnuPpuccin)
 
 ## Installation
 
-1. Cloner le dépôt dans un nouveau dossier de vault (ou copier `.obsidian/` dans un vault existant).
-2. Installer le thème AnuPpuccin depuis Obsidian.
-3. Installer les plugins communautaires listés dans `.obsidian/community-plugins.json`.
-4. Activer les snippets souhaités dans Réglages > Apparence.
+1. Cloner le dépôt dans le dossier du vault :
+   ```sh
+   git clone https://github.com/ahmed-mili/obsidian-config.git MonVault
+   ```
+   Pour un vault existant, copier le dossier `.obsidian/` à sa racine.
+2. Ouvrir le vault dans Obsidian.
+3. Réglages > Apparence > Thèmes : installer et activer AnuPpuccin.
+4. Réglages > Plugins communautaires : installer chaque plugin listé dans `.obsidian/community-plugins.json`, puis relancer Obsidian.
+5. Réglages > Apparence > Snippets CSS : activer les snippets souhaités.
 
-## Contenu
+## Mise à jour
 
-- `.obsidian/*.json` : réglages de l'app, apparence, hotkeys, plugins actifs.
-- `.obsidian/snippets/` : `dashboard-tiles` (tuiles de portails), `callout-glow`, `neo-tags`, `note-centering`, `guides-callouts`, `book-list`, etc.
-- `.obsidian/plugins/` : plugins locaux (`dashboard-tiles`, `vault-background`, `collapse-on-check`) et fichiers de réglages des plugins communautaires.
+```sh
+git pull
+```
+
+Puis `Ctrl+R` dans Obsidian pour recharger la configuration.
