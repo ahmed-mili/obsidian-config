@@ -69,7 +69,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 }
 # Liste des plugins a activer (plugins.json du depot) -> community-plugins.json du vault.
 # community-plugins.json n'est pas versionne : Obsidian y ecrit aussi les plugins locaux a la machine.
-$wanted = @(Get-Content (Join-Path $vault 'plugins.json') -Raw | ConvertFrom-Json)
+$wanted = [string[]](Get-Content (Join-Path $vault 'plugins.json') -Raw | ConvertFrom-Json)
 [IO.File]::WriteAllText((Join-Path $obsidianDir 'community-plugins.json'), (ConvertTo-Json -InputObject $wanted))  # UTF-8 sans BOM
 # Ne garder que ce qui appartient au vault : les fichiers du depot n'ont rien a y faire.
 foreach ($extra in '.git', '.github', '.gitignore', 'install.ps1', 'plugins.json') {
