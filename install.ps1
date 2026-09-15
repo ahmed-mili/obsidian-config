@@ -22,12 +22,20 @@ $Theme    = @{ Name = 'AnuPpuccin'; Repo = 'AnubisNekhet/AnuPpuccin' }
 
 function Write-Step($msg) { Write-Host "==> $msg" -ForegroundColor Cyan }
 function Write-Skip($msg) { Write-Host "    $msg" -ForegroundColor DarkGray }
+# Telecharge un asset de la derniere release GitHub sans passer par api.github.com
+# (quota 60 req/h par IP). Retourne $false si l'asset n'existe pas (ex. styles.css optionnel).
+function Get-ReleaseAsset($repo, $file, $dest) {
+    try {
+        Invoke-WebRequest "https://github.com/$repo/releases/latest/download/$file" -OutFile $dest -UseBasicParsing
+        return $true
+    } catch { return $false }
+}
 
 # --- 1. Vault cible --------------------------------------------------------
 $vault = 'C:\Efrei'
 while (Test-Path -LiteralPath $vault) {
     Write-Host "Le dossier $vault existe deja et ne sera pas modifie." -ForegroundColor Yellow
-    $name = (Read-Host 'Nom du nouveau dossier a creer a la racine de C:').Trim()
+    $name = [string](Read-Host 'Nom du nouveau dossier a creer a la racine de C:'); $name = $name.Trim()
     # Nom simple uniquement : pas de chemin, pas de remontee, pas de caracteres interdits.
     if ($name -notmatch '^[\p{L}\p{N} _-]{1,64}$') {
         Write-Host "Nom invalide : lettres, chiffres, espaces, tirets uniquement." -ForegroundColor Red
@@ -38,31 +46,41 @@ while (Test-Path -LiteralPath $vault) {
 # Garde-fou final : on ne cree QUE si le dossier n'existe pas (New-Item sans -Force echoue sinon).
 if (Test-Path -LiteralPath $vault) { throw "Refus : $vault existe." }
 New-Item -ItemType Directory -Path $vault -ErrorAction Stop | Out-Null
+$createdByScript = $vault
 $obsidianDir = Join-Path $vault '.obsidian'
+
+try {
 
 # --- 2. Configuration ------------------------------------------------------
 Write-Step "Telechargement de la configuration"
-$tmp = Join-Path ([IO.Path]::GetTempPath()) "obsidian-config-$([guid]::NewGuid())"
-New-Item -ItemType Directory -Path $tmp | Out-Null
-$zip = Join-Path $tmp 'config.zip'
-Invoke-WebRequest -Uri $ZipUrl -OutFile $zip -UseBasicParsing
-Expand-Archive -Path $zip -DestinationPath $tmp -Force
-$src = Join-Path (Get-ChildItem $tmp -Directory | Select-Object -First 1).FullName '.obsidian'
-
 if (Test-Path -LiteralPath $obsidianDir) { throw "Refus : $obsidianDir existe deja." }
-New-Item -ItemType Directory -Path $obsidianDir | Out-Null
-Copy-Item (Join-Path $src '*') $obsidianDir -Recurse -Force
-Remove-Item $tmp -Recurse -Force
+if (Get-Command git -ErrorAction SilentlyContinue) {
+    git clone --quiet --depth 1 "https://github.com/$Repo.git" $vault
+    if ($LASTEXITCODE -ne 0) { throw "git clone a echoue." }
+} else {
+    $tmp = Join-Path ([IO.Path]::GetTempPath()) "obsidian-config-$([guid]::NewGuid())"
+    New-Item -ItemType Directory -Path $tmp | Out-Null
+    $zip = Join-Path $tmp 'config.zip'
+    Invoke-WebRequest -Uri $ZipUrl -OutFile $zip -UseBasicParsing
+    Expand-Archive -Path $zip -DestinationPath $tmp -Force
+    $src = (Get-ChildItem $tmp -Directory | Select-Object -First 1).FullName
+    Copy-Item (Join-Path $src '*') $vault -Recurse -Force
+    Remove-Item $tmp -Recurse -Force
+}
+# Ne garder que ce qui appartient au vault : les fichiers du depot n'ont rien a y faire.
+foreach ($extra in '.git', '.github', '.gitignore', 'install.ps1') {
+    $path = Join-Path $vault $extra
+    if (Test-Path -LiteralPath $path) { Remove-Item -LiteralPath $path -Recurse -Force }
+}
 
 # --- 3. Theme --------------------------------------------------------------
 Write-Step "Theme $($Theme.Name)"
 $themeDir = Join-Path $obsidianDir "themes\$($Theme.Name)"
 New-Item -ItemType Directory -Force -Path $themeDir | Out-Null
-$release = Invoke-RestMethod "https://api.github.com/repos/$($Theme.Repo)/releases/latest" -UseBasicParsing
 foreach ($file in 'theme.css', 'manifest.json') {
-    $asset = $release.assets | Where-Object name -eq $file
-    if ($asset) { Invoke-WebRequest $asset.browser_download_url -OutFile (Join-Path $themeDir $file) -UseBasicParsing }
-    else { Invoke-WebRequest "https://raw.githubusercontent.com/$($Theme.Repo)/master/$file" -OutFile (Join-Path $themeDir $file) -UseBasicParsing }
+    if (-not (Get-ReleaseAsset $Theme.Repo $file (Join-Path $themeDir $file))) {
+        throw "Impossible de telecharger $file du theme $($Theme.Name)."
+    }
 }
 
 # --- 4. Plugins communautaires --------------------------------------------
@@ -76,13 +94,20 @@ foreach ($id in $wanted) {
     if (-not $entry) { Write-Skip "$id : plugin local absent du registre, ignore"; continue }
     Write-Host "    $id" -ForegroundColor Green
     New-Item -ItemType Directory -Force -Path $dir | Out-Null
-    $rel = Invoke-RestMethod "https://api.github.com/repos/$($entry.repo)/releases/latest" -UseBasicParsing
-    foreach ($file in 'main.js', 'manifest.json', 'styles.css') {
-        $asset = $rel.assets | Where-Object name -eq $file
-        if ($asset) { Invoke-WebRequest $asset.browser_download_url -OutFile (Join-Path $dir $file) -UseBasicParsing }
+    foreach ($file in 'main.js', 'manifest.json') {
+        if (-not (Get-ReleaseAsset $entry.repo $file (Join-Path $dir $file))) { throw "Impossible de telecharger $file du plugin $id." }
     }
+    Get-ReleaseAsset $entry.repo 'styles.css' (Join-Path $dir 'styles.css') | Out-Null
 }
 
 Write-Host ""
 Write-Host "Termine. Ouvre le vault dans Obsidian :" -ForegroundColor Green
 Write-Host "  $vault"
+} catch {
+    # Echec : on supprime le dossier que CE script vient de creer (il n'existait pas avant).
+    if ($createdByScript -and (Test-Path -LiteralPath $createdByScript)) {
+        Remove-Item -LiteralPath $createdByScript -Recurse -Force
+    }
+    Write-Host "Echec : $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "Rien n'a ete laisse sur le disque. Relance la commande." -ForegroundColor Yellow
+}
