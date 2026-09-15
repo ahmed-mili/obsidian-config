@@ -1,0 +1,10 @@
+{
+	"id": "execute-code-efrei",
+	"name": "Execute Code (fork Efrei - patché)",
+	"version": "2.1.2-efrei",
+	"minAppVersion": "1.7.2",
+	"description": "Fork local d'Execute Code, patché pour corriger le reset du curseur en position 0 à l'ouverture de l'éditeur inline. Utilisé pour tous les modules Python de l'année (TP, cours, exercices), pas seulement XTI301. Basé sur twibiral/obsidian-execute-code 2.1.2. Jamais mis à jour automatiquement (pas dans la liste des plugins communautaires).",
+	"author": "twibiral (fork patché par Ahmed)",
+	"authorUrl": "https://www.github.com/twibiral",
+	"isDesktopOnly": true
+}

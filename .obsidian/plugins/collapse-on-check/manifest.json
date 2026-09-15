@@ -1,0 +1,9 @@
+{
+  "id": "collapse-on-check",
+  "name": "Collapse on Check",
+  "version": "0.3.4",
+  "minAppVersion": "1.0.0",
+  "description": "Plie automatiquement la section pointée par un wikilink [[#Heading]] quand sa checkbox de tâche est cochée. Pratique pour des guides longs avec une TOC checkbox en haut.",
+  "author": "Ahmed (custom)",
+  "isDesktopOnly": false
+}

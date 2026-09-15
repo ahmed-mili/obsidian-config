@@ -1,0 +1,811 @@
+/* ============================================================
+   dashboard-tiles.css — Dashboard "Launchpad" (vault Personal)
+   Banniere + barre d'acces rapide ([!quick]) + grille de portails
+   ([!portals]) + bloc Foi ([!foi]).
+   Icone Lucide + texte sur CHAQUE bouton, avec FALLBACK d'icone
+   garanti (jamais de tuile nue). Scope : cssclasses "dashboard".
+   ============================================================ */
+
+/* ===== POLICES (bundle, sans installation systeme) =====
+   Latin : Neo Sans Std (installee).
+   Arabe : Amiri (police classique arabe open-source, tres lisible,
+           OFL), woff2 400/700 bundles dans ce dossier de snippets. */
+@font-face {
+  font-family: 'Amiri';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('amiri-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Amiri';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('amiri-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('noto-naskh-arabic-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('noto-naskh-arabic-700.woff2') format('woff2');
+}
+
+/* Police des boutons : latin -> Neo Sans Std ; les glyphes arabes,
+   absents de Neo Sans, retombent sur Noto Naskh Arabic (puis Amiri). */
+.dashboard .callout[data-callout="quick"] li a,
+.dashboard .callout[data-callout="portals"] li a,
+.dashboard .callout[data-callout="foi"] li a {
+  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+}
+
+/* Tuiles arabes (islam + العربية) : pas d'espacement de lettres,
+   sinon les liaisons cursives de l'arabe se brisent.
+   Amiri est plus lisible et plus grand que Noto Naskh Arabic ;
+   on garde une legere compensation par callout pour l'equilibre. */
+.dashboard .callout[data-callout="islam"] li a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"] {
+  font-size: 1.35em;
+  letter-spacing: 0;
+}
+.dashboard .callout[data-callout="portals"] li a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"] {
+  font-size: 1.05em;
+  letter-spacing: 0;
+}
+.dashboard .callout[data-callout="foi"] li a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"] {
+  font-size: 1.25em;
+  letter-spacing: 0;
+}
+
+/* ===== CENTRAGE GLOBAL ===== */
+.dashboard.markdown-preview-view .markdown-preview-sizer,
+.workspace-leaf[data-path="Dashboard.md"] .markdown-preview-sizer,
+.workspace-leaf[data-path="Dashboard.md"] .cm-sizer {
+  max-width: 960px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.dashboard h1,
+.dashboard h2 { text-align: center !important; }
+/* Pas de titre ni de barre de proprietes en tete : la banniere ouvre le dashboard (Ahmed) */
+.dashboard .inline-title,
+.dashboard .metadata-container,
+.dashboard .frontmatter { display: none !important; }
+
+/* ===== BANNIERE ===== */
+.dashboard .internal-embed.image-embed,
+.dashboard .internal-embed.media-embed {
+  display: block;
+  margin: 4px auto 20px;
+  max-width: 920px;
+}
+.dashboard .image-embed img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  filter: brightness(0.92) saturate(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ===== ERADICATION DES PUCES ===== */
+.dashboard .callout[data-callout="quick"] ul,
+.dashboard .callout[data-callout="quick"] li,
+.dashboard .callout[data-callout="portals"] ul,
+.dashboard .callout[data-callout="portals"] li,
+.dashboard .callout[data-callout="foi"] ul,
+.dashboard .callout[data-callout="foi"] li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+  margin-inline-start: 0 !important;
+}
+.dashboard .callout[data-callout="quick"] li::marker,
+.dashboard .callout[data-callout="quick"] li::before,
+.dashboard .callout[data-callout="portals"] li::marker,
+.dashboard .callout[data-callout="portals"] li::before,
+.dashboard .callout[data-callout="foi"] li::marker,
+.dashboard .callout[data-callout="foi"] li::before,
+.dashboard .callout[data-callout="quick"] .list-bullet,
+.dashboard .callout[data-callout="portals"] .list-bullet,
+.dashboard .callout[data-callout="foi"] .list-bullet {
+  display: none !important;
+  content: none !important;
+}
+
+/* ===== ISLAM : 1 tuile large islamique (style Foi) =====
+   Sur le même gabarit qu'une tuile Foi (76px de haut, fond islamique
+   vert, halo, icône moon-star Lucide à gauche, texte arabe centré)
+   pour donner au bloc islamique la même présence visuelle que foi. */
+.dashboard .callout[data-callout="islam"] {
+  --callout-color: 100, 116, 139;
+  background: transparent;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 16px auto;
+  max-width: 920px;
+  overflow: visible;
+}
+.dashboard .callout[data-callout="islam"] > .callout-title { display: none !important; }
+.dashboard .callout[data-callout="islam"] > .callout-content {
+  padding: 0;
+  min-width: 0;
+  overflow: visible !important;
+  border: none !important;
+  border-top: none !important;
+}
+/* Pas de ligne hr / bordure au-dessus du bloc islam */
+.dashboard .callout[data-callout="islam"]::before,
+.dashboard .callout[data-callout="islam"] > .callout-content::before {
+  display: none !important;
+  border: none !important;
+}
+/* Neutralisation des puces / markers de liste dans le callout islam
+   (sinon le petit carré/point de l'item de liste reste visible
+   en haut à droite de la tuile). */
+.dashboard .callout[data-callout="islam"] ul,
+.dashboard .callout[data-callout="islam"] li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+  margin-inline-start: 0 !important;
+}
+.dashboard .callout[data-callout="islam"] li::marker,
+.dashboard .callout[data-callout="islam"] li::before,
+.dashboard .callout[data-callout="islam"] .list-bullet {
+  display: none !important;
+  content: none !important;
+}
+/* Tuile islamique : on reprend le gabarit foi (height 76, gap, etc.)
+   en fixant --tc/--ic islamiques (vert moon-star) pour l'icône. */
+.dashboard .callout[data-callout="islam"] ul {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: visible;
+}
+.dashboard .callout[data-callout="islam"] li {
+  flex: 0 1 920px;
+  max-width: 920px;
+  min-width: 0;
+}
+.dashboard .callout[data-callout="islam"] li a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 76px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(var(--tc, 22, 163, 74));
+  background: rgba(var(--tc, 22, 163, 74), 0.13);
+  border: 1px solid rgba(var(--tc, 22, 163, 74), 0.42);
+  box-shadow: 0 0 10px rgba(var(--tc, 22, 163, 74), 0.18);
+  transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.25s ease;
+  /* Pas d'espacement de lettres en arabe -> les liaisons cursives ne
+     se brisent pas. */
+  letter-spacing: 0;
+  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+}
+.dashboard .callout[data-callout="islam"] li a:hover {
+  transform: translateY(-3px);
+  background: rgba(var(--tc, 22, 163, 74), 0.24);
+  box-shadow: 0 0 22px rgba(var(--tc, 22, 163, 74), 0.45);
+}
+/* Icône moon-star Lucide (réutilise --ic), couleur verte islamique,
+   taille foi (26px) pour matcher les autres tuiles foi. */
+.dashboard .callout[data-callout="islam"] li a::before {
+  content: "";
+  width: 26px; height: 26px; flex: none;
+  background-color: rgb(var(--tc, 22, 163, 74));
+  -webkit-mask: url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-moon-star%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M18%205h4%22%20%2F%3E%20%3Cpath%20d%3D%22M20%203v4%22%20%2F%3E%20%3Cpath%20d%3D%22M20.985%2012.486a9%209%200%201%201-9.473-9.472c.405-.022.617.46.402.803a6%206%200%200%200%208.268%208.268c.344-.215.825-.004.803.401%22%20%2F%3E%20%3C%2Fsvg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-moon-star%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M18%205h4%22%20%2F%3E%20%3Cpath%20d%3D%22M20%203v4%22%20%2F%3E%20%3Cpath%20d%3D%22M20.985%2012.486a9%209%200%201%201-9.473-9.472c.405-.022.617.46.402.803a6%206%200%200%200%208.268%208.268c.344-.215.825-.004.803.401%22%20%2F%3E%20%3C%2Fsvg%3E") center / contain no-repeat;
+}
+.dashboard .callout[data-callout="islam"] a.external-link::after,
+.dashboard .callout[data-callout="islam"] a[href^="obsidian://"]::after { display: none !important; }
+
+/* ===== PANNEAUX quick / portals ===== */
+.dashboard .callout[data-callout="quick"] {
+  --callout-color: 100, 116, 139;
+  background: rgba(30, 41, 59, 0.92);
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  padding: 22px 26px;
+  margin: 16px auto;
+  max-width: 920px;
+  overflow: hidden;
+}
+
+/* Portals — panneau style Nathan (fond uniforme, ombre portee) */
+.dashboard .callout[data-callout="portals"] {
+  --callout-color: 100, 116, 139;
+  background: rgba(30, 41, 59, 0.92);
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  padding: 36px 40px 48px;
+  margin: 16px auto;
+  max-width: 920px;
+  overflow: hidden;
+}
+
+/* Titre du callout quick — style Nathan (icône gamepad + titre gras Neo Sans Std, fond transparent) */
+.dashboard .callout[data-callout="quick"] > .callout-title {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+  font-size: 0.92em;
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.75;
+  color: var(--text-muted);
+  padding: 0 0 10px 0;
+  margin: 0;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+.dashboard .callout[data-callout="quick"] > .callout-title::after {
+  display: none !important;
+}
+.dashboard .callout[data-callout="quick"] > .callout-title .callout-icon {
+  display: none;
+}
+.dashboard .callout[data-callout="quick"] > .callout-title::before {
+  content: "";
+  width: 18px; height: 18px; flex: none;
+  background-color: var(--text-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20class='lucide%20lucide-gamepad-directional-icon%20lucide-gamepad-directional'%3E%3Cpath%20d='M11.146%2015.854a1.207%201.207%200%200%201%201.708%200l1.56%201.56A2%202%200%200%201%2015%2018.828V21a1%201%200%200%201-1%201h-4a1%201%200%200%201-1-1v-2.172a2%202%200%200%201%20.586-1.414z'/%3E%3Cpath%20d='M18.828%2015a2%202%200%200%201-1.414-.586l-1.56-1.56a1.207%201.207%200%200%201%200-1.708l1.56-1.56A2%202%200%200%201%2018.828%209H21a1%201%200%200%201%201%201v4a1%201%200%200%201-1%201z'/%3E%3Cpath%20d='M6.586%2014.414A2%202%200%200%201%205.172%2015H3a1%201%200%200%201-1-1v-4a1%201%200%200%201%201-1h2.172a2%202%200%200%201%201.414.586l1.56%201.56a1.207%201.207%200%200%201%200%201.708z'/%3E%3Cpath%20d='M9%203a1%201%200%200%201%201-1h4a1%201%200%200%201%201%201v2.172a2%202%200%200%201-.586%201.414l-1.56%201.56a1.207%201.207%200%200%201-1.708%200l-1.56-1.56A2%202%200%200%201%209%205.172z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20class='lucide%20lucide-gamepad-directional-icon%20lucide-gamepad-directional'%3E%3Cpath%20d='M11.146%2015.854a1.207%201.207%200%200%201%201.708%200l1.56%201.56A2%202%200%200%201%2015%2018.828V21a1%201%200%200%201-1%201h-4a1%201%200%200%201-1-1v-2.172a2%202%200%200%201%20.586-1.414z'/%3E%3Cpath%20d='M18.828%2015a2%202%200%200%201-1.414-.586l-1.56-1.56a1.207%201.207%200%200%201%200-1.708l1.56-1.56A2%202%200%200%201%2018.828%209H21a1%201%200%200%201%201%201v4a1%201%200%200%201-1%201z'/%3E%3Cpath%20d='M6.586%2014.414A2%202%200%200%201%205.172%2015H3a1%201%200%200%201-1-1v-4a1%201%200%200%201%201-1h2.172a2%202%200%200%201%201.414.586l1.56%201.56a1.207%201.207%200%200%201%200%201.708z'/%3E%3Cpath%20d='M9%203a1%201%200%200%201%201-1h4a1%201%200%200%201%201%201v2.172a2%202%200%200%201-.586%201.414l-1.56%201.56a1.207%201.207%200%200%201-1.708%200l-1.56-1.56A2%202%200%200%201%209%205.172z'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.6;
+}
+
+/* Titre du callout portals — style Nathan (icône ronde + titre gras Neo Sans Std, fond transparent) */
+.dashboard .callout[data-callout="portals"] > .callout-title {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+  font-size: 0.92em;
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.75;
+  color: var(--text-muted);
+  padding: 0 0 10px 0;
+  margin: 0;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+.dashboard .callout[data-callout="portals"] > .callout-title::after {
+  display: none !important;
+}
+.dashboard .callout[data-callout="portals"] > .callout-title .callout-icon {
+  display: none;
+}
+.dashboard .callout[data-callout="portals"] > .callout-title::before {
+  content: "";
+  width: 18px; height: 18px; flex: none;
+  background-color: var(--text-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m16.24%207.76-1.804%205.411a2%202%200%200%201-1.265%201.265L7.76%2016.24l1.804-5.411a2%202%200%200%201%201.265-1.265z'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m16.24%207.76-1.804%205.411a2%202%200%200%201-1.265%201.265L7.76%2016.24l1.804-5.411a2%202%200%200%201%201.265-1.265z'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.6;
+}
+.dashboard .callout[data-callout="quick"] > .callout-content {
+  padding: 0;
+  min-width: 0;
+  overflow: visible !important;
+  border: none !important;
+  border-top: none !important;
+}
+.dashboard .callout[data-callout="portals"] > .callout-content {
+  padding: 0;
+  min-width: 0;
+  overflow: visible !important;
+  border: none !important;
+  border-top: none !important;
+}
+
+/* ----- BARRE D'ACCES RAPIDE ----- */
+.dashboard .callout[data-callout="quick"] ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.dashboard .callout[data-callout="quick"] li { flex: 1 1 150px; }
+.dashboard .callout[data-callout="quick"] li a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.72em;
+  color: var(--text-normal);
+  background: var(--background-primary);
+  border: 1px solid rgba(var(--tc, 100, 116, 139), 0.40);
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.dashboard .callout[data-callout="quick"] li a:hover {
+  transform: translateY(-2px);
+  background: rgba(var(--tc, 100, 116, 139), 0.14);
+  border-color: rgba(var(--tc, 100, 116, 139), 0.65);
+}
+
+/* ----- GRILLE DE PORTAILS ----- */
+.dashboard .callout[data-callout="portals"] ul {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: visible;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.dashboard .callout[data-callout="portals"] li {
+  min-width: 0;
+}
+.dashboard .callout[data-callout="portals"] li a {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 104px;
+  border-radius: 16px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.68em;
+  line-height: 1.15;
+  color: rgb(var(--tc, 100, 116, 139));
+  background: rgba(var(--tc, 100, 116, 139), 0.13);
+  border: 1px solid rgba(var(--tc, 100, 116, 139), 0.40);
+  box-shadow: 0 0 10px rgba(var(--tc, 100, 116, 139), 0.16);
+  transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.25s ease;
+}
+.dashboard .callout[data-callout="portals"] li a:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: rgba(var(--tc, 100, 116, 139), 0.24);
+  box-shadow: 0 0 22px rgba(var(--tc, 100, 116, 139), 0.42);
+}
+
+/* ===== FOI : 2 tuiles larges ===== */
+.dashboard .callout[data-callout="foi"] {
+  --callout-color: 100, 116, 139;
+  background: transparent;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 12px 0 24px;
+  margin: 4px auto;
+  max-width: 920px;
+  overflow: visible;
+}
+.dashboard .callout[data-callout="foi"] > .callout-title { display: none !important; }
+.dashboard .callout[data-callout="foi"] > .callout-content {
+  padding: 0;
+  min-width: 0;
+  overflow: visible !important;
+  border: none !important;
+  border-top: none !important;
+}
+.dashboard .callout[data-callout="foi"] ul {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: visible;
+}
+.dashboard .callout[data-callout="foi"] li {
+  flex: 0 1 454px;
+  min-width: 0;
+}
+.dashboard .callout[data-callout="foi"] li a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 76px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(var(--tc, 100, 116, 139));
+  background: rgba(var(--tc, 100, 116, 139), 0.13);
+  border: 1px solid rgba(var(--tc, 100, 116, 139), 0.42);
+  box-shadow: 0 0 10px rgba(var(--tc, 100, 116, 139), 0.18);
+  transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.25s ease;
+}
+/* Supprimer toute ligne hr / bordure au-dessus du bloc foi */
+.dashboard .callout[data-callout="foi"]::before,
+.dashboard .callout[data-callout="foi"] > .callout-content::before {
+  display: none !important;
+  border: none !important;
+}
+.dashboard .callout[data-callout="foi"] li a:hover {
+  transform: translateY(-3px);
+  background: rgba(var(--tc, 100, 116, 139), 0.24);
+  box-shadow: 0 0 22px rgba(var(--tc, 100, 116, 139), 0.45);
+}
+
+/* ===== ICONE SUR CHAQUE BOUTON + FALLBACK GARANTI =====
+   Tout lien sans mapping --ic recoit l'icone "circle-dot" par defaut
+   -> jamais de tuile sans icone, quoi qu'on ajoute plus tard. */
+.dashboard .callout[data-callout="quick"] li a::before {
+  content: "";
+  width: 18px; height: 18px; flex: none;
+  background-color: rgb(var(--tc, 100, 116, 139));
+  -webkit-mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
+  mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
+}
+.dashboard .callout[data-callout="portals"] li a::before {
+  content: "";
+  width: 34px; height: 34px;
+  background-color: rgb(var(--tc, 100, 116, 139));
+  -webkit-mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
+  mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
+}
+.dashboard .callout[data-callout="foi"] li a::before {
+  content: "";
+  width: 26px; height: 26px; flex: none;
+  background-color: rgb(var(--tc, 100, 116, 139));
+  -webkit-mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
+  mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
+}
+
+/* Masquer l'icone "lien externe" native dans les panneaux */
+.dashboard a.external-link::after,
+.dashboard a[href^="obsidian://"]::after { display: none !important; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 820px) {
+  .dashboard .callout[data-callout="portals"] ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .dashboard .callout[data-callout="portals"] ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ===== COULEURS + ICONES par lien (scope .dashboard) ===== */
+.dashboard a[href*="vault=Efrei"]{--tc:37,99,235;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-graduation-cap%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M22%2010v6%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2010l10-5%2010%205-10%205z%22%20%2F%3E%20%3Cpath%20d%3D%22M6%2012v5c0%202%202%203%206%203s6-1%206-3v-5%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[href*="vault=Troubleshooting"]{--tc:239,68,68;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-wrench%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M14.7%206.3a1%201%200%200%200%200%201.4l1.6%201.6a1%201%200%200%200%201.4%200l3.77-3.77a6%206%200%200%201-7.94%207.94l-6.91%206.91a2.12%202.12%200%200%201-3-3l6.91-6.91a6%206%200%200%201%207.94-7.94l-3.76%203.76z%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Efrei"]{--tc:37,99,235;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-graduation-cap%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M22%2010v6%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2010l10-5%2010%205-10%205z%22%20%2F%3E%20%3Cpath%20d%3D%22M6%2012v5c0%202%202%203%206%203s6-1%206-3v-5%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Troubleshooting"]{--tc:239,68,68;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-wrench%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M14.7%206.3a1%201%200%200%200%200%201.4l1.6%201.6a1%201%200%200%200%201.4%200l3.77-3.77a6%206%200%200%201-7.94%207.94l-6.91%206.91a2.12%202.12%200%200%201-3-3l6.91-6.91a6%206%200%200%201%207.94-7.94l-3.76%203.76z%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Journal"]{--tc:234,179,8;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-calendar-days%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M8%202v4%22%20%2F%3E%20%3Cpath%20d%3D%22M16%202v4%22%20%2F%3E%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%224%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2010h18%22%20%2F%3E%20%3Cpath%20d%3D%22M8%2014h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2014h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M16%2014h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M8%2018h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2018h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M16%2018h.01%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Santé"]{--tc:34,197,94;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-heart-pulse%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M2%209.5a5.5%205.5%200%200%201%209.591-3.676.56.56%200%200%200%20.818%200A5.49%205.49%200%200%201%2022%209.5c0%202.29-1.5%204-3%205.5l-5.492%205.313a2%202%200%200%201-3%20.019L5%2015c-1.5-1.5-3-3.2-3-5.5%22%20%2F%3E%20%3Cpath%20d%3D%22M3.22%2013H9.5l.5-1%202%204.5%202-7%201.5%203.5h5.27%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Argent"]{--tc:16,185,129;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-wallet%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M19%207V4a1%201%200%200%200-1-1H5a2%202%200%200%200%200%204h15a1%201%200%200%201%201%201v4h-3a2%202%200%200%200%200%204h3a1%201%200%200%200%201-1v-2a1%201%200%200%200-1-1%22%20%2F%3E%20%3Cpath%20d%3D%22M3%205v14a2%202%200%200%200%202%202h15a1%201%200%200%200%201-1v-4%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="ANGLAIS"]{--tc:56,189,248;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-languages%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22m5%208%206%206%22%20%2F%3E%20%3Cpath%20d%3D%22m4%2014%206-6%202-3%22%20%2F%3E%20%3Cpath%20d%3D%22M2%205h12%22%20%2F%3E%20%3Cpath%20d%3D%22M7%202h1%22%20%2F%3E%20%3Cpath%20d%3D%22m22%2022-5-10-5%2010%22%20%2F%3E%20%3Cpath%20d%3D%22M14%2018h6%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Productivité"]{--tc:249,115,22;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-rocket%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%2015v5s3.03-.55%204-2c1.08-1.62%200-5%200-5%22%20%2F%3E%20%3Cpath%20d%3D%22M4.5%2016.5c-1.5%201.26-2%205-2%205s3.74-.5%205-2c.71-.84.7-2.13-.09-2.91a2.18%202.18%200%200%200-2.91-.09%22%20%2F%3E%20%3Cpath%20d%3D%22M9%2012a22%2022%200%200%201%202-3.95A12.88%2012.88%200%200%201%2022%202c0%202.72-.78%207.5-6%2011a22.4%2022.4%200%200%201-4%202z%22%20%2F%3E%20%3Cpath%20d%3D%22M9%2012H4s.55-3.03%202-4c1.62-1.08%205%20.05%205%20.05%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="HARDWARE"]{--tc:37,99,235;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-cpu%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%2020v2%22%20%2F%3E%20%3Cpath%20d%3D%22M12%202v2%22%20%2F%3E%20%3Cpath%20d%3D%22M17%2020v2%22%20%2F%3E%20%3Cpath%20d%3D%22M17%202v2%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2012h2%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2017h2%22%20%2F%3E%20%3Cpath%20d%3D%22M2%207h2%22%20%2F%3E%20%3Cpath%20d%3D%22M20%2012h2%22%20%2F%3E%20%3Cpath%20d%3D%22M20%2017h2%22%20%2F%3E%20%3Cpath%20d%3D%22M20%207h2%22%20%2F%3E%20%3Cpath%20d%3D%22M7%2020v2%22%20%2F%3E%20%3Cpath%20d%3D%22M7%202v2%22%20%2F%3E%20%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2216%22%20height%3D%2216%22%20rx%3D%222%22%20%2F%3E%20%3Crect%20x%3D%228%22%20y%3D%228%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="GAMING"]{--tc:139,92,246;--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-gamepad-icon%20lucide-gamepad%22%3E%3Cline%20x1%3D%226%22%20x2%3D%2210%22%20y1%3D%2212%22%20y2%3D%2212%22%2F%3E%3Cline%20x1%3D%228%22%20x2%3D%228%22%20y1%3D%2210%22%20y2%3D%2214%22%2F%3E%3Cline%20x1%3D%2215%22%20x2%3D%2215.01%22%20y1%3D%2213%22%20y2%3D%2213%22%2F%3E%3Cline%20x1%3D%2218%22%20x2%3D%2218.01%22%20y1%3D%2211%22%20y2%3D%2211%22%2F%3E%3Crect%20width%3D%2220%22%20height%3D%2212%22%20x%3D%222%22%20y%3D%226%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E")}
+.dashboard a[data-href="Permis"]{--tc:96,165,250;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-car%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M19%2017h2c.6%200%201-.4%201-1v-3c0-.9-.7-1.7-1.5-1.9C18.7%2010.6%2016%2010%2016%2010s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6%200-1.1.4-1.4.9l-1.4%202.9A3.7%203.7%200%200%200%202%2012v4c0%20.6.4%201%201%201h2%22%20%2F%3E%20%3Ccircle%20cx%3D%227%22%20cy%3D%2217%22%20r%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M9%2017h6%22%20%2F%3E%20%3Ccircle%20cx%3D%2217%22%20cy%3D%2217%22%20r%3D%222%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Livres"]{--tc:234,179,8;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-book-marked%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M10%202v8l3-3%203%203V2%22%20%2F%3E%20%3Cpath%20d%3D%22M4%2019.5v-15A2.5%202.5%200%200%201%206.5%202H19a1%201%200%200%201%201%201v18a1%201%200%200%201-1%201H6.5a1%201%200%200%201%200-5H20%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="AI"]{--tc:139,92,246;--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M12%208V4H8%22%2F%3E%3Crect%20width%3D%2216%22%20height%3D%2212%22%20x%3D%224%22%20y%3D%228%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M2%2014h2%22%2F%3E%3Cpath%20d%3D%22M20%2014h2%22%2F%3E%3Cpath%20d%3D%22M15%2013v2%22%2F%3E%3Cpath%20d%3D%22M9%2013v2%22%2F%3E%3C%2Fsvg%3E")}
+.dashboard a[data-href="Sports"]{--tc:34,197,94;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-dumbbell%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M17.596%2012.768a2%202%200%201%200%202.829-2.829l-1.768-1.767a2%202%200%200%200%202.828-2.829l-2.828-2.828a2%202%200%200%200-2.829%202.828l-1.767-1.768a2%202%200%201%200-2.829%202.829z%22%20%2F%3E%20%3Cpath%20d%3D%22m2.5%2021.5%201.4-1.4%22%20%2F%3E%20%3Cpath%20d%3D%22m20.1%203.9%201.4-1.4%22%20%2F%3E%20%3Cpath%20d%3D%22M5.343%2021.485a2%202%200%201%200%202.829-2.828l1.767%201.768a2%202%200%201%200%202.829-2.829l-6.364-6.364a2%202%200%201%200-2.829%202.829l1.768%201.767a2%202%200%200%200-2.828%202.829z%22%20%2F%3E%20%3Cpath%20d%3D%22m9.6%2014.4%204.8-4.8%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Calendriers"]{--tc:14,165,233;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-calendar%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M8%202v4%22%20%2F%3E%20%3Cpath%20d%3D%22M16%202v4%22%20%2F%3E%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%224%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2010h18%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Documents"]{--tc:148,163,184;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-folder%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M20%2020a2%202%200%200%200%202-2V8a2%202%200%200%200-2-2h-7.9a2%202%200%200%201-1.69-.9L9.6%203.9A2%202%200%200%200%207.93%203H4a2%202%200%200%200-2%202v13a2%202%200%200%200%202%202Z%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="00 Inbox"]{--tc:244,63,94;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-inbox%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpolyline%20points%3D%2222%2012%2016%2012%2014%2015%2010%2015%208%2012%202%2012%22%20%2F%3E%20%3Cpath%20d%3D%22M5.45%205.11%202%2012v6a2%202%200%200%200%202%202h16a2%202%200%200%200%202-2v-6l-3.45-6.89A2%202%200%200%200%2016.76%204H7.24a2%202%200%200%200-1.79%201.11z%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Ressources"]{--tc:99,102,241;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-library%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22m16%206%204%2014%22%20%2F%3E%20%3Cpath%20d%3D%22M12%206v14%22%20%2F%3E%20%3Cpath%20d%3D%22M8%208v12%22%20%2F%3E%20%3Cpath%20d%3D%22M4%204v16%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Templates"]{--tc:107,114,128;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-layout-template%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%20%3Cpath%20d%3D%22M9%2021V9%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Projets"]{--tc:20,184,166;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-target%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%226%22%20%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="Pièces jointes"]{--tc:161,161,170;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-paperclip%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22m21.44%2011.05-9.19%209.19a6%206%200%200%201-8.49-8.49l8.57-8.57A4%204%200%201%201%2018%208.84l-8.59%208.59a2%202%200%200%201-2.83-2.83l8.49-8.48%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[data-href="YOUTUBE"]{--tc:255,0,0;--ic:url("data:image/svg+xml,%3Csvg%20role%3D%22img%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EYouTube%3C%2Ftitle%3E%3Cpath%20d%3D%22M23.498%206.186a3.016%203.016%200%200%200-2.122-2.136C19.505%203.545%2012%203.545%2012%203.545s-7.505%200-9.377.505A3.017%203.017%200%200%200%20.502%206.186C0%208.07%200%2012%200%2012s0%203.93.502%205.814a3.016%203.016%200%200%200%202.122%202.136c1.871.505%209.376.505%209.376.505s7.505%200%209.377-.505a3.015%203.015%200%200%200%202.122-2.136C24%2015.93%2024%2012%2024%2012s0-3.93-.502-5.814zM9.545%2015.568V8.432L15.818%2012l-6.273%203.568z%22%2F%3E%3C%2Fsvg%3E")}
+.dashboard a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"][href*="file=%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9"]{--tc:202,138,4;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-languages%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22m5%208%206%206%22%20%2F%3E%20%3Cpath%20d%3D%22m4%2014%206-6%202-3%22%20%2F%3E%20%3Cpath%20d%3D%22M2%205h12%22%20%2F%3E%20%3Cpath%20d%3D%22M7%202h1%22%20%2F%3E%20%3Cpath%20d%3D%22m22%2022-5-10-5%2010%22%20%2F%3E%20%3Cpath%20d%3D%22M14%2018h6%22%20%2F%3E%20%3C%2Fsvg%3E")}
+.dashboard a[href*="obsidian://new"]{--tc:148,163,184;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%3Csvg%20class%3D%22lucide%20lucide-plus%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M5%2012h14%22%2F%3E%3Cpath%20d%3D%22M12%205v14%22%2F%3E%3C%2Fsvg%3E")}
+.dashboard a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"]{--tc:22,163,74;--ic:url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-moon-star%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M18%205h4%22%20%2F%3E%20%3Cpath%20d%3D%22M20%203v4%22%20%2F%3E%20%3Cpath%20d%3D%22M20.985%2012.486a9%209%200%201%201-9.473-9.472c.405-.022.617.46.402.803a6%206%200%200%200%208.268%208.268c.344-.215.825-.004.803.401%22%20%2F%3E%20%3C%2Fsvg%3E")}
+
+/* ===== Quick Access : icones Lucide des 4 boutons d'action ===== */
+.dashboard a[href*="commandid=daily-notes"]{--tc:14,165,233;--ic:
+url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-calendar-check%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M8%202v4%22%20%2F%3E%20%3Cpath%20d%3D%22M16%202v4%22%20%2F%3E%20%3Crect%20width%3D%2218%22%20height%3D%2218%22%20x%3D%223%22%20y%3D%224%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2010h18%22%20%2F%3E%20%3Cpath%20d%3D%22m9%2016%202%202%204-4%22%20%2F%3E%20%3C%2Fsvg%3E")
+}
+.dashboard .callout[data-callout="quick"] a[href*="obsidian://new"]{--tc:139,92,246;--ic:
+url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-square-pen%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%203H5a2%202%200%200%200-2%202v14a2%202%200%200%200%202%202h14a2%202%200%200%200%202-2v-7%22%20%2F%3E%20%3Cpath%20d%3D%22M18.375%202.625a1%201%200%200%201%203%203l-9.013%209.014a2%202%200%200%201-.853.505l-2.873.84a.5.5%200%200%201-.62-.62l.84-2.873a2%202%200%200%201%20.506-.852z%22%20%2F%3E%20%3C%2Fsvg%3E")
+}
+.dashboard a[href*="full-calendar-new-event"]{--tc:245,158,11;--ic:
+url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-calendar-plus%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M16%2019h6%22%20%2F%3E%20%3Cpath%20d%3D%22M16%202v4%22%20%2F%3E%20%3Cpath%20d%3D%22M19%2016v6%22%20%2F%3E%20%3Cpath%20d%3D%22M21%2012.598V6a2%202%200%200%200-2-2H5a2%202%200%200%200-2%202v14a2%202%200%200%200%202%202h8.5%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2010h18%22%20%2F%3E%20%3Cpath%20d%3D%22M8%202v4%22%20%2F%3E%20%3C%2Fsvg%3E")
+}
+.dashboard a[href*="commandid=graph"]{--tc:34,197,94;--ic:
+url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-git-fork%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2218%22%20r%3D%223%22%20%2F%3E%20%3Ccircle%20cx%3D%226%22%20cy%3D%226%22%20r%3D%223%22%20%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%226%22%20r%3D%223%22%20%2F%3E%20%3Cpath%20d%3D%22M18%209v2c0%20.6-.4%201-1%201H7c-.6%200-1-.4-1-1V9%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2012v3%22%20%2F%3E%20%3C%2Fsvg%3E")
+}
+
+/* ===== EFREI : grille plus large pour beaucoup de modules ===== */
+.dashboard.markdown-preview-view .markdown-preview-sizer,
+.workspace-leaf[data-path="Dashboard.md"] .markdown-preview-sizer,
+.workspace-leaf[data-path="Dashboard.md"] .cm-sizer {
+  max-width: 1160px !important;
+}
+.dashboard .internal-embed.image-embed,
+.dashboard .internal-embed.media-embed,
+.dashboard .callout[data-callout="quick"],
+.dashboard .callout[data-callout="portals"] {
+  max-width: 1120px;
+}
+.dashboard .image-embed img {
+  height: 220px;
+}
+.dashboard .callout[data-callout="portals"] {
+  padding: 26px 30px 34px;
+}
+.dashboard .callout[data-callout="portals"] ul {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.dashboard .callout[data-callout="portals"] li a {
+  min-height: 112px;
+  padding: 12px 14px;
+  font-size: 0.72em;
+  line-height: 1.22;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.dashboard .callout[data-callout="portals"] li a::before {
+  width: 28px;
+  height: 28px;
+  display: block;
+  flex: none;
+}
+@media (max-width: 1100px) {
+  .dashboard .callout[data-callout="portals"] ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 820px) {
+  .dashboard .callout[data-callout="portals"] ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .dashboard .callout[data-callout="portals"] ul { grid-template-columns: 1fr; }
+}
+
+/* Couleurs thematiques des tuiles Efrei. Le fallback d'icone du snippet
+   source reste actif pour les liens non mappes explicitement. */
+.dashboard a[data-href*="Cybersécurité"],
+.dashboard a[data-href*="Ethical Hacking"],
+.dashboard a[data-href*="XTI202"] { --tc: 34, 197, 94; }
+.dashboard a[data-href*="Réseaux"],
+.dashboard a[data-href*="CCNA"],
+.dashboard a[data-href*="Modèle OSI"] { --tc: 14, 165, 233; }
+.dashboard a[data-href*="Algorithmie"],
+.dashboard a[data-href*="XTI102"],
+.dashboard a[data-href*="Structures de données"] { --tc: 245, 158, 11; }
+.dashboard a[data-href*="Base de données"],
+.dashboard a[data-href*="BDD"] { --tc: 99, 102, 241; }
+.dashboard a[data-href*="Architecture"],
+.dashboard a[data-href*="Administration Système"],
+.dashboard a[data-href*="Virtualisation"],
+.dashboard a[data-href*="systèmes d'exploitation"],
+.dashboard a[data-href*="XTI203"],
+.dashboard a[data-href*="XTI204"] { --tc: 37, 99, 235; }
+.dashboard a[data-href*="Web dynamique"],
+.dashboard a[data-href*="XTI205"] { --tc: 249, 115, 22; }
+.dashboard a[data-href*="Droit"],
+.dashboard a[data-href*="Règlement"] { --tc: 244, 63, 94; }
+.dashboard a[data-href*="English"],
+.dashboard a[data-href*="Technology and Society"],
+.dashboard a[data-href*="Communication"],
+.dashboard a[data-href*="TOEIC"] { --tc: 56, 189, 248; }
+.dashboard a[data-href*="Gestion de projet"],
+.dashboard a[data-href*="Gestion de versions"],
+.dashboard a[data-href*="Gestion du parc"],
+.dashboard a[data-href*="XTI207"] { --tc: 20, 184, 166; }
+.dashboard a[data-href*="Documents"],
+.dashboard a[data-href*=".pdf"],
+.dashboard a[data-href*="Certificat"],
+.dashboard a[data-href*="SoWeSign"] { --tc: 148, 163, 184; }
+.dashboard a[data-href*="Révisions"],
+.dashboard a[data-href*="Revisions"],
+.dashboard a[data-href*="Test de connaissances"] { --tc: 234, 179, 8; }
+.dashboard a[data-href*="Prompts"],
+.dashboard a[data-href*="Template carnet de bord"] { --tc: 139, 92, 246; }
+.dashboard a[data-href*="XSM101"],
+.dashboard a[data-href*="XSM102"],
+.dashboard a[data-href*="Logique"],
+.dashboard a[data-href*="Numération"] { --tc: 34, 197, 94; }
+.dashboard a[data-href*="XSTG-B1"] { --tc: 16, 185, 129; }
+.dashboard a[data-href*="LXP201"],
+.dashboard a[data-href*="Fondamentaux Professionnels"] { --tc: 139, 92, 246; }
+
+/* ===== EFREI : couleurs par UE + icones Lucide par module ===== */
+.dashboard,
+.moodle-sync-modal {
+  --efrei-ue11: 59, 130, 246;
+  --efrei-ue12: 14, 165, 233;
+  --efrei-ue13: 244, 63, 94;
+  --efrei-ue14: 139, 92, 246;
+  --efrei-uhc: 234, 179, 8;
+  --efrei-ue21: 99, 102, 241;
+  --efrei-ue22: 14, 165, 233;
+  --efrei-ue23: 34, 197, 94;
+  --efrei-ue24: 168, 85, 247;
+  --efrei-icon-workflow: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Crect%20width%3D%228%22%20height%3D%228%22%20x%3D%223%22%20y%3D%223%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M7%2011v4a2%202%200%200%200%202%202h4%22%20%2F%3E%20%3Crect%20width%3D%228%22%20height%3D%228%22%20x%3D%2213%22%20y%3D%2213%22%20rx%3D%222%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-cpu: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%2020v2%22%20%2F%3E%20%3Cpath%20d%3D%22M12%202v2%22%20%2F%3E%20%3Cpath%20d%3D%22M17%2020v2%22%20%2F%3E%20%3Cpath%20d%3D%22M17%202v2%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2012h2%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2017h2%22%20%2F%3E%20%3Cpath%20d%3D%22M2%207h2%22%20%2F%3E%20%3Cpath%20d%3D%22M20%2012h2%22%20%2F%3E%20%3Cpath%20d%3D%22M20%2017h2%22%20%2F%3E%20%3Cpath%20d%3D%22M20%207h2%22%20%2F%3E%20%3Cpath%20d%3D%22M7%2020v2%22%20%2F%3E%20%3Cpath%20d%3D%22M7%202v2%22%20%2F%3E%20%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2216%22%20height%3D%2216%22%20rx%3D%222%22%20%2F%3E%20%3Crect%20x%3D%228%22%20y%3D%228%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-terminal: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%2019h8%22%20%2F%3E%20%3Cpath%20d%3D%22m4%2017%206-6-6-6%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-braces: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M8%203H7a2%202%200%200%200-2%202v5a2%202%200%200%201-2%202%202%202%200%200%201%202%202v5c0%201.1.9%202%202%202h1%22%20%2F%3E%20%3Cpath%20d%3D%22M16%2021h1a2%202%200%200%200%202-2v-5c0-1.1.9-2%202-2a2%202%200%200%201-2-2V5a2%202%200%200%200-2-2h-1%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-database: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cellipse%20cx%3D%2212%22%20cy%3D%225%22%20rx%3D%229%22%20ry%3D%223%22%20%2F%3E%20%3Cpath%20d%3D%22M3%205V19A9%203%200%200%200%2021%2019V5%22%20%2F%3E%20%3Cpath%20d%3D%22M3%2012A9%203%200%200%200%2021%2012%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-git-branch: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M15%206a9%209%200%200%200-9%209V3%22%20%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%226%22%20r%3D%223%22%20%2F%3E%20%3Ccircle%20cx%3D%226%22%20cy%3D%2218%22%20r%3D%223%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-network: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Crect%20x%3D%2216%22%20y%3D%2216%22%20width%3D%226%22%20height%3D%226%22%20rx%3D%221%22%20%2F%3E%20%3Crect%20x%3D%222%22%20y%3D%2216%22%20width%3D%226%22%20height%3D%226%22%20rx%3D%221%22%20%2F%3E%20%3Crect%20x%3D%229%22%20y%3D%222%22%20width%3D%226%22%20height%3D%226%22%20rx%3D%221%22%20%2F%3E%20%3Cpath%20d%3D%22M5%2016v-3a1%201%200%200%201%201-1h12a1%201%200%200%201%201%201v3%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2012V8%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-scale: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%203v18%22%20%2F%3E%20%3Cpath%20d%3D%22m19%208%203%208a5%205%200%200%201-6%200zV7%22%20%2F%3E%20%3Cpath%20d%3D%22M3%207h1a17%2017%200%200%200%208-2%2017%2017%200%200%200%208%202h1%22%20%2F%3E%20%3Cpath%20d%3D%22m5%208%203%208a5%205%200%200%201-6%200zV7%22%20%2F%3E%20%3Cpath%20d%3D%22M7%2021h10%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-kanban: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M5%203v14%22%20%2F%3E%20%3Cpath%20d%3D%22M12%203v8%22%20%2F%3E%20%3Cpath%20d%3D%22M19%203v18%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-messages-square: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M16%2010a2%202%200%200%201-2%202H6.828a2%202%200%200%200-1.414.586l-2.202%202.202A.71.71%200%200%201%202%2014.286V4a2%202%200%200%201%202-2h10a2%202%200%200%201%202%202z%22%20%2F%3E%20%3Cpath%20d%3D%22M20%209a2%202%200%200%201%202%202v10.286a.71.71%200%200%201-1.212.502l-2.202-2.202A2%202%200%200%200%2017.172%2019H10a2%202%200%200%201-2-2v-1%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-combine: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M14%203a1%201%200%200%201%201%201v5a1%201%200%200%201-1%201%22%20%2F%3E%20%3Cpath%20d%3D%22M19%203a1%201%200%200%201%201%201v5a1%201%200%200%201-1%201%22%20%2F%3E%20%3Cpath%20d%3D%22m7%2015%203%203%22%20%2F%3E%20%3Cpath%20d%3D%22m7%2021%203-3H5a2%202%200%200%201-2-2v-2%22%20%2F%3E%20%3Crect%20x%3D%2214%22%20y%3D%2214%22%20width%3D%227%22%20height%3D%227%22%20rx%3D%221%22%20%2F%3E%20%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%227%22%20height%3D%227%22%20rx%3D%221%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-binary: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Crect%20x%3D%2214%22%20y%3D%2214%22%20width%3D%224%22%20height%3D%226%22%20rx%3D%222%22%20%2F%3E%20%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%224%22%20height%3D%226%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M6%2020h4%22%20%2F%3E%20%3Cpath%20d%3D%22M14%2010h4%22%20%2F%3E%20%3Cpath%20d%3D%22M6%2014h2v6%22%20%2F%3E%20%3Cpath%20d%3D%22M14%204h2v6%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-globe: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%20%3Cpath%20d%3D%22M12%202a14.5%2014.5%200%200%200%200%2020%2014.5%2014.5%200%200%200%200-20%22%20%2F%3E%20%3Cpath%20d%3D%22M2%2012h20%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-languages: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22m5%208%206%206%22%20%2F%3E%20%3Cpath%20d%3D%22m4%2014%206-6%202-3%22%20%2F%3E%20%3Cpath%20d%3D%22M2%205h12%22%20%2F%3E%20%3Cpath%20d%3D%22M7%202h1%22%20%2F%3E%20%3Cpath%20d%3D%22m22%2022-5-10-5%2010%22%20%2F%3E%20%3Cpath%20d%3D%22M14%2018h6%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-headphones: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M3%2014h3a2%202%200%200%201%202%202v3a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-7a9%209%200%200%201%2018%200v7a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2v-3a2%202%200%200%201%202-2h3%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-server-cog: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22m10.852%2014.772-.383.923%22%20%2F%3E%20%3Cpath%20d%3D%22M13.148%2014.772a3%203%200%201%200-2.296-5.544l-.383-.923%22%20%2F%3E%20%3Cpath%20d%3D%22m13.148%209.228.383-.923%22%20%2F%3E%20%3Cpath%20d%3D%22m13.53%2015.696-.382-.924a3%203%200%201%201-2.296-5.544%22%20%2F%3E%20%3Cpath%20d%3D%22m14.772%2010.852.923-.383%22%20%2F%3E%20%3Cpath%20d%3D%22m14.772%2013.148.923.383%22%20%2F%3E%20%3Cpath%20d%3D%22M4.5%2010H4a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h16a2%202%200%200%201%202%202v4a2%202%200%200%201-2%202h-.5%22%20%2F%3E%20%3Cpath%20d%3D%22M4.5%2014H4a2%202%200%200%200-2%202v4a2%202%200%200%200%202%202h16a2%202%200%200%200%202-2v-4a2%202%200%200%200-2-2h-.5%22%20%2F%3E%20%3Cpath%20d%3D%22M6%2018h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M6%206h.01%22%20%2F%3E%20%3Cpath%20d%3D%22m9.228%2010.852-.923-.383%22%20%2F%3E%20%3Cpath%20d%3D%22m9.228%2013.148-.923.383%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-monitor-cog: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%2017v4%22%20%2F%3E%20%3Cpath%20d%3D%22m14.305%207.53.923-.382%22%20%2F%3E%20%3Cpath%20d%3D%22m15.228%204.852-.923-.383%22%20%2F%3E%20%3Cpath%20d%3D%22m16.852%203.228-.383-.924%22%20%2F%3E%20%3Cpath%20d%3D%22m16.852%208.772-.383.923%22%20%2F%3E%20%3Cpath%20d%3D%22m19.148%203.228.383-.924%22%20%2F%3E%20%3Cpath%20d%3D%22m19.53%209.696-.382-.924%22%20%2F%3E%20%3Cpath%20d%3D%22m20.772%204.852.924-.383%22%20%2F%3E%20%3Cpath%20d%3D%22m20.772%207.148.924.383%22%20%2F%3E%20%3Cpath%20d%3D%22M22%2013v2a2%202%200%200%201-2%202H4a2%202%200%200%201-2-2V5a2%202%200%200%201%202-2h7%22%20%2F%3E%20%3Cpath%20d%3D%22M8%2021h8%22%20%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%226%22%20r%3D%223%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-boxes: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M2.97%2012.92A2%202%200%200%200%202%2014.63v3.24a2%202%200%200%200%20.97%201.71l3%201.8a2%202%200%200%200%202.06%200L12%2019v-5.5l-5-3-4.03%202.42Z%22%20%2F%3E%20%3Cpath%20d%3D%22m7%2016.5-4.74-2.85%22%20%2F%3E%20%3Cpath%20d%3D%22m7%2016.5%205-3%22%20%2F%3E%20%3Cpath%20d%3D%22M7%2016.5v5.17%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2013.5V19l3.97%202.38a2%202%200%200%200%202.06%200l3-1.8a2%202%200%200%200%20.97-1.71v-3.24a2%202%200%200%200-.97-1.71L17%2010.5l-5%203Z%22%20%2F%3E%20%3Cpath%20d%3D%22m17%2016.5-5-3%22%20%2F%3E%20%3Cpath%20d%3D%22m17%2016.5%204.74-2.85%22%20%2F%3E%20%3Cpath%20d%3D%22M17%2016.5v5.17%22%20%2F%3E%20%3Cpath%20d%3D%22M7.97%204.42A2%202%200%200%200%207%206.13v4.37l5%203%205-3V6.13a2%202%200%200%200-.97-1.71l-3-1.8a2%202%200%200%200-2.06%200l-3%201.8Z%22%20%2F%3E%20%3Cpath%20d%3D%22M12%208%207.26%205.15%22%20%2F%3E%20%3Cpath%20d%3D%22m12%208%204.74-2.85%22%20%2F%3E%20%3Cpath%20d%3D%22M12%2013.5V8%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-file-code: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M6%2022a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h8a2.4%202.4%200%200%201%201.704.706l3.588%203.588A2.4%202.4%200%200%201%2020%208v12a2%202%200%200%201-2%202z%22%20%2F%3E%20%3Cpath%20d%3D%22M14%202v5a1%201%200%200%200%201%201h5%22%20%2F%3E%20%3Cpath%20d%3D%22M10%2012.5%208%2015l2%202.5%22%20%2F%3E%20%3Cpath%20d%3D%22m14%2012.5%202%202.5-2%202.5%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-router: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Crect%20width%3D%2220%22%20height%3D%228%22%20x%3D%222%22%20y%3D%2214%22%20rx%3D%222%22%20%2F%3E%20%3Cpath%20d%3D%22M6.01%2018H6%22%20%2F%3E%20%3Cpath%20d%3D%22M10.01%2018H10%22%20%2F%3E%20%3Cpath%20d%3D%22M15%2010v4%22%20%2F%3E%20%3Cpath%20d%3D%22M17.84%207.17a4%204%200%200%200-5.66%200%22%20%2F%3E%20%3Cpath%20d%3D%22M20.66%204.34a8%208%200%200%200-11.31%200%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-shield-check: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M20%2013c0%205-3.5%207.5-7.66%208.95a1%201%200%200%201-.67-.01C7.5%2020.5%204%2018%204%2013V6a1%201%200%200%201%201-1c2%200%204.5-1.2%206.24-2.72a1.17%201.17%200%200%201%201.52%200C14.51%203.81%2017%205%2019%205a1%201%200%200%201%201%201z%22%20%2F%3E%20%3Cpath%20d%3D%22m9%2012%202%202%204-4%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-briefcase-business: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M12%2012h.01%22%20%2F%3E%20%3Cpath%20d%3D%22M16%206V4a2%202%200%200%200-2-2h-4a2%202%200%200%200-2%202v2%22%20%2F%3E%20%3Cpath%20d%3D%22M22%2013a18.15%2018.15%200%200%201-20%200%22%20%2F%3E%20%3Crect%20width%3D%2220%22%20height%3D%2214%22%20x%3D%222%22%20y%3D%226%22%20rx%3D%222%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-graduation-cap: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M21.42%2010.922a1%201%200%200%200-.019-1.838L12.83%205.18a2%202%200%200%200-1.66%200L2.6%209.08a1%201%200%200%200%200%201.832l8.57%203.908a2%202%200%200%200%201.66%200z%22%20%2F%3E%20%3Cpath%20d%3D%22M22%2010v6%22%20%2F%3E%20%3Cpath%20d%3D%22M6%2012.5V16a6%203%200%200%200%2012%200v-3.5%22%20%2F%3E%20%3C%2Fsvg%3E");
+}
+
+.dashboard a[data-href*="XTI101"], .moodle-sync-modal .ms-course[data-code="XTI101"]{--tc:var(--efrei-ue11);--ic:var(--efrei-icon-workflow)}
+.dashboard a[data-href*="XTI104"], .moodle-sync-modal .ms-course[data-code="XTI104"]{--tc:var(--efrei-ue11);--ic:var(--efrei-icon-cpu)}
+.dashboard a[data-href*="XTI105"], .moodle-sync-modal .ms-course[data-code="XTI105"]{--tc:var(--efrei-ue11);--ic:var(--efrei-icon-terminal)}
+.dashboard a[data-href*="XTI102"], .moodle-sync-modal .ms-course[data-code="XTI102"]{--tc:var(--efrei-ue11);--ic:var(--efrei-icon-braces)}
+
+.dashboard a[data-href*="XTI107"], .moodle-sync-modal .ms-course[data-code="XTI107"]{--tc:var(--efrei-ue12);--ic:var(--efrei-icon-database)}
+.dashboard a[data-href*="XTI103"], .moodle-sync-modal .ms-course[data-code="XTI103"]{--tc:var(--efrei-ue12);--ic:var(--efrei-icon-git-branch)}
+.dashboard a[data-href*="XTI106"], .moodle-sync-modal .ms-course[data-code="XTI106"]{--tc:var(--efrei-ue12);--ic:var(--efrei-icon-network)}
+
+.dashboard a[data-href*="XCS101"], .moodle-sync-modal .ms-course[data-code="XCS101"]{--tc:var(--efrei-ue13);--ic:var(--efrei-icon-scale)}
+.dashboard a[data-href*="XCS103"], .moodle-sync-modal .ms-course[data-code="XCS103"]{--tc:var(--efrei-ue13);--ic:var(--efrei-icon-kanban)}
+
+.dashboard a[data-href*="XMUT103"], .moodle-sync-modal .ms-course[data-code="XMUT103"]{--tc:var(--efrei-ue14);--ic:var(--efrei-icon-messages-square)}
+.dashboard a[data-href*="XSM102"], .moodle-sync-modal .ms-course[data-code="XSM102"]{--tc:var(--efrei-ue14);--ic:var(--efrei-icon-combine)}
+.dashboard a[data-href*="XSM101"], .moodle-sync-modal .ms-course[data-code="XSM101"]{--tc:var(--efrei-ue14);--ic:var(--efrei-icon-binary)}
+.dashboard a[data-href*="XMUT101"], .moodle-sync-modal .ms-course[data-code="XMUT101"]{--tc:var(--efrei-ue14);--ic:var(--efrei-icon-globe)}
+
+.dashboard a[data-href*="GETOEIC-S1"]{--tc:var(--efrei-uhc);--ic:var(--efrei-icon-headphones)}
+
+.dashboard a[data-href*="XTI204"], .moodle-sync-modal .ms-course[data-code="XTI204"]{--tc:var(--efrei-ue21);--ic:var(--efrei-icon-server-cog)}
+.dashboard a[data-href*="XTI207"], .moodle-sync-modal .ms-course[data-code="XTI207"]{--tc:var(--efrei-ue21);--ic:var(--efrei-icon-monitor-cog)}
+.dashboard a[data-href*="XTI203"], .moodle-sync-modal .ms-course[data-code="XTI203"]{--tc:var(--efrei-ue21);--ic:var(--efrei-icon-boxes)}
+.dashboard a[data-href*="XTI205"], .moodle-sync-modal .ms-course[data-code="XTI205"]{--tc:var(--efrei-ue21);--ic:var(--efrei-icon-file-code)}
+
+.dashboard a[data-href*="XTI201"], .moodle-sync-modal .ms-course[data-code="XTI201"]{--tc:var(--efrei-ue22);--ic:var(--efrei-icon-router)}
+.dashboard a[data-href*="XTI202"], .moodle-sync-modal .ms-course[data-code="XTI202"]{--tc:var(--efrei-ue23);--ic:var(--efrei-icon-shield-check)}
+
+.dashboard a[data-href*="XMUT203"], .moodle-sync-modal .ms-course[data-code="XMUT203"]{--tc:var(--efrei-ue24);--ic:var(--efrei-icon-messages-square)}
+.dashboard a[data-href*="XSTG-B1"]{--tc:var(--efrei-ue24);--ic:var(--efrei-icon-briefcase-business)}
+.dashboard a[data-href*="XMUT201"], .moodle-sync-modal .ms-course[data-code="XMUT201"]{--tc:var(--efrei-ue24);--ic:var(--efrei-icon-languages)}
+.dashboard a[data-href*="Fondamentaux Profession"],
+.dashboard a[data-href*="LXP201"], .moodle-sync-modal .ms-course[data-code="LXP201"]{--tc:var(--efrei-ue24);--ic:var(--efrei-icon-graduation-cap)}
+
+.dashboard a[data-href*="FITOEIC-S2"]{--tc:var(--efrei-uhc);--ic:var(--efrei-icon-headphones)}
+
+
+/* ============================================================
+   Quiz d'entrainement XTI202 (CC1 / CC2 / CC Bonus 15 min)
+   Tuiles ajoutees pour le hub 'XTI202 - Cybersecurite 1'.
+   Reutilise le systeme .dashboard + [!portals] existant.
+   ============================================================ */
+:root {
+  --efrei-icon-list-checks: url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-list-checks%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cpath%20d%3D%22M13%205h8%22%20%2F%3E%20%3Cpath%20d%3D%22M13%2012h8%22%20%2F%3E%20%3Cpath%20d%3D%22M13%2019h8%22%20%2F%3E%20%3Cpath%20d%3D%22m3%2017%202%202%204-4%22%20%2F%3E%20%3Cpath%20d%3D%22m3%207%202%202%204-4%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-clipboard-check: url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-clipboard-check%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Crect%20width%3D%228%22%20height%3D%224%22%20x%3D%228%22%20y%3D%222%22%20rx%3D%221%22%20ry%3D%221%22%20%2F%3E%20%3Cpath%20d%3D%22M16%204h2a2%202%200%200%201%202%202v14a2%202%200%200%201-2%202H6a2%202%200%200%201-2-2V6a2%202%200%200%201%202-2h2%22%20%2F%3E%20%3Cpath%20d%3D%22m9%2014%202%202%204-4%22%20%2F%3E%20%3C%2Fsvg%3E");
+  --efrei-icon-timer: url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-timer%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%20%3Cline%20x1%3D%2210%22%20x2%3D%2214%22%20y1%3D%222%22%20y2%3D%222%22%20%2F%3E%20%3Cline%20x1%3D%2212%22%20x2%3D%2215%22%20y1%3D%2214%22%20y2%3D%2211%22%20%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2214%22%20r%3D%228%22%20%2F%3E%20%3C%2Fsvg%3E");
+}
+.dashboard a[data-href="CC1"]{--tc:59,130,246;--ic:var(--efrei-icon-list-checks)}
+.dashboard a[data-href="CC2"]{--tc:139,92,246;--ic:var(--efrei-icon-clipboard-check)}
+.dashboard a[data-href="CC Bonus 15 min"]{--tc:234,179,8;--ic:var(--efrei-icon-timer)}
+/* Fiche perso "Mes erreurs CC1" — rouge + triangle-alert (erreurs a revoir). Ajoute le 2026-06-16. */
+:root{--efrei-icon-triangle-alert:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m21.73%2018-8-14a2%202%200%200%200-3.48%200l-8%2014A2%202%200%200%200%204%2021h16a2%202%200%200%200%201.73-3%22%2F%3E%3Cpath%20d%3D%22M12%209v4%22%2F%3E%3Cpath%20d%3D%22M12%2017h.01%22%2F%3E%3C%2Fsvg%3E")}
+.dashboard a[data-href="Révision rattrapage - Mes erreurs CC1"]{--tc:239,68,68;--ic:var(--efrei-icon-triangle-alert)}
+
+
+/* ============================================================
+   Quiz de revision par CM (XTI202) - hub Cybersecurite 1
+   Icones Lucide + couleur dediee par CM. Reutilise network/globe
+   du systeme .dashboard + [!portals]. Ajoute le 2026-06-15.
+   ============================================================ */
+:root {
+  --efrei-icon-book-open: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M12%207v14%22%2F%3E%3Cpath%20d%3D%22M3%2018a1%201%200%200%201-1-1V4a1%201%200%200%201%201-1h5a4%204%200%200%201%204%204%204%204%200%200%201%204-4h5a1%201%200%200%201%201%201v13a1%201%200%200%201-1%201h-6a3%203%200%200%200-3%203%203%203%200%200%200-3-3z%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-key-round: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2.586%2017.414A2%202%200%200%200%202%2018.828V21a1%201%200%200%200%201%201h3a1%201%200%200%200%201-1v-1a1%201%200%200%201%201-1h1a1%201%200%200%201%201-1v-1a1%201%200%200%201%201-1h.172a2%202%200%200%200%201.414-.586l.814-.814a6.5%206.5%200%201%200-4-4z%22%2F%3E%3Ccircle%20cx%3D%2216.5%22%20cy%3D%227.5%22%20r%3D%22.5%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-fingerprint: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M12%2010a2%202%200%200%200-2%202c0%201.02-.1%202.51-.26%204%22%2F%3E%3Cpath%20d%3D%22M14%2013.12c0%202.38%200%206.38-1%208.88%22%2F%3E%3Cpath%20d%3D%22M17.29%2021.02c.12-.6.43-2.3.5-3.02%22%2F%3E%3Cpath%20d%3D%22M2%2012a10%2010%200%200%201%2018-6%22%2F%3E%3Cpath%20d%3D%22M2%2016h.01%22%2F%3E%3Cpath%20d%3D%22M21.8%2016c.2-2%20.131-5.354%200-6%22%2F%3E%3Cpath%20d%3D%22M5%2019.5C5.5%2018%206%2015%206%2012a6%206%200%200%201%20.34-2%22%2F%3E%3Cpath%20d%3D%22M8.65%2022c.21-.66.45-1.32.57-2%22%2F%3E%3Cpath%20d%3D%22M9%206.8a6%206%200%200%201%209%205.2v2%22%2F%3E%3C%2Fsvg%3E");
+}
+.dashboard a[data-href="Révision - CM1 Introduction"]{--tc:16,185,129;--ic:var(--efrei-icon-book-open)}
+.dashboard a[data-href="Révision - CM2.1 Cryptographie"]{--tc:234,179,8;--ic:var(--efrei-icon-key-round)}
+.dashboard a[data-href="Révision - CM2.2 Authentification"]{--tc:244,63,94;--ic:var(--efrei-icon-fingerprint)}
+.dashboard a[data-href="Révision - CM3 Réseaux et Systèmes"]{--tc:14,165,233;--ic:var(--efrei-icon-network)}
+.dashboard a[data-href="Révision - CM4 Securite web"]{--tc:249,115,22;--ic:var(--efrei-icon-globe)}
+
+
+/* ============================================================
+   EFREI B2 (2026-2027) - couleurs par bloc + icones Lucide
+   Ajoute le 2026-08-30. Complete le systeme B1 ci-dessus.
+   ============================================================ */
+.dashboard,
+.moodle-sync-modal {
+  --efrei-b2-s3dev: 59, 130, 246;
+  --efrei-b2-s3cyber: 34, 197, 94;
+  --efrei-b2-s3pro: 139, 92, 246;
+  --efrei-b2-s4res: 14, 165, 233;
+  --efrei-b2-s4cyber: 244, 63, 94;
+  --efrei-b2-s4lang: 56, 189, 248;
+  --efrei-icon-cloud: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M17.5%2019H9a7%207%200%201%201%206.71-9h1.79a4.5%204.5%200%201%201%200%209Z%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-sparkles: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M9.937%2015.5A2%202%200%200%200%208.5%2014.063l-6.135-1.582a.5.5%200%200%201%200-.962L8.5%209.936A2%202%200%200%200%209.937%208.5l1.582-6.135a.5.5%200%200%201%20.963%200L14.063%208.5A2%202%200%200%200%2015.5%209.937l6.135%201.581a.5.5%200%200%201%200%20.964L15.5%2014.063a2%202%200%200%200-1.437%201.437l-1.582%206.135a.5.5%200%200%201-.963%200z%22%2F%3E%3Cpath%20d%3D%22M20%203v4%22%2F%3E%3Cpath%20d%3D%22M22%205h-4%22%2F%3E%3Cpath%20d%3D%22M4%2017v2%22%2F%3E%3Cpath%20d%3D%22M5%2018H3%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-target: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%226%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-search: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22m21%2021-4.3-4.3%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-activity: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M22%2012h-2.48a2%202%200%200%200-1.93%201.46l-2.35%208.36a.25.25%200%200%201-.48%200L9.24%202.18a.25.25%200%200%200-.48%200l-2.35%208.36A2%202%200%200%201%204.49%2012H2%22%2F%3E%3C%2Fsvg%3E");
+  --efrei-icon-users: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M16%2021v-2a4%204%200%200%200-4-4H6a4%204%200%200%200-4%204v2%22%2F%3E%3Ccircle%20cx%3D%229%22%20cy%3D%227%22%20r%3D%224%22%2F%3E%3Cpath%20d%3D%22M22%2021v-2a4%204%200%200%200-3-3.87%22%2F%3E%3Cpath%20d%3D%22M16%203.13a4%204%200%200%201%200%207.75%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.dashboard a[data-href*="XTI301"], .moodle-sync-modal .ms-course[data-code="XTI301"]{--tc:var(--efrei-b2-s3dev);--ic:var(--efrei-icon-braces)}
+.dashboard a[data-href*="XTI302"], .moodle-sync-modal .ms-course[data-code="XTI302"]{--tc:var(--efrei-b2-s3dev);--ic:var(--efrei-icon-server-cog)}
+.dashboard a[data-href*="XTI303"], .moodle-sync-modal .ms-course[data-code="XTI303"]{--tc:var(--efrei-b2-s3dev);--ic:var(--efrei-icon-workflow)}
+.dashboard a[data-href*="XTI304"], .moodle-sync-modal .ms-course[data-code="XTI304"]{--tc:var(--efrei-b2-s3dev);--ic:var(--efrei-icon-cloud)}
+.dashboard a[data-href*="XTI306"], .moodle-sync-modal .ms-course[data-code="XTI306"]{--tc:var(--efrei-b2-s3dev);--ic:var(--efrei-icon-sparkles)}
+.dashboard a[data-href*="XTI305"], .moodle-sync-modal .ms-course[data-code="XTI305"]{--tc:var(--efrei-b2-s3cyber);--ic:var(--efrei-icon-key-round)}
+.dashboard a[data-href*="XTI307"], .moodle-sync-modal .ms-course[data-code="XTI307"]{--tc:var(--efrei-b2-s3cyber);--ic:var(--efrei-icon-clipboard-check)}
+.dashboard a[data-href*="XTI308"], .moodle-sync-modal .ms-course[data-code="XTI308"]{--tc:var(--efrei-b2-s3cyber);--ic:var(--efrei-icon-file-code)}
+.dashboard a[data-href*="XTI309"], .moodle-sync-modal .ms-course[data-code="XTI309"]{--tc:var(--efrei-b2-s3cyber);--ic:var(--efrei-icon-kanban)}
+.dashboard a[data-href*="XCS413"], .moodle-sync-modal .ms-course[data-code="XCS413"]{--tc:var(--efrei-b2-s3pro);--ic:var(--efrei-icon-briefcase-business)}
+.dashboard a[data-href*="XCS320"], .moodle-sync-modal .ms-course[data-code="XCS320"]{--tc:var(--efrei-b2-s3pro);--ic:var(--efrei-icon-users)}
+.dashboard a[data-href*="XCS321"], .moodle-sync-modal .ms-course[data-code="XCS321"]{--tc:var(--efrei-b2-s3pro);--ic:var(--efrei-icon-scale)}
+.dashboard a[data-href*="XCS422"], .moodle-sync-modal .ms-course[data-code="XCS422"]{--tc:var(--efrei-b2-s3pro);--ic:var(--efrei-icon-list-checks)}
+.dashboard a[data-href*="XMUT301"], .moodle-sync-modal .ms-course[data-code="XMUT301"]{--tc:var(--efrei-b2-s3pro);--ic:var(--efrei-icon-book-open)}
+.dashboard a[data-href*="XMUT303"], .moodle-sync-modal .ms-course[data-code="XMUT303"]{--tc:var(--efrei-b2-s3pro);--ic:var(--efrei-icon-messages-square)}
+.dashboard a[data-href*="XTI401"], .moodle-sync-modal .ms-course[data-code="XTI401"]{--tc:var(--efrei-b2-s4res);--ic:var(--efrei-icon-network)}
+.dashboard a[data-href*="XTI403"], .moodle-sync-modal .ms-course[data-code="XTI403"]{--tc:var(--efrei-b2-s4res);--ic:var(--efrei-icon-router)}
+.dashboard a[data-href*="XTI407"], .moodle-sync-modal .ms-course[data-code="XTI407"]{--tc:var(--efrei-b2-s4res);--ic:var(--efrei-icon-monitor-cog)}
+.dashboard a[data-href*="XTI408"], .moodle-sync-modal .ms-course[data-code="XTI408"]{--tc:var(--efrei-b2-s4res);--ic:var(--efrei-icon-boxes)}
+.dashboard a[data-href*="XTI402"], .moodle-sync-modal .ms-course[data-code="XTI402"]{--tc:var(--efrei-b2-s4cyber);--ic:var(--efrei-icon-terminal)}
+.dashboard a[data-href*="XTI405"], .moodle-sync-modal .ms-course[data-code="XTI405"]{--tc:var(--efrei-b2-s4cyber);--ic:var(--efrei-icon-globe)}
+.dashboard a[data-href*="XTI406"], .moodle-sync-modal .ms-course[data-code="XTI406"]{--tc:var(--efrei-b2-s4cyber);--ic:var(--efrei-icon-activity)}
+.dashboard a[data-href*="XTI409"], .moodle-sync-modal .ms-course[data-code="XTI409"]{--tc:var(--efrei-b2-s4cyber);--ic:var(--efrei-icon-target)}
+.dashboard a[data-href*="XTI404"], .moodle-sync-modal .ms-course[data-code="XTI404"]{--tc:var(--efrei-b2-s4cyber);--ic:var(--efrei-icon-shield-check)}
+.dashboard a[data-href*="XCS319"], .moodle-sync-modal .ms-course[data-code="XCS319"]{--tc:var(--efrei-b2-s4cyber);--ic:var(--efrei-icon-search)}
+.dashboard a[data-href*="XMUT401"], .moodle-sync-modal .ms-course[data-code="XMUT401"]{--tc:var(--efrei-b2-s4lang);--ic:var(--efrei-icon-languages)}
+.dashboard a[data-href*="XMUT404"], .moodle-sync-modal .ms-course[data-code="XMUT404"]{--tc:var(--efrei-b2-s4lang);--ic:var(--efrei-icon-messages-square)}
+
+/* Quick Access : tuile Moodle Sync (Lucide cloud-download) */
+.dashboard .callout[data-callout="quick"] a[href*="obsidian://moodle-sync"]{--tc:16,185,129;--ic:
+url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-cloud-download%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M12%2013v8l-4-4%22%2F%3E%3Cpath%20d%3D%22m12%2021%204-4%22%2F%3E%3Cpath%20d%3D%22M4.393%2015.269A7%207%200%201%201%2015.71%208h1.79a4.5%204.5%200%200%201%202.436%208.284%22%2F%3E%3C%2Fsvg%3E")
+}

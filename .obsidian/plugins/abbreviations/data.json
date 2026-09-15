@@ -1,0 +1,201 @@
+{
+  "abbreviations": {
+    ">Q": {
+      "value": ">[!QUESTION]-",
+      "isEnabled": true,
+      "position": 38,
+      "isCaseSensitive": false
+    },
+    "br": {
+      "value": "<br>",
+      "isEnabled": true,
+      "position": 37
+    },
+    "h1C": {
+      "value": "<h1><center><span style=\"color:rgb(1000, 0, 0)\">TEXTE</span></center></h1>",
+      "isEnabled": true,
+      "position": 36
+    },
+    "<ce": {
+      "value": "<center></center>",
+      "isEnabled": true,
+      "position": 35
+    },
+    "Muscu": {
+      "value": "| <span style=\"background:rgba(253, 121, 121, 0.55)\">À faire</span>           | Séance ...<br> <br> #🏋🏽Musculation                                                   | <span style=\"background:rgba(253, 121, 121, 0.55)\">P4 Non retardable</span>     | <span style=\"background:rgba(255, 176, 139, 0.55)\">Élevé</span>    | | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------ |",
+      "isEnabled": true,
+      "position": 33
+    },
+    "Ti": {
+      "value": "style=\"font-family: 'Times New Roman'\"",
+      "isEnabled": true,
+      "position": 34
+    },
+    ">Maths": {
+      "value": ">- [ ]  **<font color=\"#b01111\" style=\"font-family: 'Times New Roman'\">Séance ...</font>**  #🧮Mathématiques",
+      "isEnabled": true,
+      "position": 32
+    },
+    ">Produ": {
+      "value": ">- [ ] **<font color=\"#FF8800\" style=\"font-family: 'Times New Roman'\" >...</font>**  #⚡Productivité",
+      "isEnabled": true,
+      "position": 31
+    },
+    ">YouTube": {
+      "value": ">- [ ] **<font color=\"#ff0000\" style=\"font-family: 'Times New Roman'\" >Faire des recherches sur Les revenu que YouTube peut rapporter</font>**  #🎟️YouTube",
+      "isEnabled": true,
+      "position": 30
+    },
+    ">QU": {
+      "value": ">[!QUOTE] *<center>« ... »</center>* <br> **— ..**",
+      "isEnabled": true,
+      "position": 29
+    },
+    "Verset": {
+      "value": ">[!CORAN]-  ... { ١ }",
+      "isEnabled": true,
+      "position": 28
+    },
+    "iframe": {
+      "value": "<iframe src=\"https://www.kali.org/docs/\" width=\"1200\" height=\"600\" style=\"border-radius: 10px; overflow: hidden; border: none;\"></iframe>",
+      "isEnabled": true,
+      "position": 27
+    },
+    "--": {
+      "value": "—",
+      "isEnabled": true,
+      "position": 26
+    },
+    "ArabeA": {
+      "value": "العَرَبِيَّة",
+      "isEnabled": true,
+      "position": 25
+    },
+    ">>Q": {
+      "value": ">>[!QUESTION]-",
+      "isEnabled": true,
+      "position": 24
+    },
+    ">V": {
+      "value": ">[!VOCABULAIRE]",
+      "isEnabled": true,
+      "position": 23
+    },
+    "\"\"": {
+      "value": "« ... »",
+      "isEnabled": true,
+      "position": 22
+    },
+    "A^": {
+      "value": "À",
+      "isEnabled": true,
+      "position": 21
+    },
+    "Textep": {
+      "value": ">[!philosophie] Titre du texte   « ... ».    <p align=\"right\">Source</p>",
+      "isEnabled": true,
+      "position": 20
+    },
+    "h1ce": {
+      "value": "# <center><h1><font color=\"#000000\">Travailler au brouillon</font></h1></center>",
+      "isEnabled": true,
+      "position": 19
+    },
+    "h2r": {
+      "value": "## <h2><span style=\"color:rgb(1000, 0, 0)\">TEXTE</span></h2>",
+      "isEnabled": true,
+      "position": 18
+    },
+    "mc": {
+      "value": "> [!multi-column]",
+      "isEnabled": true,
+      "position": 17
+    },
+    "h3r": {
+      "value": "### <h3><span style=\"color:rgb(1000, 0, 0)\">TEXTE</span></h3>",
+      "isEnabled": true,
+      "position": 16
+    },
+    ">I": {
+      "value": ">[!INFO]",
+      "isEnabled": true,
+      "position": 15
+    },
+    "Tb": {
+      "value": "**<font color=\"#00b050\">Très bien</font>** (aurait pu préciser que le joint et le caoutchouc sont de mauvais conducteur thermique)",
+      "isEnabled": true,
+      "position": 14
+    },
+    "F.": {
+      "value": "**<font color=\"#ff0000\">Faux : L’espace entre les deux parois contient un gaz à très faible pression : cela réduit fortement les transferts par convection</font>**",
+      "isEnabled": true,
+      "position": 13
+    },
+    "0%": {
+      "value": "**<font color=\"#ff0000\">0 %                         </font>**",
+      "isEnabled": true,
+      "position": 11
+    },
+    "100%": {
+      "value": "**<font color=\"#00b050\">100 %</font>**",
+      "isEnabled": true,
+      "position": 12
+    },
+    "50%": {
+      "value": "**<font color=\"#f79646\">50%                           </font>**",
+      "isEnabled": true,
+      "position": 10
+    },
+    "p-": {
+      "value": "$\\overline{p}$",
+      "isEnabled": true,
+      "position": 9
+    },
+    "<-": {
+      "value": "←",
+      "isEnabled": true,
+      "position": 8
+    },
+    "psc": {
+      "value": "```pseudo-code```",
+      "isEnabled": true,
+      "position": 7
+    },
+    "=/": {
+      "value": "≠",
+      "isEnabled": true,
+      "position": 6
+    },
+    "esp": {
+      "value": "~",
+      "isEnabled": true,
+      "position": 5
+    },
+    "ti": {
+      "value": "\\times",
+      "isEnabled": true,
+      "position": 4
+    },
+    "&C": {
+      "value": "```C #include <stdio.h>  int main() { \t     return 0;  } ```",
+      "isEnabled": true,
+      "position": 3
+    },
+    "img": {
+      "value": "<img src=\"Pasted image 20251118091027.png\" width=\"500\" style=\"vertical-align:middle; border-radius:4px; margin-right:6px;\">",
+      "isEnabled": true,
+      "position": 2
+    },
+    "pb": {
+      "value": "<div style=\"page-break-after: always;\"></div>",
+      "isEnabled": true,
+      "position": 1
+    },
+    "qb": {
+      "value": "```quiz-blocks```",
+      "isEnabled": true,
+      "position": 0,
+      "isCaseSensitive": true
+    }
+  }
+}

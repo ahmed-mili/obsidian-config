@@ -1,0 +1,19 @@
+{
+  "workLen": 30,
+  "breakLen": 5,
+  "autostart": false,
+  "useStatusBarTimer": false,
+  "notificationSound": true,
+  "customSound": "",
+  "showTaskProgress": true,
+  "enableTaskTracking": true,
+  "logFile": "DAILY",
+  "logFocused": false,
+  "logPath": "",
+  "logLevel": "ALL",
+  "logTemplate": " <%*\nif (log.mode == \"WORK\") {\n  if (!log.finished) {\n    tR = `>- 🍅 **Focused** for **<u>${log.duration} min</u>** from **${log.begin.format(\"HH:mm\")}** to **${log.end.format(\"HH:mm\"\n  )}**  `;\n  } else {\n    tR = `>- 🍅 **Focused** for **<u>${log.duration} min</u>** from **${log.begin.format(\"HH:mm\")}** to **${log.end.format(\"HH:mm\"\n  )}**  `;\n  }\n} else {\n  tR = `>  🍃  **Took a break** for  **<u>${log.duration} min</u>** from **${log.begin.format(\"HH:mm\")}** to **${log.end.format(\"HH:mm\"\n  )}** <br><br>`;\n}\n%> ",
+  "logFormat": "CUSTOM",
+  "useSystemNotification": true,
+  "taskFormat": "TASKS",
+  "lowFps": false
+}

@@ -1,0 +1,49 @@
+/* ============================================================
+   callout-glow.css — Lueur colorée sur tous les callouts Obsidian
+   La lueur reprend automatiquement la couleur du type de callout
+   (info = bleu, warning = jaune, danger = rouge, custom guide-* …)
+   via la variable native --callout-color (exposée en "R, G, B").
+   ============================================================ */
+
+.callout {
+  /* bord teinté + double halo (large et diffus + fin et net) */
+  border: 1px solid rgba(var(--callout-color), 0.45);
+  box-shadow:
+    0 0 14px 0 rgba(var(--callout-color), 0.30),
+    0 0 3px 0 rgba(var(--callout-color), 0.45);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* survol : la lueur s'intensifie */
+.callout:hover {
+  border-color: rgba(var(--callout-color), 0.65);
+  box-shadow:
+    0 0 24px 2px rgba(var(--callout-color), 0.50),
+    0 0 6px 0 rgba(var(--callout-color), 0.70);
+}
+
+/* le titre et son icône reçoivent une légère aura assortie */
+.callout-title {
+  text-shadow: 0 0 8px rgba(var(--callout-color), 0.45);
+}
+
+.callout-icon svg {
+  filter: drop-shadow(0 0 4px rgba(var(--callout-color), 0.65));
+  transform-origin: center;
+}
+
+/* survol : l'icône fait un petit "pulse" (grossit puis revient), sobre */
+.callout:hover .callout-icon svg {
+  animation: callout-icon-pulse 0.4s ease-out;
+}
+
+@keyframes callout-icon-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* callout replié : halo discret pour qu'il reste léger une fois fermé */
+.callout.is-collapsed {
+  box-shadow: 0 0 8px 0 rgba(var(--callout-color), 0.25);
+}

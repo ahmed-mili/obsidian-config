@@ -1,0 +1,168 @@
+/* ============================================================
+   Callouts personnalisés — kanban GUIDES.md
+   Une icône (lucide.dev) + une couleur dédiée par catégorie.
+   Indépendant de tout plugin (Callout Manager NON requis).
+   Syntaxe officielle : --callout-color: R, G, B; et
+   --callout-icon: lucide-<nom>;  (cf. doc Obsidian).
+   ============================================================ */
+
+.callout[data-callout="guide-ecrire"] {
+  --callout-color: 234, 179, 8;      /* jaune amber */
+  --callout-icon: lucide-pencil;
+}
+
+.callout[data-callout="guide-dev"] {
+  --callout-color: 139, 92, 246;     /* violet */
+  --callout-icon: lucide-monitor;
+}
+
+.callout[data-callout="guide-mobile"] {
+  --callout-color: 34, 197, 94;      /* vert */
+  --callout-icon: lucide-smartphone;
+}
+
+.callout[data-callout="guide-reseau"] {
+  --callout-color: 56, 189, 248;     /* cyan / sky */
+  --callout-icon: lucide-globe;
+}
+
+.callout[data-callout="guide-divers"] {
+  --callout-color: 148, 163, 184;    /* ardoise */
+  --callout-icon: lucide-package;
+}
+
+.callout[data-callout="guide-rapide"] {
+  --callout-color: 249, 115, 22;     /* orange — setup express, "colle et c'est fini" */
+  --callout-icon: lucide-rocket;
+}
+
+/* ============================================================
+   Callouts kanban Productivité.md
+   ============================================================ */
+
+.callout[data-callout="prod-explorer"] {
+  --callout-color: 14, 165, 233;     /* sky / cyan — ressources à découvrir */
+  --callout-icon: lucide-book-open;
+}
+
+.callout[data-callout="prod-setup"] {
+  --callout-color: 139, 92, 246;     /* violet — config & outils */
+  --callout-icon: lucide-wrench;
+}
+
+.callout[data-callout="prod-mental"] {
+  --callout-color: 236, 72, 153;     /* rose — psychologie / habitudes */
+  --callout-icon: lucide-brain;
+}
+
+.callout[data-callout="prod-objectifs"] {
+  --callout-color: 16, 185, 129;     /* emerald — objectifs & méthodes */
+  --callout-icon: lucide-target;
+}
+
+/* ============================================================
+   Callout "guide" générique — en-tête des sessions de travail
+   dans TO BE ADMIN.md (projet TOBEADMIN, XTI201) et guides de
+   TP repliés (ITN Practice Packet Tracer Assessment.md).
+
+   Identité = couleur + icône uniquement : la forme, le fond et
+   le pliage restent ceux du thème, donc un guide replié reste
+   une barre de titre comme les autres callouts. Tout le reste
+   ci-dessous ne touche QUE le contenu.
+   ============================================================ */
+
+.callout[data-callout="guide"] {
+  --callout-color: 138, 92, 245;     /* violet */
+  --callout-icon: lucide-compass;
+}
+
+.callout[data-callout="guide"] .callout-title {
+  font-size: 1.05em;
+}
+
+.callout[data-callout="guide"] .callout-content ol {
+  margin-block: 0.4em;
+  padding-inline-start: 1.4em;
+}
+
+/* numéros d'étape teintés comme le callout */
+.callout[data-callout="guide"] .callout-content ol > li::marker {
+  color: rgb(var(--callout-color));
+  font-weight: 700;
+}
+
+.callout[data-callout="guide"] .callout-content ol > li {
+  margin-block: 0.15em;
+}
+
+/* ------------------------------------------------------------
+   En-tête de session (TO BE ADMIN.md)
+   1er paragraphe = Objectif · Durée · C'est fini quand
+   ------------------------------------------------------------ */
+
+.callout[data-callout="guide"] > .callout-content > p:first-child {
+  margin: 0 0 0.85em;
+  padding: 0.5em 0.8em;
+  border-radius: 6px;
+  border-left: 3px solid rgba(var(--callout-color), 0.45);
+  background: rgba(var(--callout-color), 0.08);
+  line-height: 1.85;
+}
+
+/* "Le déroulé :" — libellé de la liste d'étapes, en discret */
+.callout[data-callout="guide"] > .callout-content > p:first-child + p:has(+ ol) {
+  margin: 0 0 0.2em;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* "⚠️ Le piège de la session" — le paragraphe qui suit le déroulé,
+   en ambre : c'est un avertissement, pas du corps de texte */
+.callout[data-callout="guide"] > .callout-content > p:first-child + p + ol + p {
+  margin: 0.9em 0 0;
+  padding: 0.5em 0.75em;
+  border-radius: 6px;
+  border-left: 3px solid rgba(234, 179, 8, 0.5);
+  background: rgba(234, 179, 8, 0.09);
+}
+
+/* ------------------------------------------------------------
+   Guide long replié (ITN…Assessment.md) : échelle resserrée pour
+   les titres internes. Un titre dans un callout ne doit pas
+   écraser le titre du callout lui-même ; les écarts entre
+   niveaux restent lisibles mais discrets.
+   ------------------------------------------------------------ */
+
+.callout[data-callout="guide"] .callout-content :is(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.3;
+  margin-block: 1.1em 0.45em;
+}
+
+.callout[data-callout="guide"] .callout-content h1 { font-size: 1.4em; }
+.callout[data-callout="guide"] .callout-content h2 { font-size: 1.3em; }
+.callout[data-callout="guide"] .callout-content h3 { font-size: 1.15em; }
+.callout[data-callout="guide"] .callout-content h4 { font-size: 1.02em; }
+.callout[data-callout="guide"] .callout-content h5 { font-size: 0.96em; }
+.callout[data-callout="guide"] .callout-content h6 { font-size: 0.92em; }
+
+/* ------------------------------------------------------------
+   Vignette posée sur la ligne de titre (ITN…Assessment.md)
+   ------------------------------------------------------------ */
+
+.callout[data-callout="guide"] > .callout-title .image-embed img {
+  display: block;
+  width: 100%;
+  /* !important : book-list.css force max-height: 100% !important sur
+     toutes les images de la preview (fix de rendu Android) */
+  max-height: 320px !important;
+  margin: 0.5em 0 0.15em;
+  padding: 6px;
+  box-sizing: border-box;
+  object-fit: contain;
+  border: 1px solid rgba(var(--callout-color), 0.28);
+  border-radius: 10px;
+  background: var(--background-primary);
+}

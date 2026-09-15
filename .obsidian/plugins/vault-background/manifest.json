@@ -1,0 +1,9 @@
+{
+  "id": "vault-background",
+  "name": "Vault Background",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Applique une image du vault comme fond d'Obsidian, sans passer par une URL externe.",
+  "author": "Ahmed",
+  "isDesktopOnly": false
+}

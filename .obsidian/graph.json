@@ -1,0 +1,51 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": true,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "collapse-color-groups": true,
+  "colorGroups": [
+    {
+      "query": "tag: #islam  ",
+      "color": {
+        "a": 1,
+        "rgb": 1483020
+      }
+    },
+    {
+      "query": "tag:#⚡Productivité  ",
+      "color": {
+        "a": 1,
+        "rgb": 16746496
+      }
+    },
+    {
+      "query": "tag:#arabe",
+      "color": {
+        "a": 1,
+        "rgb": 3441175
+      }
+    },
+    {
+      "query": "",
+      "color": {
+        "a": 1,
+        "rgb": 6084188
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": -0.1,
+  "nodeSizeMultiplier": 1.24446366782007,
+  "lineSizeMultiplier": 1.92266435986159,
+  "collapse-forces": false,
+  "centerStrength": 0.776041666666667,
+  "repelStrength": 20,
+  "linkStrength": 1,
+  "linkDistance": 30,
+  "scale": 0.07431471265387243,
+  "close": true
+}

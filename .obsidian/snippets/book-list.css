@@ -1,0 +1,63 @@
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+/* ✅ Chaque livre */
+.book-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 4px 0;
+}
+
+/* ✅ Correction du bug d’affichage Android (vue lecture) */
+.markdown-preview-view .book-item img,
+.markdown-preview-view .book-item .book-cover {
+  display: inline-block !important;
+  width: 60px !important;
+  height: 90px !important;
+  border-radius: 6px !important;
+  object-fit: cover !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* ✅ Effet de survol (fonctionne sur PC) */
+.book-item img:hover {
+  transform: scale(1.06);
+}
+
+/* ✅ Texte */
+.book-info h2 {
+  font-family: "Neo Sans Std", sans-serif;
+  font-size: 16px;
+  color: #0c0c0c;
+  margin: 0;
+}
+
+.book-info p {
+  font-family: "Neo Sans Std", sans-serif;
+  font-size: 14px;
+  color: #444;
+  margin: 2px 0 0 0;
+}
+
+/* ✅ Fix spécifique Android : forcer le moteur WebView à rendre les images */
+.markdown-preview-view img {
+  content-visibility: visible !important;
+  contain: none !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+/* ✅ Empêche le flex de cacher l’image sur mobile */
+.markdown-preview-view .book-list {
+  overflow: visible !important;
+}

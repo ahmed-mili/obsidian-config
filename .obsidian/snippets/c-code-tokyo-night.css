@@ -1,0 +1,107 @@
+/* ================================================= */
+/*  VS CODE TOKYO NIGHT — ALL LANGUAGES               */
+/*  Preview + Editor                                 */
+/* ================================================= */
+
+.theme-dark {
+
+  /* ========================= */
+  /*  CONTENEUR DU BLOC CODE   */
+  /* ========================= */
+
+  .markdown-preview-view pre,
+  .markdown-editor-view pre {
+    background-color: #1a1b26 !important; /* Tokyo Night bg */
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin: 1em 0 !important;
+    box-shadow: none !important;
+    border: 1px solid #24283b !important;
+  }
+
+  /* ========================= */
+  /*  CODE INTERNE             */
+  /* ========================= */
+
+  .markdown-preview-view pre code,
+  .markdown-editor-view pre code {
+    background: transparent !important;
+    color: #c0caf5 !important; /* foreground */
+    font-family: "JetBrains Mono", "Fira Code", monospace !important;
+    font-size: 0.90em !important;
+    line-height: 1.65 !important;
+    display: block;
+    padding: 0 !important;
+    white-space: pre;
+  }
+
+  /* ========================= */
+  /*  TOKYO NIGHT – TOKENS     */
+  /*  (PRISM / HIGHLIGHT.JS)   */
+  /* ========================= */
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #565f89 !important;
+    font-style: italic !important;
+  }
+
+  .token.keyword,
+  .token.control,
+  .token.directive {
+    color: #7aa2f7 !important;
+  }
+
+  .token.operator,
+  .token.operator.assignment {
+    color: #89ddff !important;
+  }
+
+  .token.function,
+  .token.method {
+    color: #7dcfff !important;
+  }
+
+  .token.string,
+  .token.char,
+  .token.regex {
+    color: #9ece6a !important;
+  }
+
+  .token.number,
+  .token.boolean,
+  .token.constant {
+    color: #ff9e64 !important;
+  }
+
+  .token.type,
+  .token.class-name,
+  .token.builtin {
+    color: #2ac3de !important;
+  }
+
+  .token.variable,
+  .token.parameter,
+  .token.property {
+    color: #c0caf5 !important;
+  }
+
+  .token.punctuation {
+    color: #c0caf5 !important;
+  }
+
+  .token.tag {
+    color: #f7768e !important;
+  }
+
+  .token.attr-name {
+    color: #e0af68 !important;
+  }
+
+  .token.attr-value {
+    color: #9ece6a !important;
+  }
+
+}

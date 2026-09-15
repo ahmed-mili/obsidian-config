@@ -1,0 +1,8 @@
+.w80-radius-image img {
+  border-radius: 8px !important;
+  height: 80px !important;
+  width: auto !important;
+  object-fit: cover !important;
+  vertical-align: middle !important;
+  margin-right: 6px !important;
+}

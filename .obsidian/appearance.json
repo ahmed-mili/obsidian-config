@@ -1,0 +1,29 @@
+{
+  "accentColor": "#0049f5",
+  "cssTheme": "AnuPpuccin",
+  "theme": "obsidian",
+  "enabledCssSnippets": [
+    "MCL Multi Column",
+    "book-list",
+    "c-code-tokyo-night",
+    "callout-glow",
+    "dashboard-tiles",
+    "faint-unresolved-links",
+    "guides-callouts",
+    "neo-tags",
+    "quiz-analogy-callout",
+    "quiz-claude-callout",
+    "rapport-cover",
+    "w80-radius-image",
+    "dashboard-module-state",
+    "note-centering"
+  ],
+  "interfaceFontFamily": "Droid Arabic Naskh",
+  "textFontFamily": "Droid Arabic Naskh",
+  "monospaceFontFamily": "Droid Arabic Naskh",
+  "baseFontSize": 18,
+  "baseFontSizeAction": true,
+  "showViewHeader": true,
+  "showRibbon": true,
+  "slidingSidebar": true
+}

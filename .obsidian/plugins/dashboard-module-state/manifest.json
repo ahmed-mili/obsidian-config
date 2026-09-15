@@ -1,0 +1,9 @@
+{
+  "id": "dashboard-module-state",
+  "name": "Dashboard Module State",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Shift-clic sur une tuile de module du Dashboard pour cycler entre : par defaut, en cours, termine.",
+  "author": "Ahmed",
+  "isDesktopOnly": false
+}

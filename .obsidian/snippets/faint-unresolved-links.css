@@ -1,0 +1,26 @@
+/* === faint-unresolved-links.css === */
+/* Liens vers notes non créées = bleu pâle par défaut + bleu vif au survol */
+
+/* Mode lecture */
+.markdown-preview-view .internal-link.is-unresolved {
+  color: #1E56F0 !important;
+  opacity: 0.45 !important; /* 35% d'opacité */
+  text-decoration: none !important;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.markdown-preview-view .internal-link.is-unresolved:hover {
+  opacity: 1 !important; /* bleu vif au survol */
+}
+
+/* Mode édition (Live Preview) */
+.cm-hmd-internal-link.is-unresolved {
+  color: #1E56F0 !important;
+  opacity: 0.35 !important;
+  text-decoration: none !important;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.cm-hmd-internal-link.is-unresolved:hover {
+  opacity: 1 !important;
+}

@@ -1,0 +1,224 @@
+/* Couverture du rapport de stage — fait ressembler STRICTEMENT le bloc couverture
+   (callout [!cover]) à la page de garde du PDF, en Live Preview et en Lecture.
+   Scopé par la cssclass `rapport-cover` + le callout, pour ne fuir sur aucun
+   autre titre/tableau de la note.
+   Disposition reproduite : logos en haut · titre + auteur + programme + école
+   au centre · panneau bleu (6 champs) · date en bas — sur une feuille A4 blanche. */
+
+/* ---- Feuille blanche, proportion page A4, contenu distribué verticalement ---- */
+.rapport-cover .callout[data-callout="cover"] {
+  /* !important : le thème pose un fond sombre translucide sur .callout
+     (rgba(24,24,37,.4)) qui laisse transparaître le wallpaper. On force le blanc
+     plein sur TOUTE la couverture (logos, titre, auteur, panneau, date). */
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cdd8e0;
+  border-radius: 2px;
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.30);
+  color: #1a1a1a;
+  margin: 0.3em auto 1.4em auto;
+  padding: 1.4cm 1.6cm 1cm 1.6cm;
+  max-width: 21cm;
+}
+/* Le contenu interne ne doit pas réintroduire de fond translucide */
+.rapport-cover .callout[data-callout="cover"] > .callout-content {
+  background: transparent !important;
+}
+
+/* Masquer le bandeau de titre natif du callout ([!cover] + icône) */
+.rapport-cover .callout[data-callout="cover"] > .callout-title {
+  display: none !important;
+}
+
+/* Le contenu pilote la mise en page verticale (façon page de garde) */
+.rapport-cover .callout[data-callout="cover"] > .callout-content {
+  padding: 0 !important;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 24cm;            /* hauteur d'une page A4 -> vraie allure de couverture */
+  text-align: center;
+}
+.rapport-cover .callout[data-callout="cover"] > .callout-content::before {
+  display: none !important;
+}
+/* Largeur pleine pour les blocs internes (sinon centrés trop étroits) */
+.rapport-cover .callout[data-callout="cover"] > .callout-content > * {
+  width: 100%;
+}
+
+/* ---- Logos en haut, espacés, filet sous eux (comme le PDF) ---- */
+.rapport-cover .callout[data-callout="cover"] p:has(img) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 0.5cm;
+  margin: 0 0 0.2cm 0;
+  border-bottom: 0.75pt solid #ccc;
+}
+.rapport-cover .callout[data-callout="cover"] img {
+  height: 1.7cm;
+  width: auto;
+}
+
+/* ---- Titre « RAPPORT DE STAGE » : poussé au centre vertical de la page ---- */
+.rapport-cover .callout[data-callout="cover"] h2 {
+  margin-top: auto;            /* + le margin-top:auto de la date => groupe centré */
+  text-align: center;
+  color: #16314a;
+  font-size: 30pt;
+  font-weight: 800;
+  letter-spacing: 5pt;
+  text-transform: uppercase;
+  border: none;
+  margin-bottom: 0;
+  padding: 0;
+  line-height: 1.1;
+}
+/* Filet bleu sous le titre */
+.rapport-cover .callout[data-callout="cover"] h2::after {
+  content: "";
+  display: block;
+  width: 5cm;
+  height: 0;
+  border-bottom: 2.5pt solid #1f6391;
+  margin: 0.45cm auto 1.4cm auto;
+}
+
+/* ---- Auteur (ligne en gras) : grand, centré ---- */
+.rapport-cover .callout[data-callout="cover"] p:has(strong) {
+  margin: 0 0 0.1cm 0;
+  font-size: 0;                /* neutralise le texte hors <strong> éventuel */
+}
+.rapport-cover .callout[data-callout="cover"] p:has(strong) strong {
+  font-size: 17pt;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* ---- Programme + École (paragraphe juste après l'auteur) : centré, discret ---- */
+.rapport-cover .callout[data-callout="cover"] p:has(strong) + p {
+  margin: 0 0 0.9cm 0;
+  font-size: 11.5pt;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* ---- Panneau bleu : 6 champs, ÉTROIT (épouse le contenu) et centré, sans
+   aucune ligne de grille — exactement le panneau du PDF, pas un tableau étiré.
+   Le thème force `width:100%` et des bordures de cellule : on bat ça en !important. */
+.rapport-cover .callout[data-callout="cover"] table {
+  border-collapse: collapse !important;
+  margin: 0.1cm auto 0 auto !important;
+  width: auto !important;            /* hug content -> panneau étroit comme le PDF */
+  max-width: 100%;
+  display: table !important;          /* annule un éventuel display:block du thème */
+  background: #eef4f9 !important;
+  border: 0.75pt solid #cdd8e0 !important;
+  border-left: 3pt solid #1f6391 !important;
+  box-shadow: none !important;
+  text-align: left;
+}
+/* Aucune ligne interne : ni rangées, ni cellules, ni en-tête */
+.rapport-cover .callout[data-callout="cover"] thead {
+  display: none !important;          /* cacher l'en-tête « Champ | Valeur » */
+}
+.rapport-cover .callout[data-callout="cover"] tr,
+.rapport-cover .callout[data-callout="cover"] th,
+.rapport-cover .callout[data-callout="cover"] td {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.rapport-cover .callout[data-callout="cover"] td {
+  padding: 0.14cm 0.55cm !important;
+  font-size: 11pt;
+  vertical-align: top;
+}
+.rapport-cover .callout[data-callout="cover"] td:first-child {
+  color: #1f6391;
+  font-weight: 700;
+  white-space: nowrap;
+  padding-right: 0.7cm !important;
+}
+.rapport-cover .callout[data-callout="cover"] td:last-child {
+  color: #1a1a1a;
+}
+
+/* ---- Date : poussée en bas de la page, centrée ----
+   Ciblée comme DERNIER paragraphe du callout, et non « celui qui suit le
+   tableau » : le panneau de champs est optionnel (une couverture peut n'avoir
+   que titre + auteur + date), et sans lui la date restait collée au groupe
+   central au lieu de descendre. */
+.rapport-cover .callout[data-callout="cover"] > .callout-content > p:last-child {
+  margin-top: auto;           /* pousse la date au bas de la feuille */
+  margin-bottom: 0;
+  padding-top: 1cm;
+  font-size: 12pt;
+  color: #333;
+}
+
+/* ============================================================================
+   SOMMAIRE — callout [!sommaire] : LISTE ÉDITABLE dans la note (ce que tu écris
+   = ce qui apparaît dans le PDF). Feuille blanche lisible, sans puces, entrées
+   principales en gras, sous-entrées indentées. Rendu identique édition/lecture. */
+.rapport-cover .callout[data-callout="sommaire"] {
+  /* Feuille blanche comme la couverture : sinon le texte sombre serait illisible
+     sur le fond sombre du thème. Look « page » du PDF. */
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cdd8e0;
+  border-radius: 2px;
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.30);
+  margin: 0.3cm auto 0.4cm auto;
+  padding: 1cm 1.6cm;
+  max-width: 21cm;
+  color: #1a1a1a;
+}
+/* Masquer le bandeau de titre natif du callout */
+.rapport-cover .callout[data-callout="sommaire"] > .callout-title {
+  display: none !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] > .callout-content {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] > .callout-content::before {
+  display: none !important;
+}
+/* Entrées : pas de puces, interligne aéré façon sommaire */
+.rapport-cover .callout[data-callout="sommaire"] ul {
+  list-style: none !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] li {
+  list-style: none !important;
+  margin: 0.16cm 0 !important;
+  padding-left: 0 !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] li::marker {
+  content: none !important;
+}
+/* Entrées de 1er niveau (parties) : bleu foncé, gras */
+.rapport-cover .callout[data-callout="sommaire"] > .callout-content > ul > li {
+  color: #16314a;
+  font-size: 12pt;
+}
+.rapport-cover .callout[data-callout="sommaire"] li strong {
+  color: #16314a;
+  font-weight: 700;
+}
+/* Sous-entrées (2.x) : indentées, plus petites, grises */
+.rapport-cover .callout[data-callout="sommaire"] li ul {
+  padding-left: 1cm !important;
+  margin: 0.06cm 0 !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] li ul li {
+  color: #2a2a2a;
+  font-size: 11pt;
+  font-weight: normal;
+}
