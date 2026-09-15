@@ -48,3 +48,18 @@
 # Install the theme and fonts from their original distributions.
 /.obsidian/themes/
 /.obsidian/snippets/*.woff2
+
+# Specific to the Efrei vault: this repo only tracks the generic Obsidian setup.
+/.obsidian/plugins/moodle-sync/
+/.obsidian/plugins/execute-code-efrei/
+/.obsidian/plugins/quiz-blocks/
+/.obsidian/plugins/pdf-academique-preview/
+/.obsidian/plugins/homepage/data.json
+/.obsidian/snippets/efrei-icons/
+/.obsidian/snippets/quiz-analogy-callout.css
+/.obsidian/snippets/quiz-claude-callout.css
+/.obsidian/snippets/rapport-cover.css
+/.obsidian/snippets/c-code-tokyo-night.css
+/.obsidian/workspaces.json
+/.obsidian/templates.json
+/.obsidian/daily-notes.json

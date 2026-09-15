@@ -1,9 +1,0 @@
-{
-	"id": "moodle-sync",
-	"name": "Moodle Sync",
-	"version": "1.0.0",
-	"minAppVersion": "1.7.2",
-	"description": "Télécharge tous les fichiers d'une page de cours Moodle Efrei et les range dans le dossier du module. Plugin local du vault Efrei, jamais publié.",
-	"author": "Ahmed",
-	"isDesktopOnly": true
-}
