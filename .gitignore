@@ -7,6 +7,7 @@
 !/install.ps1
 !/plugins.json
 !/README.md
+!/.stignore-commun
 
 # État local, propre à une machine ou à une session : rien à partager.
 /.obsidian/workspace.json

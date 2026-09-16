@@ -1,0 +1,98 @@
+// ---------------------------------------------------------------
+// REGLES COMMUNES A TOUS LES APPAREILS DU PARTAGE « Efrei B2 »
+//
+// Ce fichier-ci EST synchronise, contrairement a .stignore. Chaque
+// appareil pose un .stignore d'une ligne :
+//
+//     #include .stignore-commun
+//
+// et recoit ensuite automatiquement toute mise a jour des regles.
+// C'est ce qui evite qu'un appareil mal configure envoie aux autres
+// ce que les regles excluent -- le desktop annoncait ainsi 1545
+// fichiers la ou le laptop n'en partageait que 230.
+// ---------------------------------------------------------------
+
+// === PERSONNEL : ne doit pas circuler vers un camarade ==========
+
+// Pieces nominatives : certificats de scolarite, attestation CVEC,
+// sujet de rattrapage. Rien de tout cela ne concerne un camarade.
+Bachelor Cybersécurité & Ethical Hacking/Documents
+
+// Archive de l'annee passee : hors sujet pour le partage B2, et le
+// dossier est de toute facon archive dans C:\Efrei-B1-Archive.
+Bachelor Cybersécurité & Ethical Hacking/B1 (2025-2026)
+
+// Instructions et memoire de Claude Code : specifiques a la machine
+// d'Ahmed, sans utilite ailleurs.
+CLAUDE.md
+AGENTS.md
+.claude
+
+// === REDONDANT OU LOURD =========================================
+
+// Archive zip du dossier B2 : 58 Mo qui doublent un contenu deja
+// synchronise fichier par fichier.
+Bachelor Cybersécurité & Ethical Hacking/B2 (2026-2027).zip
+
+// Outillage local : node_modules de moodle-dl, scripts machine.
+.tools
+
+// Environnements et caches Python des TP : des milliers de fichiers
+// reconstruits par une seule commande chez qui en a besoin.
+(?d).venv
+(?d)venv
+(?d)__pycache__
+(?d)*.pyc
+(?d).pytest_cache
+(?d).mypy_cache
+(?d).ruff_cache
+
+// Config d'IDE : chemins absolus propres a chaque poste.
+(?d).idea
+(?d).vscode
+
+// Depot git et CI : le repo GitHub fait foi, pas la copie synchronisee.
+.git
+.github
+
+// === CONFIGURATION OBSIDIAN =====================================
+// TOUT .obsidian est partage, workspace et appearance compris : le
+// camarade doit retrouver exactement la meme configuration, meme
+// disposition d'onglets et memes snippets actifs.
+//
+// Contrepartie assumee (demande explicite du 2026-09-16) : ces deux
+// fichiers sont reecrits a chaque clic et a chaque fermeture, ils
+// produiront des .sync-conflict quand deux personnes ont Obsidian
+// ouvert en meme temps -- c'etait la source de 6 des 13 conflits
+// releves le 2026-08-26. Si cela devient penible, reexclure
+// .obsidian/workspace.json et .obsidian/appearance.json.
+
+// Donnees personnelles de plugins : journal d'usage de l'IA cote
+// quiz-blocks, identifiants Moodle cote moodle-sync. Relay a ete
+// desinstalle le 2026-09-16 mais son data.json (GUID du relay,
+// activite des membres) revient des autres appareils : on le coupe.
+.obsidian/plugins/quiz-blocks/data.json
+.obsidian/plugins/moodle-sync/data.json
+(?d).obsidian/plugins/system3-relay
+.obsidian/quiz-blocks-results
+
+// Bacs a sable d'outils locaux.
+.neo-quiz
+.playwright-mcp
+
+// === DIVERS =====================================================
+// Le prefixe (?d) autorise Syncthing a supprimer ces fichiers quand il
+// doit supprimer le dossier qui les contient. Sans lui, un simple
+// fichier de conflit ignore bloque la suppression et laisse une erreur
+// permanente (vecu le 2026-09-16 sur deux dossiers de plugins).
+
+.trash
+.stversions
+(?d)*.sync-conflict-*
+(?d)*.bak
+(?d)*.tmp
+~$*
+(?d).DS_Store
+(?d)Thumbs.db
+(?d)desktop.ini
+_to_delete
