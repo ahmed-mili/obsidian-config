@@ -62,12 +62,16 @@ Bachelor Cybersécurité & Ethical Hacking/B2 (2026-2027).zip
 // regle .stignore coupe les deux sens, donc ce qui est gele ne peut
 // plus etre ni ecrase ni supprime par l'autre poste.
 
-// Plugins : le camarade n'a pas le meme jeu de plugins. Sans ce gel,
-// ses suppressions remonteraient ici -- c'est ce qui a ampute
-// pomodoro-timer le 2026-09-16, restaure depuis git. Ils sont deja
-// chez lui ; pour lui en transmettre un nouveau, retirer cette ligne
-// le temps de la synchro, puis la remettre.
-.obsidian/plugins
+// Les plugins SONT synchronises : installer un plugin le transmet au
+// camarade. Ils avaient ete geles le 2026-09-16 par crainte que ses
+// suppressions ne remontent ici -- c'est ce qui avait ampute
+// pomodoro-timer. Ce risque est desormais couvert autrement : l'option
+// ignoreDelete du dossier fait qu'AUCUNE suppression distante n'est
+// appliquee, et le versioning trashcan garde 30 jours tout fichier
+// ecrase. Le gel n'avait donc plus d'utilite, il empechait juste de
+// partager un nouveau plugin.
+// Seuls les data.json porteurs de donnees personnelles restent exclus
+// (voir plus bas).
 
 // Disposition des onglets et reglages d'affichage : reecrits a chaque
 // clic et a chaque fermeture. Partages en continu, ils produisent un
