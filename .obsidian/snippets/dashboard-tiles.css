@@ -1,67 +1,13 @@
-/* ============================================================
-   dashboard-tiles.css — Dashboard "Launchpad" (vault Personal)
-   Banniere + barre d'acces rapide ([!quick]) + grille de portails
-   ([!portals]) + bloc Foi ([!foi]).
-   Icone Lucide + texte sur CHAQUE bouton, avec FALLBACK d'icone
-   garanti (jamais de tuile nue). Scope : cssclasses "dashboard".
-   ============================================================ */
 
-/* ===== POLICES (bundle, sans installation systeme) =====
-   Latin : Neo Sans Std (installee).
-   Arabe : Amiri (police classique arabe open-source, tres lisible,
-           OFL), woff2 400/700 bundles dans ce dossier de snippets. */
-@font-face {
-  font-family: 'Amiri';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('amiri-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Amiri';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('amiri-700.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Noto Naskh Arabic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('noto-naskh-arabic-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Noto Naskh Arabic';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('noto-naskh-arabic-700.woff2') format('woff2');
-}
 
 /* Police des boutons : latin -> Neo Sans Std ; les glyphes arabes,
    absents de Neo Sans, retombent sur Noto Naskh Arabic (puis Amiri). */
-.dashboard .callout[data-callout="quick"] li a,
-.dashboard .callout[data-callout="portals"] li a,
-.dashboard .callout[data-callout="foi"] li a {
-  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+.dashboard .callout[data-callout="quick"] li a,.dashboard .callout[data-callout="portals"] li a {
+  font-family: 'Neo Sans Std',  'Arabic Typesetting', var(--font-interface), sans-serif;
 }
 
-/* Tuiles arabes (islam + العربية) : pas d'espacement de lettres,
-   sinon les liaisons cursives de l'arabe se brisent.
-   Amiri est plus lisible et plus grand que Noto Naskh Arabic ;
-   on garde une legere compensation par callout pour l'equilibre. */
-.dashboard .callout[data-callout="islam"] li a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"] {
-  font-size: 1.35em;
-  letter-spacing: 0;
-}
 .dashboard .callout[data-callout="portals"] li a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"] {
   font-size: 1.05em;
-  letter-spacing: 0;
-}
-.dashboard .callout[data-callout="foi"] li a[href*="%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85"] {
-  font-size: 1.25em;
   letter-spacing: 0;
 }
 
@@ -98,137 +44,21 @@
 }
 
 /* ===== ERADICATION DES PUCES ===== */
-.dashboard .callout[data-callout="quick"] ul,
-.dashboard .callout[data-callout="quick"] li,
-.dashboard .callout[data-callout="portals"] ul,
-.dashboard .callout[data-callout="portals"] li,
-.dashboard .callout[data-callout="foi"] ul,
-.dashboard .callout[data-callout="foi"] li {
+.dashboard .callout[data-callout="quick"] ul,.dashboard .callout[data-callout="quick"] li,.dashboard .callout[data-callout="portals"] ul,.dashboard .callout[data-callout="portals"] li {
   list-style: none !important;
   margin: 0 !important;
   padding: 0 !important;
   padding-inline-start: 0 !important;
   margin-inline-start: 0 !important;
 }
-.dashboard .callout[data-callout="quick"] li::marker,
-.dashboard .callout[data-callout="quick"] li::before,
-.dashboard .callout[data-callout="portals"] li::marker,
-.dashboard .callout[data-callout="portals"] li::before,
-.dashboard .callout[data-callout="foi"] li::marker,
-.dashboard .callout[data-callout="foi"] li::before,
-.dashboard .callout[data-callout="quick"] .list-bullet,
-.dashboard .callout[data-callout="portals"] .list-bullet,
-.dashboard .callout[data-callout="foi"] .list-bullet {
+.dashboard .callout[data-callout="quick"] li::marker,.dashboard .callout[data-callout="quick"] li::before,.dashboard .callout[data-callout="portals"] li::marker,.dashboard .callout[data-callout="portals"] li::before,.dashboard .callout[data-callout="quick"] .list-bullet,.dashboard .callout[data-callout="portals"] .list-bullet {
   display: none !important;
   content: none !important;
 }
-
-/* ===== ISLAM : 1 tuile large islamique (style Foi) =====
-   Sur le même gabarit qu'une tuile Foi (76px de haut, fond islamique
-   vert, halo, icône moon-star Lucide à gauche, texte arabe centré)
-   pour donner au bloc islamique la même présence visuelle que foi. */
-.dashboard .callout[data-callout="islam"] {
-  --callout-color: 100, 116, 139;
-  background: transparent;
-  border: none !important;
-  border-top: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-  padding: 0;
-  margin: 16px auto;
-  max-width: 920px;
-  overflow: visible;
-}
-.dashboard .callout[data-callout="islam"] > .callout-title { display: none !important; }
-.dashboard .callout[data-callout="islam"] > .callout-content {
-  padding: 0;
-  min-width: 0;
-  overflow: visible !important;
-  border: none !important;
-  border-top: none !important;
-}
-/* Pas de ligne hr / bordure au-dessus du bloc islam */
-.dashboard .callout[data-callout="islam"]::before,
-.dashboard .callout[data-callout="islam"] > .callout-content::before {
-  display: none !important;
-  border: none !important;
-}
-/* Neutralisation des puces / markers de liste dans le callout islam
-   (sinon le petit carré/point de l'item de liste reste visible
-   en haut à droite de la tuile). */
-.dashboard .callout[data-callout="islam"] ul,
-.dashboard .callout[data-callout="islam"] li {
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  padding-inline-start: 0 !important;
-  margin-inline-start: 0 !important;
-}
-.dashboard .callout[data-callout="islam"] li::marker,
-.dashboard .callout[data-callout="islam"] li::before,
-.dashboard .callout[data-callout="islam"] .list-bullet {
-  display: none !important;
-  content: none !important;
-}
-/* Tuile islamique : on reprend le gabarit foi (height 76, gap, etc.)
-   en fixant --tc/--ic islamiques (vert moon-star) pour l'icône. */
-.dashboard .callout[data-callout="islam"] ul {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  overflow: visible;
-}
-.dashboard .callout[data-callout="islam"] li {
-  flex: 0 1 920px;
-  max-width: 920px;
-  min-width: 0;
-}
-.dashboard .callout[data-callout="islam"] li a {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  height: 76px;
-  border-radius: 16px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 1em;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: rgb(var(--tc, 22, 163, 74));
-  background: rgba(var(--tc, 22, 163, 74), 0.13);
-  border: 1px solid rgba(var(--tc, 22, 163, 74), 0.42);
-  box-shadow: 0 0 10px rgba(var(--tc, 22, 163, 74), 0.18);
-  transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.25s ease;
-  /* Pas d'espacement de lettres en arabe -> les liaisons cursives ne
-     se brisent pas. */
-  letter-spacing: 0;
-  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
-}
-.dashboard .callout[data-callout="islam"] li a:hover {
-  transform: translateY(-3px);
-  background: rgba(var(--tc, 22, 163, 74), 0.24);
-  box-shadow: 0 0 22px rgba(var(--tc, 22, 163, 74), 0.45);
-}
-/* Icône moon-star Lucide (réutilise --ic), couleur verte islamique,
-   taille foi (26px) pour matcher les autres tuiles foi. */
-.dashboard .callout[data-callout="islam"] li a::before {
-  content: "";
-  width: 26px; height: 26px; flex: none;
-  background-color: rgb(var(--tc, 22, 163, 74));
-  -webkit-mask: url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-moon-star%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M18%205h4%22%20%2F%3E%20%3Cpath%20d%3D%22M20%203v4%22%20%2F%3E%20%3Cpath%20d%3D%22M20.985%2012.486a9%209%200%201%201-9.473-9.472c.405-.022.617.46.402.803a6%206%200%200%200%208.268%208.268c.344-.215.825-.004.803.401%22%20%2F%3E%20%3C%2Fsvg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3C%21--%20%40license%20lucide-static%20v1.17.0%20-%20ISC%20--%3E%20%3Csvg%20class%3D%22lucide%20lucide-moon-star%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M18%205h4%22%20%2F%3E%20%3Cpath%20d%3D%22M20%203v4%22%20%2F%3E%20%3Cpath%20d%3D%22M20.985%2012.486a9%209%200%201%201-9.473-9.472c.405-.022.617.46.402.803a6%206%200%200%200%208.268%208.268c.344-.215.825-.004.803.401%22%20%2F%3E%20%3C%2Fsvg%3E") center / contain no-repeat;
-}
-.dashboard .callout[data-callout="islam"] a.external-link::after,
-.dashboard .callout[data-callout="islam"] a[href^="obsidian://"]::after { display: none !important; }
 
 /* ===== PANNEAUX quick / portals ===== */
 .dashboard .callout[data-callout="quick"] {
-  --callout-color: 100, 116, 139;
+  --callout-color: rgb(100, 116, 139);
   background: rgba(30, 41, 59, 0.92);
   border: 1px solid rgba(100, 116, 139, 0.25);
   border-radius: 18px;
@@ -241,7 +71,7 @@
 
 /* Portals — panneau style Nathan (fond uniforme, ombre portee) */
 .dashboard .callout[data-callout="portals"] {
-  --callout-color: 100, 116, 139;
+  --callout-color: rgb(100, 116, 139);
   background: rgba(30, 41, 59, 0.92);
   border: 1px solid rgba(100, 116, 139, 0.25);
   border-radius: 18px;
@@ -258,7 +88,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+  font-family: 'Neo Sans Std',  'Arabic Typesetting', var(--font-interface), sans-serif;
   font-size: 0.92em;
   font-weight: 800;
   text-transform: none;
@@ -293,7 +123,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  font-family: 'Neo Sans Std', 'Noto Naskh Arabic', 'Amiri', 'Arabic Typesetting', var(--font-interface), sans-serif;
+  font-family: 'Neo Sans Std',  'Arabic Typesetting', var(--font-interface), sans-serif;
   font-size: 0.92em;
   font-weight: 800;
   text-transform: none;
@@ -410,71 +240,6 @@
   box-shadow: 0 0 22px rgba(var(--tc, 100, 116, 139), 0.42);
 }
 
-/* ===== FOI : 2 tuiles larges ===== */
-.dashboard .callout[data-callout="foi"] {
-  --callout-color: 100, 116, 139;
-  background: transparent;
-  border: none !important;
-  border-top: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-  padding: 12px 0 24px;
-  margin: 4px auto;
-  max-width: 920px;
-  overflow: visible;
-}
-.dashboard .callout[data-callout="foi"] > .callout-title { display: none !important; }
-.dashboard .callout[data-callout="foi"] > .callout-content {
-  padding: 0;
-  min-width: 0;
-  overflow: visible !important;
-  border: none !important;
-  border-top: none !important;
-}
-.dashboard .callout[data-callout="foi"] ul {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  overflow: visible;
-}
-.dashboard .callout[data-callout="foi"] li {
-  flex: 0 1 454px;
-  min-width: 0;
-}
-.dashboard .callout[data-callout="foi"] li a {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  height: 76px;
-  border-radius: 16px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 1em;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: rgb(var(--tc, 100, 116, 139));
-  background: rgba(var(--tc, 100, 116, 139), 0.13);
-  border: 1px solid rgba(var(--tc, 100, 116, 139), 0.42);
-  box-shadow: 0 0 10px rgba(var(--tc, 100, 116, 139), 0.18);
-  transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.25s ease;
-}
-/* Supprimer toute ligne hr / bordure au-dessus du bloc foi */
-.dashboard .callout[data-callout="foi"]::before,
-.dashboard .callout[data-callout="foi"] > .callout-content::before {
-  display: none !important;
-  border: none !important;
-}
-.dashboard .callout[data-callout="foi"] li a:hover {
-  transform: translateY(-3px);
-  background: rgba(var(--tc, 100, 116, 139), 0.24);
-  box-shadow: 0 0 22px rgba(var(--tc, 100, 116, 139), 0.45);
-}
-
 /* ===== ICONE SUR CHAQUE BOUTON + FALLBACK GARANTI =====
    Tout lien sans mapping --ic recoit l'icone "circle-dot" par defaut
    -> jamais de tuile sans icone, quoi qu'on ajoute plus tard. */
@@ -488,13 +253,6 @@
 .dashboard .callout[data-callout="portals"] li a::before {
   content: "";
   width: 34px; height: 34px;
-  background-color: rgb(var(--tc, 100, 116, 139));
-  -webkit-mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
-  mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
-}
-.dashboard .callout[data-callout="foi"] li a::before {
-  content: "";
-  width: 26px; height: 26px; flex: none;
   background-color: rgb(var(--tc, 100, 116, 139));
   -webkit-mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
   mask: var(--ic, url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='12'%20cy='12'%20r='10'/%3E%3Ccircle%20cx='12'%20cy='12'%20r='1'/%3E%3C/svg%3E")) center / contain no-repeat;
@@ -715,7 +473,6 @@ url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-git-fork%22%20xmlns%
 
 .dashboard a[data-href*="FITOEIC-S2"]{--tc:var(--efrei-uhc);--ic:var(--efrei-icon-headphones)}
 
-
 /* ============================================================
    Quiz d'entrainement XTI202 (CC1 / CC2 / CC Bonus 15 min)
    Tuiles ajoutees pour le hub 'XTI202 - Cybersecurite 1'.
@@ -733,7 +490,6 @@ url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-git-fork%22%20xmlns%
 :root{--efrei-icon-triangle-alert:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m21.73%2018-8-14a2%202%200%200%200-3.48%200l-8%2014A2%202%200%200%200%204%2021h16a2%202%200%200%200%201.73-3%22%2F%3E%3Cpath%20d%3D%22M12%209v4%22%2F%3E%3Cpath%20d%3D%22M12%2017h.01%22%2F%3E%3C%2Fsvg%3E")}
 .dashboard a[data-href="Révision rattrapage - Mes erreurs CC1"]{--tc:239,68,68;--ic:var(--efrei-icon-triangle-alert)}
 
-
 /* ============================================================
    Quiz de revision par CM (XTI202) - hub Cybersecurite 1
    Icones Lucide + couleur dediee par CM. Reutilise network/globe
@@ -749,7 +505,6 @@ url("data:image/svg+xml,%3Csvg%20class%3D%22lucide%20lucide-git-fork%22%20xmlns%
 .dashboard a[data-href="Révision - CM2.2 Authentification"]{--tc:244,63,94;--ic:var(--efrei-icon-fingerprint)}
 .dashboard a[data-href="Révision - CM3 Réseaux et Systèmes"]{--tc:14,165,233;--ic:var(--efrei-icon-network)}
 .dashboard a[data-href="Révision - CM4 Securite web"]{--tc:249,115,22;--ic:var(--efrei-icon-globe)}
-
 
 /* ============================================================
    EFREI B2 (2026-2027) - couleurs par bloc + icones Lucide

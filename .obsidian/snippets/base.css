@@ -1,0 +1,219 @@
+/* ============================================================
+   base.css - reglages generiques du vault (fusion 2026-09-16).
+   Regroupe : callout-glow, faint-unresolved-links, neo-tags,
+   note-centering. Un seul fichier = moins de snippets a activer et
+   a maintenir. Les styles propres a Efrei vivent dans efrei.css,
+   les tuiles du Dashboard dans dashboard-tiles.css.
+   ============================================================ */
+
+/* ============================================================
+   callout-glow
+   ============================================================ */
+/* ============================================================
+   callout-glow.css — Callouts façon « rendu PDF » (skill obsidian:pdf)
+   Bordure teintée fine + filet gauche plein + fond légèrement teinté,
+   titre en gras, halo discret au survol. La couleur suit le type de
+   callout via la variable native --callout-color.
+
+   NOTE : depuis Obsidian 1.7+, --callout-color est une COULEUR complète
+   (`rgb(101, 143, 242)`), plus un triplet « R, G, B ». Toute écriture
+   `rgba(var(--callout-color), a)` est donc invalide et la déclaration
+   entière est ignorée en silence : utiliser color-mix() exclusivement.
+
+   Les callouts-tuiles des autres snippets (dashboard, guides, MCL…) sont
+   exclus via :where() pour ne pas changer la spécificité du sélecteur.
+   ============================================================ */
+
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) {
+  --co-c: var(--callout-color);
+  border: 1px solid color-mix(in srgb, var(--co-c) 45%, transparent);
+  border-left: 4px solid var(--co-c);
+  border-radius: 8px;
+  /* fond sombre translucide du thème, teinté de la couleur du callout */
+  /* !important : AnuPpuccin pose son fond via `.anp-callout-sleek .callout:not(...)` (0,3,0) */
+  background-color: color-mix(in srgb, var(--co-c) 14%, color-mix(in srgb, var(--background-secondary) 55%, transparent)) !important;
+  /* pas de transition sur border-color : les callouts sont re-crees par l'editeur et la
+     transition repart de currentColor a chaque fois (couleur fausse a l'ecran) */
+  transition: box-shadow 0.25s ease;
+}
+
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)):hover {
+  border-color: color-mix(in srgb, var(--co-c) 70%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--co-c) 22%, transparent);
+}
+
+/* titre : gras et coloré, comme dans le PDF */
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) > .callout-title {
+  padding: 10px 14px 4px;
+}
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) > .callout-title .callout-title-inner {
+  font-weight: 700 !important; /* le theme force 500 avec un selecteur 0,5,0 */
+}
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) > .callout-content {
+  padding: 2px 14px 12px;
+}
+
+/* replié : reste une barre fine, même bordure, pas de halo */
+.callout.is-collapsed:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) > .callout-title {
+  padding: 10px 14px;
+}
+
+/* ============================================================
+   faint-unresolved-links
+   ============================================================ */
+/* === faint-unresolved-links.css === */
+/* Liens vers notes non créées = bleu pâle par défaut + bleu vif au survol */
+
+/* Mode lecture */
+.markdown-preview-view .internal-link.is-unresolved {
+  color: #1E56F0 !important;
+  opacity: 0.45 !important; /* 35% d'opacité */
+  text-decoration: none !important;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.markdown-preview-view .internal-link.is-unresolved:hover {
+  opacity: 1 !important; /* bleu vif au survol */
+}
+
+/* Mode édition (Live Preview) */
+.cm-hmd-internal-link.is-unresolved {
+  color: #1E56F0 !important;
+  opacity: 0.35 !important;
+  text-decoration: none !important;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.cm-hmd-internal-link.is-unresolved:hover {
+  opacity: 1 !important;
+}
+
+/* ============================================================
+   neo-tags
+   ============================================================ */
+/* ===========================================================
+   neo-tags.css — FIX FINAL (HTML SAFE)
+   =========================================================== */
+
+/* =============================== */
+/*  TAGS OBSIDIAN UNIQUEMENT       */
+/* =============================== */
+
+/* Tags dans le texte markdown seulement */
+.markdown-preview-view a.tag,
+.markdown-reading-view a.tag,
+.markdown-source-view a.tag {
+  font-family: "Neo Sans Std", sans-serif !important;
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.2px;
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin: 3px 5px;
+  text-decoration: none !important;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* =============================== */
+/*  HOVER / ACTIVE                 */
+/* =============================== */
+
+.markdown-preview-view a.tag:hover,
+.markdown-reading-view a.tag:hover,
+.markdown-source-view a.tag:hover {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 0 6px currentColor;
+}
+
+.markdown-preview-view a.tag:active,
+.markdown-reading-view a.tag:active,
+.markdown-source-view a.tag:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) inset;
+}
+
+/* =============================== */
+/*  PANNEAU LATERAL                */
+/* =============================== */
+
+.nav-tag,
+.tag-pane-tag {
+  font-family: "Neo Sans Std", sans-serif !important;
+}
+
+/* =============================== */
+/*  BLOCAGE TOTAL DU CODE          */
+/* =============================== */
+
+/* Interdit toute influence dans le code */
+.markdown-preview-view pre *,
+.markdown-preview-view code * {
+  font-family: inherit;
+  font-weight: inherit;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Neutralisation explicite Prism */
+.token.tag {
+  all: revert !important;
+}
+
+/* ============================================================
+   note-centering
+   ============================================================ */
+/* ============================================================
+   note-centering.css — Colonne de lecture centree, pour toutes
+   les notes du vault (lecture ET edition CodeMirror 6).
+   Remplace le centrage qui vivait dans python-lab.css, desormais
+   general au lieu d'etre reserve aux notes Python.
+   Le Dashboard est exclu : dashboard-tiles.css lui impose sa
+   propre largeur (960px) et gagnerait de toute facon en
+   specificite, l'exclusion evite juste une regle morte.
+   ============================================================ */
+
+.markdown-preview-view:not(.dashboard) .markdown-preview-sizer,
+.markdown-source-view.mod-cm6:not(.dashboard) .cm-sizer {
+  width: calc(100% - 2rem) !important;
+  max-width: 980px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Sur petite fenetre, marge reduite plutot que colonne etranglee. */
+@media (max-width: 700px) {
+  .markdown-preview-view:not(.dashboard) .markdown-preview-sizer,
+  .markdown-source-view.mod-cm6:not(.dashboard) .cm-sizer {
+    width: calc(100% - 1rem) !important;
+  }
+}
