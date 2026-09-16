@@ -66,8 +66,39 @@ code.language-output hr {
 	resize: vertical;
 }
 
+/* Champ de saisie stdin : il prolonge la ligne de prompt du programme
+   (« Saisir un entier a : ▌ »), donc il doit se lire comme la suite du texte
+   et non comme un widget de formulaire pose par-dessus. D'ou le fond
+   transparent, l'absence de cadre au repos, et la police heritee du bloc. */
 input.interactive-stdin {
 	font: inherit;
+	color: var(--text-normal);
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid var(--background-modifier-border);
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	padding: 0 2px;
+	margin: 0;
+	min-width: 6ch;
+	width: 12ch;
+	caret-color: var(--interactive-accent);
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+/* Le champ recoit le focus automatiquement des qu'il apparait : l'etat actif
+   est donc l'etat NORMAL, il doit rester discret tout en montrant ou taper. */
+input.interactive-stdin:focus {
+	border-bottom-color: var(--interactive-accent);
+	background: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
+}
+
+/* Obsidian colore le fond des input au survol : neutralise, sinon le champ
+   clignote en gris des que la souris passe sur la sortie du programme. */
+input.interactive-stdin:hover {
+	background: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
+	border-bottom-color: var(--interactive-accent);
 }
 
 .manage-executors-view h3 {

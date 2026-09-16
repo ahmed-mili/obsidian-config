@@ -56,6 +56,28 @@ Bachelor Cybersécurité & Ethical Hacking/B2 (2026-2027).zip
 .github
 
 // === CONFIGURATION OBSIDIAN =====================================
+// Tout .obsidian a ete transmis une premiere fois au camarade (config,
+// plugins, snippets, workspace). Les trois entrees ci-dessous sont
+// desormais GELEES pour rendre le mode « Send & Receive » sur : une
+// regle .stignore coupe les deux sens, donc ce qui est gele ne peut
+// plus etre ni ecrase ni supprime par l'autre poste.
+
+// Plugins : le camarade n'a pas le meme jeu de plugins. Sans ce gel,
+// ses suppressions remonteraient ici -- c'est ce qui a ampute
+// pomodoro-timer le 2026-09-16, restaure depuis git. Ils sont deja
+// chez lui ; pour lui en transmettre un nouveau, retirer cette ligne
+// le temps de la synchro, puis la remettre.
+.obsidian/plugins
+
+// Disposition des onglets et reglages d'affichage : reecrits a chaque
+// clic et a chaque fermeture. Partages en continu, ils produisent un
+// .sync-conflict des que deux personnes ont Obsidian ouvert en meme
+// temps -- 6 des 13 conflits releves le 2026-08-26 venaient de la.
+// Le camarade les a recus une fois, cela suffit.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/appearance.json
+
 // TOUT .obsidian est partage, workspace et appearance compris : le
 // camarade doit retrouver exactement la meme configuration, meme
 // disposition d'onglets et memes snippets actifs.

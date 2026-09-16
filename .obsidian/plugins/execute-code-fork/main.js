@@ -13460,9 +13460,32 @@ var Outputter = class extends import_events2.EventEmitter {
       if (e.key == "Enter") {
         this.processInput(this.inputElement.value + "\n");
         this.inputElement.value = "";
+        // Le prompt suivant arrive dans la foulee, sans nouvelle apparition
+        // du champ : on garde le curseur dedans.
+        this.focusStdin();
       }
     });
     this.outputElement.appendChild(this.inputElement);
+    this.focusStdin();
+  }
+  // Donne le curseur au champ de saisie. Le focus doit etre tente plusieurs
+  // fois : le champ n'est affiche qu'apres un delai, et un bloc rendu dans une
+  // vue masquee (mode lecture et mode source coexistent) ne peut pas le
+  // recevoir. On reessaie brievement, et on abandonne sans bruit si le champ
+  // n'est pas affichable -- inutile de voler le focus a l'utilisateur.
+  focusStdin() {
+    let essais = 20;
+    const tenter = () => {
+      const el = this.inputElement;
+      if (!el || this.inputState !== "OPEN") return;
+      if (document.activeElement === el) return;
+      if (el.offsetParent !== null) {
+        el.focus({ preventScroll: true });
+        if (document.activeElement === el) return;
+      }
+      if (essais-- > 0) window.setTimeout(tenter, 150);
+    };
+    tenter();
   }
   processInput(input) {
     this.addStdin().appendText(input);
@@ -13532,8 +13555,12 @@ var Outputter = class extends import_events2.EventEmitter {
     this.outputElement.style.display = "block";
     this.emit("output-change");
     setTimeout(() => {
-      if (this.inputState === "OPEN")
+      if (this.inputState === "OPEN") {
         this.inputElement.style.display = "inline";
+        // Le programme attend une saisie : le champ est le seul endroit ou
+        // taper a un sens.
+        this.focusStdin();
+      }
     }, 1e3);
   }
 };
