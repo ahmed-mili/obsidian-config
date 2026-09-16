@@ -15,10 +15,8 @@
 
 # Données personnelles et identifiants. Le repo est PUBLIC : ces trois fichiers
 # ne doivent jamais y entrer.
-#   system3-relay : GUID du relay et du dossier partagé, activité des membres
 #   quiz-blocks   : journal d'usage de l'IA (sessionId, horodatages)
 #   moodle-sync   : identifiants Moodle Efrei, si un data.json est créé un jour
-/.obsidian/plugins/system3-relay/data.json
 /.obsidian/plugins/quiz-blocks/data.json
 /.obsidian/plugins/moodle-sync/data.json
 
