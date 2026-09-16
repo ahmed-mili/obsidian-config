@@ -318,8 +318,11 @@ code.selectable-description-text {
   padding: 0 !important;
   border: 1px solid color-mix(in srgb, var(--background-modifier-border) 82%, var(--interactive-accent) 18%) !important;
   border-radius: 0.7rem !important;
+  /* Fond OPAQUE : --code-background porte un alpha 0.75, qui laissait le
+     fond d'ecran du vault transparaitre a travers le code. Seuls les champs
+     que l'utilisateur doit remplir restent translucides (regle plus bas). */
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--code-background) 96%, var(--interactive-accent) 4%), var(--code-background)) !important;
+    linear-gradient(135deg, rgb(from color-mix(in srgb, var(--code-background) 96%, var(--interactive-accent) 4%) r g b / 1), rgb(from var(--code-background) r g b / 1)) !important;
   box-shadow: 0 3px 12px rgb(0 0 0 / 12%);
 }
 
@@ -345,6 +348,16 @@ code.selectable-description-text {
 .python-lab pre.empty-code-block,
 .python-lab pre.empty-code-block > code:not(.language-output) {
   min-height: 7rem;
+}
+
+/* LE champ d'entrainement : le seul bloc que l'utilisateur doit remplir, et le
+   seul a rester translucide. Cette difference de traitement est voulue -- elle
+   distingue au premier coup d'oeil « a toi d'ecrire » de « a lire » (enonce du
+   sujet et correction, tous deux opaques). */
+.python-lab pre.empty-code-block:has(> button.run-code-button) {
+  background: color-mix(in srgb, var(--code-background) 55%, transparent) !important;
+  background-image: none !important;
+  border-style: dashed !important;
 }
 
 /* Blocs d'énoncé/rappel (```python, ```text… rendus nativement, wrapper
