@@ -370,7 +370,7 @@ code.selectable-description-text {
    sur .empty-code-block, donc elle disparait d'elle-meme des la premiere
    ligne ecrite -- aucun risque qu'elle se superpose au code. */
 .python-lab pre.empty-code-block:has(> button.run-code-button) > code:empty::before {
-  content: "Clique ici et écris ton code, puis lance-le avec le bouton ▶";
+  content: "Écrire ici...";
   display: block;
   color: color-mix(in srgb, var(--interactive-accent) 55%, var(--text-muted));
   font-style: italic;
