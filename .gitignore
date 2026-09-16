@@ -13,7 +13,6 @@
 # Credentials, personal usage data, and machine-specific paths.
 /.obsidian/plugins/editing-toolbar/data.json
 /.obsidian/plugins/execute-code-fork/data.json
-/.obsidian/plugins/pdf-academique-preview/data.json
 /.obsidian/plugins/quiz-blocks/data.json
 /.obsidian/plugins/system3-relay/data.json
 
@@ -54,7 +53,6 @@
 /.obsidian/plugins/moodle-sync/
 /.obsidian/plugins/execute-code-fork/
 /.obsidian/plugins/quiz-blocks/
-/.obsidian/plugins/pdf-academique-preview/
 /.obsidian/plugins/mdtopdf/
 /.obsidian/plugins/homepage/data.json
 /.obsidian/snippets/efrei-icons/
