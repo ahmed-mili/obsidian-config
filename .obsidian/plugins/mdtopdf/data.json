@@ -1,0 +1,9 @@
+{
+  "pythonPath": "C:\\Users\\Ahmed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "scriptPath": "C:\\Users\\Ahmed\\.claude\\plugins\\ahmed-plugins-local\\plugins\\obsidian\\skills\\pdf\\scripts\\md_to_pdf.py",
+  "theme": "dark",
+  "exportFileName": "{stem}.pdf",
+  "debounceMs": 800,
+  "pdfLiveDebounceMs": 600,
+  "followActiveFile": true
+}
