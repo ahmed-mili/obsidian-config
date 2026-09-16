@@ -1,0 +1,9 @@
+{
+  "id": "glossaire",
+  "name": "Glossaire",
+  "version": "0.1.0",
+  "minAppVersion": "1.6.6",
+  "description": "Pose une pastille cliquable sur les termes marques <abbr data-def=\"...\"> dans les notes, et ouvre leur explication dans une petite fenetre.",
+  "author": "Ahmed",
+  "isDesktopOnly": false
+}

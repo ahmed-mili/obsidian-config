@@ -583,3 +583,77 @@
   color: var(--color-blue);
   margin-bottom: 1.6em;
 }
+
+/* ============================================================
+   NOTES DE TP — termes expliqués au survol
+   ------------------------------------------------------------
+   Usage dans une note : <abbr data-tip="l'explication">le terme</abbr>
+   Le terme prend un soulignement pointillé qui signale « passe la
+   souris dessus », et l'explication apparaît au survol.
+
+   `data-tip` plutôt que `title` : avec `title`, le navigateur
+   afficherait EN PLUS son propre libellé après une seconde, par-dessus
+   le nôtre. Un seul des deux doit parler.
+   ============================================================ */
+
+.python-lab abbr[data-tip] {
+  position: relative;
+  border-bottom: 1px dotted var(--interactive-accent);
+  text-decoration: none;
+  cursor: help;
+}
+
+.python-lab abbr[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(3px);
+
+  /* La bulle reste lisible et ne sort jamais de la colonne de lecture :
+     largeur bornée en ch, et repliée en plusieurs lignes si besoin. */
+  width: max-content;
+  max-width: min(46ch, 80vw);
+  white-space: normal;
+  text-align: left;
+
+  padding: 0.55em 0.75em;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 0.5rem;
+  background: var(--background-secondary);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 28%);
+
+  font-family: var(--font-interface);
+  font-size: 0.86em;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-normal);
+
+  /* Masquée au repos : opacity plutôt que display, pour l'apparition
+     en fondu. pointer-events:none évite qu'elle intercepte la souris. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+}
+
+.python-lab abbr[data-tip]:hover::after,
+.python-lab abbr[data-tip]:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Sur écran étroit, la bulle centrée déborderait : on l'ancre à gauche. */
+@media (max-width: 700px) {
+  .python-lab abbr[data-tip]::after {
+    left: 0;
+    transform: translateY(3px);
+    max-width: 90vw;
+  }
+  .python-lab abbr[data-tip]:hover::after {
+    transform: translateY(0);
+  }
+}

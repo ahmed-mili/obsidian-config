@@ -1,0 +1,124 @@
+/* Glossaire — pastille d'explication et sa fenetre.
+   Les tokens sont remappes sur les elements du plugin, jamais sur :root :
+   les variables natives d'Obsidian sont declarees sur body, elles seraient
+   vides ailleurs. */
+
+/* --- Le terme marque ------------------------------------------------- */
+
+abbr[data-def] {
+  --glo-accent: var(--interactive-accent);
+  --glo-texte: var(--text-normal);
+  text-decoration: none;
+  cursor: default;
+}
+
+/* --- La pastille en exposant ----------------------------------------- */
+
+.glossaire-pastille {
+  --glo-accent: var(--interactive-accent);
+  --glo-sur-accent: var(--text-on-accent);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Exposant : collee en haut a droite du mot, sans ecarter les lignes.
+     Taille FIXE en px, pas en em : en exposant l'icone heritait d'un em deja
+     reduit et devenait illisible. 15 px reste discret a cote d'un texte de
+     16 px tout en gardant un trait net. */
+  position: relative;
+  top: -0.42em;
+  margin-left: 0.18em;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  color: var(--glo-accent);
+  background: color-mix(in srgb, var(--glo-accent) 14%, transparent);
+
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 130ms ease, color 130ms ease, transform 130ms ease;
+}
+
+/* L'icone Lucide arrive en SVG : on lui impose sa taille et son trait, sinon
+   elle prend celle du texte environnant. */
+.glossaire-pastille .svg-icon {
+  width: 11px;
+  height: 11px;
+  stroke-width: 2.6;
+}
+
+.glossaire-pastille:hover,
+.glossaire-pastille:focus-visible {
+  background: var(--glo-accent);
+  color: var(--glo-sur-accent);
+  transform: scale(1.15);
+  outline: none;
+}
+
+.glossaire-pastille:active {
+  transform: scale(0.96);
+}
+
+/* Nom accessible sans bulle au survol : lu par les lecteurs d'ecran,
+   invisible et sans effet sur la mise en page. */
+.glossaire-hors-ecran {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- La fenetre d'explication ---------------------------------------- */
+
+.glossaire-modal {
+  --glo-accent: var(--interactive-accent);
+  /* Une definition tient en un paragraphe : la fenetre reste petite et
+     centree plutot que d'occuper toute la hauteur. */
+  width: min(30rem, 92vw);
+}
+
+.glossaire-modal .modal-title {
+  color: var(--glo-accent);
+  font-family: var(--font-monospace);
+  font-size: 1.05em;
+}
+
+.glossaire-modal-corps {
+  line-height: 1.55;
+  color: var(--text-normal);
+}
+
+.glossaire-modal-corps > :first-child {
+  margin-top: 0;
+}
+
+.glossaire-modal-corps > :last-child {
+  margin-bottom: 0;
+}
+
+/* Les blocs de code d'une definition restent lisibles et ne poussent jamais
+   la fenetre en largeur. */
+.glossaire-modal-corps pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Une definition n'est pas un exercice : les boutons poses par le plugin
+   d'execution sur chaque bloc de code (executer, copier, editer) n'ont rien a
+   faire ici, et ils se superposaient au texte de l'explication. */
+.glossaire-modal button.run-code-button,
+.glossaire-modal button.copy-python-code-button,
+.glossaire-modal button.edit-code-button,
+.glossaire-modal .code-indent-guides {
+  display: none !important;
+}
+
+.glossaire-modal pre {
+  padding: 0.7em 0.9em !important;
+  cursor: auto !important;
+}
