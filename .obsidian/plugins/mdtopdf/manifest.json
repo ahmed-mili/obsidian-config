@@ -1,0 +1,11 @@
+{
+  "id": "mdtopdf",
+  "name": "Markdown vers PDF (aperçu)",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Aperçu live, en vue fractionnée, du PDF sombre plein cadre d'une note (callouts dépliés, embeds, pagination) via le moteur md_to_pdf.py du skill obsidian:pdf. Bascule sombre/clair, export en un clic.",
+  "author": "Ahmed Mili",
+  "authorUrl": "https://github.com/ahmed-mili",
+  "isDesktopOnly": true,
+  "main": "main.js"
+}

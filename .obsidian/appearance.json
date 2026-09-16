@@ -3,14 +3,14 @@
   "cssTheme": "AnuPpuccin",
   "theme": "obsidian",
   "enabledCssSnippets": [
+    "dashboard-tiles",
     "base",
-    "efrei",
-    "dashboard-tiles"
+    "efrei"
   ],
   "interfaceFontFamily": "Droid Arabic Naskh",
   "textFontFamily": "Droid Arabic Naskh",
   "monospaceFontFamily": "Droid Arabic Naskh",
-  "baseFontSize": 18,
+  "baseFontSize": 16,
   "baseFontSizeAction": true,
   "showViewHeader": true,
   "showRibbon": true,

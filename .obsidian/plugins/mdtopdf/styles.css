@@ -1,0 +1,140 @@
+.mdtopdf-preview {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 0;
+}
+
+.mdtopdf-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 8px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	flex: 0 0 auto;
+}
+
+.mdtopdf-title {
+	font-weight: 600;
+	font-size: var(--font-ui-small);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 40%;
+}
+
+.mdtopdf-spacer { flex: 1 1 auto; }
+
+.mdtopdf-status {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+.mdtopdf-btn {
+	font-size: var(--font-ui-smaller);
+	padding: 4px 10px;
+	cursor: pointer;
+}
+
+.mdtopdf-body {
+	position: relative;
+	flex: 1 1 auto;
+	min-height: 0;
+	background: var(--background-secondary);
+	overflow: hidden;               /* borne le balayage shimmer au cadre */
+}
+
+/* ---- Indicateur de rendu : barre de progression indéterminée (style Linear) ----
+   Une barre fine glisse en haut de l'aperçu pendant le rendu. Elle est TOUJOURS
+   dans le DOM (opacité 0 au repos) : son apparition et sa disparition se font en
+   fondu via `transition: opacity`, donc l'effet n'est jamais coupé net en plein
+   milieu, quel que soit le moment où le rendu se termine (succès, erreur, rendu
+   dédupliqué, ou enchaînement de frappes). Ne touche pas la zone du document. */
+.mdtopdf-progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	z-index: 6;
+	overflow: hidden;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.35s ease;
+	background: rgba(26, 95, 255, 0.16);   /* piste discrète */
+}
+.mdtopdf-body.is-rendering .mdtopdf-progress {
+	opacity: 1;
+}
+/* Le segment lumineux qui balaie la piste de gauche à droite, en boucle. */
+.mdtopdf-progress::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 38%;
+	border-radius: 3px;
+	background: linear-gradient(90deg, #1A5FFF, #5a8bff, #1A5FFF);
+	box-shadow: 0 0 10px rgba(26, 95, 255, 0.65);
+	animation: mdtopdf-indeterminate 1.15s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
+}
+
+@keyframes mdtopdf-indeterminate {
+	0%   { left: -40%; }
+	100% { left: 100%; }
+}
+
+@keyframes mdtopdf-pulse {
+	0%, 100% { opacity: 0.35; }
+	50%      { opacity: 0.8; }
+}
+
+/* Statut « Rendu en cours… » avec une pastille cyan pulsante pendant le rendu */
+.mdtopdf-status.is-rendering {
+	color: #1A5FFF;
+}
+.mdtopdf-status.is-rendering::before {
+	content: "";
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	margin-right: 5px;
+	border-radius: 50%;
+	background: #1A5FFF;
+	box-shadow: 0 0 6px #1A5FFF;
+	animation: mdtopdf-pulse 1s ease-in-out infinite;
+	vertical-align: middle;
+}
+
+/* Mode PDF fidèle : pages rendues par PDF.js, scrollables (scroll préservé). */
+.mdtopdf-pages {
+	display: none;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background: #525659;
+	padding: 12px 0;
+	text-align: center;
+}
+
+.mdtopdf-page {
+	display: block;
+	margin: 0 auto 12px auto;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+	background: #fff;
+}
+
+.mdtopdf-placeholder {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	white-space: pre-wrap;
+	padding: 24px;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	pointer-events: none;
+}

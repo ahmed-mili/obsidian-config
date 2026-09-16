@@ -1,64 +1,32 @@
-# Keep vault content private by default.
+# Le contenu du vault (notes, PDF, documents Efrei) reste privé : on part de
+# « rien », puis on réautorise la configuration Obsidian explicitement.
 /*
 !/.gitignore
 !/.github/
 !/.obsidian/
-
-# Device-specific Obsidian state and generated results.
-/.obsidian/workspace.json
-/.obsidian/workspace-mobile.json
-/.obsidian/community-plugins.json
-/.obsidian/quiz-blocks-results/
-
-# Credentials, personal usage data, and machine-specific paths.
-/.obsidian/plugins/editing-toolbar/data.json
-/.obsidian/plugins/execute-code-fork/data.json
-/.obsidian/plugins/quiz-blocks/data.json
-/.obsidian/plugins/system3-relay/data.json
-
-# Third-party plugin binaries are installed from Obsidian, not redistributed.
-/.obsidian/plugins/abbreviations/main.js
-/.obsidian/plugins/abbreviations/manifest.json
-/.obsidian/plugins/abbreviations/styles.css
-/.obsidian/plugins/editing-toolbar/main.js
-/.obsidian/plugins/editing-toolbar/manifest.json
-/.obsidian/plugins/editing-toolbar/styles.css
-/.obsidian/plugins/homepage/main.js
-/.obsidian/plugins/homepage/manifest.json
-/.obsidian/plugins/homepage/styles.css
-/.obsidian/plugins/obsidian-kanban/main.js
-/.obsidian/plugins/obsidian-kanban/manifest.json
-/.obsidian/plugins/obsidian-kanban/styles.css
-/.obsidian/plugins/obsidian-style-settings/main.js
-/.obsidian/plugins/obsidian-style-settings/manifest.json
-/.obsidian/plugins/obsidian-style-settings/styles.css
-/.obsidian/plugins/omnisearch/main.js
-/.obsidian/plugins/omnisearch/manifest.json
-/.obsidian/plugins/omnisearch/styles.css
-/.obsidian/plugins/pomodoro-timer/main.js
-/.obsidian/plugins/pomodoro-timer/manifest.json
-/.obsidian/plugins/pomodoro-timer/styles.css
-/.obsidian/plugins/system3-relay/main.js
-/.obsidian/plugins/system3-relay/manifest.json
-/.obsidian/plugins/system3-relay/styles.css
-/.obsidian/plugins/templater-obsidian/main.js
-/.obsidian/plugins/templater-obsidian/manifest.json
-/.obsidian/plugins/templater-obsidian/styles.css
-
-# Install the theme and fonts from their original distributions.
-/.obsidian/themes/
-/.obsidian/snippets/*.woff2
-
-# Specific to the Efrei vault: this repo only tracks the generic Obsidian setup.
-/.obsidian/plugins/moodle-sync/
-/.obsidian/plugins/execute-code-fork/
-/.obsidian/plugins/quiz-blocks/
-/.obsidian/plugins/mdtopdf/
-/.obsidian/plugins/homepage/data.json
-/.obsidian/snippets/efrei-icons/
-/.obsidian/snippets/efrei.css
-/.obsidian/workspaces.json
-/.obsidian/templates.json
-/.obsidian/daily-notes.json
 !/install.ps1
 !/plugins.json
+!/README.md
+
+# État local, propre à une machine ou à une session : rien à partager.
+/.obsidian/workspace.json
+/.obsidian/workspace-mobile.json
+/.obsidian/quiz-blocks-results/
+
+# Données personnelles et identifiants. Le repo est PUBLIC : ces trois fichiers
+# ne doivent jamais y entrer.
+#   system3-relay : GUID du relay et du dossier partagé, activité des membres
+#   quiz-blocks   : journal d'usage de l'IA (sessionId, horodatages)
+#   moodle-sync   : identifiants Moodle Efrei, si un data.json est créé un jour
+/.obsidian/plugins/system3-relay/data.json
+/.obsidian/plugins/quiz-blocks/data.json
+/.obsidian/plugins/moodle-sync/data.json
+
+# Polices : à récupérer auprès de leur éditeur, pas à redistribuer ici.
+/.obsidian/snippets/*.woff2
+
+# Thème AnuPpuccin : installé depuis Obsidian, son dépôt fait foi.
+/.obsidian/themes/
+
+# Sauvegardes locales avant patch des plugins.
+*.bak

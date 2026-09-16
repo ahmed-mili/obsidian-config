@@ -1,0 +1,10 @@
+{
+	"id": "execute-code-fork",
+	"name": "Execute Code (fork)",
+	"version": "2.1.2-fork",
+	"minAppVersion": "1.7.2",
+	"description": "Fork local d'Execute Code, utilisé pour exécuter du Python dans les notes. Patché pour corriger le reset du curseur en position 0 à l'ouverture de l'éditeur inline. Basé sur twibiral/obsidian-execute-code 2.1.2 ; jamais mis à jour automatiquement (hors liste des plugins communautaires).",
+	"author": "twibiral (fork patché par Ahmed)",
+	"authorUrl": "https://www.github.com/twibiral",
+	"isDesktopOnly": true
+}

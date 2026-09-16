@@ -1,0 +1,10 @@
+{
+  "pythonPath": "C:\\Users\\Ahmed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "scriptPath": "C:\\Users\\Ahmed\\.claude\\plugins\\ahmed-plugins-local\\plugins\\obsidian\\skills\\pdf-academique\\scripts\\md_to_pdf_academic.py",
+  "exportFileName": "{stem} - Ahmed MILI.pdf",
+  "debounceMs": 800,
+  "liveDebounceMs": 150,
+  "pdfLiveDebounceMs": 600,
+  "defaultMode": "pdf",
+  "followActiveFile": true
+}

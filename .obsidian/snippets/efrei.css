@@ -1,0 +1,585 @@
+/* ============================================================
+   efrei.css - styles propres au vault Efrei (fusion 2026-09-16).
+   Regroupe : c-code-tokyo-night (coloration syntaxique), les deux
+   callouts d'explication des quiz (claude + analogy) et la page de
+   garde / sommaire du rapport de stage. Non versionne : specifique
+   au vault, pas a la config distribuee par install.ps1.
+   ============================================================ */
+
+/* ============================================================
+   c-code-tokyo-night
+   ============================================================ */
+/* ================================================= */
+/*  VS CODE TOKYO NIGHT — ALL LANGUAGES               */
+/*  Preview + Editor                                 */
+/* ================================================= */
+
+.theme-dark {
+
+  /* ========================= */
+  /*  CONTENEUR DU BLOC CODE   */
+  /* ========================= */
+
+  .markdown-preview-view pre,
+  .markdown-editor-view pre {
+    background-color: #1a1b26 !important; /* Tokyo Night bg */
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin: 1em 0 !important;
+    box-shadow: none !important;
+    border: 1px solid #24283b !important;
+  }
+
+  /* ========================= */
+  /*  CODE INTERNE             */
+  /* ========================= */
+
+  .markdown-preview-view pre code,
+  .markdown-editor-view pre code {
+    background: transparent !important;
+    color: #c0caf5 !important; /* foreground */
+    font-family: "JetBrains Mono", "Fira Code", monospace !important;
+    font-size: 0.90em !important;
+    line-height: 1.65 !important;
+    display: block;
+    padding: 0 !important;
+    white-space: pre;
+  }
+
+  /* ========================= */
+  /*  TOKYO NIGHT – TOKENS     */
+  /*  (PRISM / HIGHLIGHT.JS)   */
+  /* ========================= */
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #565f89 !important;
+    font-style: italic !important;
+  }
+
+  .token.keyword,
+  .token.control,
+  .token.directive {
+    color: #7aa2f7 !important;
+  }
+
+  .token.operator,
+  .token.operator.assignment {
+    color: #89ddff !important;
+  }
+
+  .token.function,
+  .token.method {
+    color: #7dcfff !important;
+  }
+
+  .token.string,
+  .token.char,
+  .token.regex {
+    color: #9ece6a !important;
+  }
+
+  .token.number,
+  .token.boolean,
+  .token.constant {
+    color: #ff9e64 !important;
+  }
+
+  .token.type,
+  .token.class-name,
+  .token.builtin {
+    color: #2ac3de !important;
+  }
+
+  .token.variable,
+  .token.parameter,
+  .token.property {
+    color: #c0caf5 !important;
+  }
+
+  .token.punctuation {
+    color: #c0caf5 !important;
+  }
+
+  .token.tag {
+    color: #f7768e !important;
+  }
+
+  .token.attr-name {
+    color: #e0af68 !important;
+  }
+
+  .token.attr-value {
+    color: #9ece6a !important;
+  }
+
+}
+
+/* ============================================================
+   quiz-claude-callout
+   ============================================================ */
+/* ============================================================
+   quiz-claude-callout.css
+   Callout custom "Claude" dans les explications du plugin quiz-blocks.
+   Couleur officielle Claude #D97757 (source claude.ai).
+   Vraie icone Claude (simple-icons) en mask-image.
+   Cible la classe unique .claude-callout (marche dans TOUS les modes
+   de rendu du plugin : .quiz-explain ET .quiz-textonly-explain-content).
+   !important pour battre le theme/quiz-ui qui force uppercase + accent.
+   ============================================================ */
+.claude-callout {
+  --claude: 217, 119, 87;
+  margin: 16px 0 4px !important;
+  padding: 12px 14px 12px 16px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(var(--claude), 0.32) !important;
+  border-left: 3px solid rgb(var(--claude)) !important;
+  background: rgba(var(--claude), 0.10) !important;
+  box-shadow: 0 0 14px rgba(var(--claude), 0.10) !important;
+}
+.claude-callout .claude-callout-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 0 7px 0 !important;
+  padding: 0 !important;
+  font-weight: 800 !important;
+  font-size: 0.95em !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  color: rgb(var(--claude)) !important;
+}
+.claude-callout .claude-callout-title::before {
+  content: "" !important;
+  flex: 0 0 auto !important;
+  display: inline-block !important;
+  width: 18px !important;
+  height: 18px !important;
+  background-color: rgb(var(--claude)) !important;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27m4.7144%2015.9555%204.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608%201.5179.1032%202.2767.1578%201.6514.0972%202.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973%209.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686%201.9064%201.4754%202.4893%201.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335%206.6997%200l.9957.1336.419.3642.6192%201.4147%201.0018%202.2282%201.5543%203.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853%201.8517-.5586%202.9021-.3643%201.9429h.2125l.2429-.2429.9835-1.3053%201.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759%201.1293-.34%201.1657-1.0625%201.3478-.8804%201.1414-1.2628%201.7-.7893%201.36.0729.1093.1882-.0183%202.8535-.607%201.5421-.2794%201.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607%201.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929%201.0686%202.0035%201.8092%202.5075%202.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496%202.3436%203.5214.1214%201.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38%2017.959l-1.1414-1.9428-.1397.079-.674%207.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328%201.9672-2.1796%202.9446-1.7243%201.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889%202.386-3.0357%201.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385%204.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429%201.9064-1.3114Z%27%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
+          mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27m4.7144%2015.9555%204.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608%201.5179.1032%202.2767.1578%201.6514.0972%202.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973%209.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686%201.9064%201.4754%202.4893%201.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335%206.6997%200l.9957.1336.419.3642.6192%201.4147%201.0018%202.2282%201.5543%203.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853%201.8517-.5586%202.9021-.3643%201.9429h.2125l.2429-.2429.9835-1.3053%201.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759%201.1293-.34%201.1657-1.0625%201.3478-.8804%201.1414-1.2628%201.7-.7893%201.36.0729.1093.1882-.0183%202.8535-.607%201.5421-.2794%201.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607%201.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929%201.0686%202.0035%201.8092%202.5075%202.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496%202.3436%203.5214.1214%201.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38%2017.959l-1.1414-1.9428-.1397.079-.674%207.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328%201.9672-2.1796%202.9446-1.7243%201.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889%202.386-3.0357%201.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385%204.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429%201.9064-1.3114Z%27%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
+}
+.claude-callout p { margin: 0 !important; }
+.claude-callout p + p { margin-top: 6px !important; }
+.claude-callout code {
+  background: rgba(var(--claude), 0.16) !important;
+  color: inherit !important;
+  border-radius: 4px !important;
+  padding: 0.05em 0.35em !important;
+}
+
+/* ============================================================
+   quiz-analogy-callout
+   ============================================================ */
+/* ============================================================
+   quiz-analogy-callout.css
+   Callout generique "Analogie" dans les explications du plugin
+   quiz-blocks. A utiliser pour TOUTES les analogies SAUF celles
+   qui parlent reellement de Claude / Anthropic / Fable 5
+   (celles-la gardent .claude-callout, cf. quiz-claude-callout.css).
+   Couleur violette (167, 139, 250) pour se distinguer nettement de
+   l'orange Claude. Icone ampoule (Lucide "lightbulb") en mask-image.
+   Cible la classe .analogy-callout (marche dans TOUS les modes de
+   rendu du plugin : .quiz-explain ET .quiz-textonly-explain-content).
+   ============================================================ */
+.analogy-callout {
+  --analogy: 167, 139, 250;
+  margin: 16px 0 4px !important;
+  padding: 12px 14px 12px 16px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(var(--analogy), 0.32) !important;
+  border-left: 3px solid rgb(var(--analogy)) !important;
+  background: rgba(var(--analogy), 0.10) !important;
+  box-shadow: 0 0 14px rgba(var(--analogy), 0.10) !important;
+}
+.analogy-callout .analogy-callout-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 0 7px 0 !important;
+  padding: 0 !important;
+  font-weight: 800 !important;
+  font-size: 0.95em !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  color: rgb(var(--analogy)) !important;
+}
+.analogy-callout .analogy-callout-title::before {
+  content: "" !important;
+  flex: 0 0 auto !important;
+  display: inline-block !important;
+  width: 18px !important;
+  height: 18px !important;
+  background-color: rgb(var(--analogy)) !important;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2724%27%20height%3D%2724%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27currentColor%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M15%2014c.2-1%20.7-1.7%201.5-2.5%201-.9%201.5-2.2%201.5-3.5A6%206%200%200%200%206%208c0%201%20.2%202.2%201.5%203.5.7.7%201.3%201.5%201.5%202.5%27%2F%3E%3Cpath%20d%3D%27M9%2018h6%27%2F%3E%3Cpath%20d%3D%27M10%2022h4%27%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
+          mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2724%27%20height%3D%2724%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27currentColor%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M15%2014c.2-1%20.7-1.7%201.5-2.5%201-.9%201.5-2.2%201.5-3.5A6%206%200%200%200%206%208c0%201%20.2%202.2%201.5%203.5.7.7%201.3%201.5%201.5%202.5%27%2F%3E%3Cpath%20d%3D%27M9%2018h6%27%2F%3E%3Cpath%20d%3D%27M10%2022h4%27%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
+}
+.analogy-callout p { margin: 0 !important; }
+.analogy-callout p + p { margin-top: 6px !important; }
+.analogy-callout code {
+  background: rgba(var(--analogy), 0.16) !important;
+  color: inherit !important;
+  border-radius: 4px !important;
+  padding: 0.05em 0.35em !important;
+}
+
+/* ============================================================
+   rapport-cover
+   ============================================================ */
+/* Couverture du rapport de stage — fait ressembler STRICTEMENT le bloc couverture
+   (callout [!cover]) à la page de garde du PDF, en Live Preview et en Lecture.
+   Scopé par la cssclass `rapport-cover` + le callout, pour ne fuir sur aucun
+   autre titre/tableau de la note.
+   Disposition reproduite : logos en haut · titre + auteur + programme + école
+   au centre · panneau bleu (6 champs) · date en bas — sur une feuille A4 blanche. */
+
+/* ---- Feuille blanche, proportion page A4, contenu distribué verticalement ---- */
+.rapport-cover .callout[data-callout="cover"] {
+  /* !important : le thème pose un fond sombre translucide sur .callout
+     (rgba(24,24,37,.4)) qui laisse transparaître le wallpaper. On force le blanc
+     plein sur TOUTE la couverture (logos, titre, auteur, panneau, date). */
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cdd8e0;
+  border-radius: 2px;
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.30);
+  color: #1a1a1a;
+  margin: 0.3em auto 1.4em auto;
+  padding: 1.4cm 1.6cm 1cm 1.6cm;
+  max-width: 21cm;
+}
+/* Le contenu interne ne doit pas réintroduire de fond translucide */
+.rapport-cover .callout[data-callout="cover"] > .callout-content {
+  background: transparent !important;
+}
+
+/* Masquer le bandeau de titre natif du callout ([!cover] + icône) */
+.rapport-cover .callout[data-callout="cover"] > .callout-title {
+  display: none !important;
+}
+
+/* Le contenu pilote la mise en page verticale (façon page de garde) */
+.rapport-cover .callout[data-callout="cover"] > .callout-content {
+  padding: 0 !important;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 24cm;            /* hauteur d'une page A4 -> vraie allure de couverture */
+  text-align: center;
+}
+.rapport-cover .callout[data-callout="cover"] > .callout-content::before {
+  display: none !important;
+}
+/* Largeur pleine pour les blocs internes (sinon centrés trop étroits) */
+.rapport-cover .callout[data-callout="cover"] > .callout-content > * {
+  width: 100%;
+}
+
+/* ---- Logos en haut, espacés, filet sous eux (comme le PDF) ---- */
+.rapport-cover .callout[data-callout="cover"] p:has(img) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 0.5cm;
+  margin: 0 0 0.2cm 0;
+  border-bottom: 0.75pt solid #ccc;
+}
+.rapport-cover .callout[data-callout="cover"] img {
+  height: 1.7cm;
+  width: auto;
+}
+
+/* ---- Titre « RAPPORT DE STAGE » : poussé au centre vertical de la page ---- */
+.rapport-cover .callout[data-callout="cover"] h2 {
+  margin-top: auto;            /* + le margin-top:auto de la date => groupe centré */
+  text-align: center;
+  color: #16314a;
+  font-size: 30pt;
+  font-weight: 800;
+  letter-spacing: 5pt;
+  text-transform: uppercase;
+  border: none;
+  margin-bottom: 0;
+  padding: 0;
+  line-height: 1.1;
+}
+/* Filet bleu sous le titre */
+.rapport-cover .callout[data-callout="cover"] h2::after {
+  content: "";
+  display: block;
+  width: 5cm;
+  height: 0;
+  border-bottom: 2.5pt solid #1f6391;
+  margin: 0.45cm auto 1.4cm auto;
+}
+
+/* ---- Auteur (ligne en gras) : grand, centré ---- */
+.rapport-cover .callout[data-callout="cover"] p:has(strong) {
+  margin: 0 0 0.1cm 0;
+  font-size: 0;                /* neutralise le texte hors <strong> éventuel */
+}
+.rapport-cover .callout[data-callout="cover"] p:has(strong) strong {
+  font-size: 17pt;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* ---- Programme + École (paragraphe juste après l'auteur) : centré, discret ---- */
+.rapport-cover .callout[data-callout="cover"] p:has(strong) + p {
+  margin: 0 0 0.9cm 0;
+  font-size: 11.5pt;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* ---- Panneau bleu : 6 champs, ÉTROIT (épouse le contenu) et centré, sans
+   aucune ligne de grille — exactement le panneau du PDF, pas un tableau étiré.
+   Le thème force `width:100%` et des bordures de cellule : on bat ça en !important. */
+.rapport-cover .callout[data-callout="cover"] table {
+  border-collapse: collapse !important;
+  margin: 0.1cm auto 0 auto !important;
+  width: auto !important;            /* hug content -> panneau étroit comme le PDF */
+  max-width: 100%;
+  display: table !important;          /* annule un éventuel display:block du thème */
+  background: #eef4f9 !important;
+  border: 0.75pt solid #cdd8e0 !important;
+  border-left: 3pt solid #1f6391 !important;
+  box-shadow: none !important;
+  text-align: left;
+}
+/* Aucune ligne interne : ni rangées, ni cellules, ni en-tête */
+.rapport-cover .callout[data-callout="cover"] thead {
+  display: none !important;          /* cacher l'en-tête « Champ | Valeur » */
+}
+.rapport-cover .callout[data-callout="cover"] tr,
+.rapport-cover .callout[data-callout="cover"] th,
+.rapport-cover .callout[data-callout="cover"] td {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.rapport-cover .callout[data-callout="cover"] td {
+  padding: 0.14cm 0.55cm !important;
+  font-size: 11pt;
+  vertical-align: top;
+}
+.rapport-cover .callout[data-callout="cover"] td:first-child {
+  color: #1f6391;
+  font-weight: 700;
+  white-space: nowrap;
+  padding-right: 0.7cm !important;
+}
+.rapport-cover .callout[data-callout="cover"] td:last-child {
+  color: #1a1a1a;
+}
+
+/* ---- Date : poussée en bas de la page, centrée ----
+   Ciblée comme DERNIER paragraphe du callout, et non « celui qui suit le
+   tableau » : le panneau de champs est optionnel (une couverture peut n'avoir
+   que titre + auteur + date), et sans lui la date restait collée au groupe
+   central au lieu de descendre. */
+.rapport-cover .callout[data-callout="cover"] > .callout-content > p:last-child {
+  margin-top: auto;           /* pousse la date au bas de la feuille */
+  margin-bottom: 0;
+  padding-top: 1cm;
+  font-size: 12pt;
+  color: #333;
+}
+
+/* ============================================================================
+   SOMMAIRE — callout [!sommaire] : LISTE ÉDITABLE dans la note (ce que tu écris
+   = ce qui apparaît dans le PDF). Feuille blanche lisible, sans puces, entrées
+   principales en gras, sous-entrées indentées. Rendu identique édition/lecture. */
+.rapport-cover .callout[data-callout="sommaire"] {
+  /* Feuille blanche comme la couverture : sinon le texte sombre serait illisible
+     sur le fond sombre du thème. Look « page » du PDF. */
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cdd8e0;
+  border-radius: 2px;
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.30);
+  margin: 0.3cm auto 0.4cm auto;
+  padding: 1cm 1.6cm;
+  max-width: 21cm;
+  color: #1a1a1a;
+}
+/* Masquer le bandeau de titre natif du callout */
+.rapport-cover .callout[data-callout="sommaire"] > .callout-title {
+  display: none !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] > .callout-content {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] > .callout-content::before {
+  display: none !important;
+}
+/* Entrées : pas de puces, interligne aéré façon sommaire */
+.rapport-cover .callout[data-callout="sommaire"] ul {
+  list-style: none !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] li {
+  list-style: none !important;
+  margin: 0.16cm 0 !important;
+  padding-left: 0 !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] li::marker {
+  content: none !important;
+}
+/* Entrées de 1er niveau (parties) : bleu foncé, gras */
+.rapport-cover .callout[data-callout="sommaire"] > .callout-content > ul > li {
+  color: #16314a;
+  font-size: 12pt;
+}
+.rapport-cover .callout[data-callout="sommaire"] li strong {
+  color: #16314a;
+  font-weight: 700;
+}
+/* Sous-entrées (2.x) : indentées, plus petites, grises */
+.rapport-cover .callout[data-callout="sommaire"] li ul {
+  padding-left: 1cm !important;
+  margin: 0.06cm 0 !important;
+}
+.rapport-cover .callout[data-callout="sommaire"] li ul li {
+  color: #2a2a2a;
+  font-size: 11pt;
+  font-weight: normal;
+}
+
+/* ============================================================
+   CALLOUTS CUSTOM DU VAULT — couleur + icône
+   ------------------------------------------------------------
+   Les types natifs d'Obsidian (note, info, tip, important, todo,
+   success, question, warning, failure, danger, bug, example,
+   quote…) tiennent déjà leur couleur et leur icône du cœur
+   d'Obsidian ; le bloc callout-glow de base.css les habille tous
+   de la même façon. Les types CUSTOM, eux, n'ont rien : sans
+   --callout-color ni --callout-icon, ils sortent gris avec
+   l'icône crayon. Ce bloc leur donne leur identité, et la
+   dernière règle rattrape tout type non prévu.
+
+   --callout-color : une COULEUR COMPLÈTE `rgb(r, g, b)`, et non
+   un triplet nu. Depuis Obsidian 1.7+ la variable est consommée
+   telle quelle (cf. l'en-tête de base.css) ; un triplet seul est
+   ignoré en silence et le callout reste gris.
+   --callout-icon  : nom d'une icône lucide.dev, préfixe lucide-.
+   ============================================================ */
+
+/* Cours magistral, support de cours, sujet original */
+.callout[data-callout="cours"] {
+  --callout-color: rgb(59, 130, 246);      /* bleu */
+  --callout-icon: lucide-book-open;
+}
+
+/* Travaux pratiques et travaux dirigés */
+.callout[data-callout="tp"],
+.callout[data-callout="td"] {
+  --callout-color: rgb(16, 185, 129);      /* vert d'eau */
+  --callout-icon: lucide-code-2;
+}
+
+/* Exercice à faire */
+.callout[data-callout="exercice"] {
+  --callout-color: rgb(234, 88, 12);       /* orange brûlé */
+  --callout-icon: lucide-pencil-ruler;
+}
+
+/* Définition, point de vocabulaire */
+.callout[data-callout="definition"] {
+  --callout-color: rgb(14, 165, 233);      /* bleu ciel */
+  --callout-icon: lucide-book-marked;
+}
+
+/* Examen, contrôle continu */
+.callout[data-callout="examen"],
+.callout[data-callout="cc"] {
+  --callout-color: rgb(220, 38, 38);       /* rouge */
+  --callout-icon: lucide-alarm-clock;
+}
+
+/* Correction d'exercice */
+.callout[data-callout="correction"] {
+  --callout-color: rgb(22, 163, 74);       /* vert */
+  --callout-icon: lucide-circle-check-big;
+}
+
+/* Sommaire de note — volontairement neutre : c'est un index, il ne doit pas
+   concurrencer les callouts de contenu. Gris clair repris du texte normal du
+   thème, donc lisible en clair comme en sombre. */
+.callout[data-callout="toc"] {
+  --callout-color: var(--text-normal);
+  --callout-icon: lucide-list;
+}
+
+/* Cybersécurité, ethical hacking */
+.callout[data-callout="cybersecurite"] {
+  --callout-color: rgb(168, 85, 247);      /* violet */
+  --callout-icon: lucide-shield-check;
+}
+
+/* Sites internet, ressources en ligne */
+.callout[data-callout="sitesinternet"] {
+  --callout-color: rgb(45, 212, 191);      /* turquoise */
+  --callout-icon: lucide-globe;
+}
+
+/* Chaînes et vidéos YouTube */
+.callout[data-callout="youtube"] {
+  --callout-color: rgb(239, 68, 68);       /* rouge YouTube */
+  --callout-icon: lucide-youtube;
+}
+
+/* Filet de sécurité : un type non prévu reste teinté et lisible au lieu
+   de retomber sur le gris à icône crayon. La liste énumère les types déjà
+   pris en charge, natifs comme custom ; les callouts-tuiles des autres
+   snippets sont exclus comme dans le bloc callout-glow de base.css.
+   :where() garde la spécificité à 0 : n'importe quelle règle ci-dessus
+   ou d'un autre snippet reprend la main sans !important. */
+.callout:where(:not(
+  [data-callout="note"], [data-callout="abstract"], [data-callout="summary"],
+  [data-callout="tldr"], [data-callout="info"], [data-callout="todo"],
+  [data-callout="tip"], [data-callout="hint"], [data-callout="important"],
+  [data-callout="success"], [data-callout="check"], [data-callout="done"],
+  [data-callout="question"], [data-callout="help"], [data-callout="faq"],
+  [data-callout="warning"], [data-callout="caution"], [data-callout="attention"],
+  [data-callout="failure"], [data-callout="fail"], [data-callout="missing"],
+  [data-callout="danger"], [data-callout="error"], [data-callout="bug"],
+  [data-callout="example"], [data-callout="quote"], [data-callout="cite"],
+  [data-callout="cours"], [data-callout="tp"], [data-callout="td"],
+  [data-callout="exercice"], [data-callout="definition"],
+  [data-callout="examen"], [data-callout="cc"], [data-callout="correction"], [data-callout="toc"],
+  [data-callout="cybersecurite"], [data-callout="sitesinternet"], [data-callout="youtube"],
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) {
+  --callout-color: rgb(100, 116, 139);     /* ardoise */
+  --callout-icon: lucide-bookmark;
+}
+
+/* ============================================================
+   NOTES DE TP — titres de partie
+   ------------------------------------------------------------
+   Dans une note `cssclasses: python-lab`, le premier H1 est le titre
+   de la note ; les suivants sont les parties du TP (« Partie 1 :
+   Entrées, sorties, exceptions »…). On ne teinte que ces derniers,
+   d'où le :not(:first-of-type), et on leur donne de l'air en dessous
+   pour détacher la partie de son premier exercice.
+   ============================================================ */
+
+/* `:first-of-type` ne sert à rien ici : Obsidian enveloppe chaque titre dans son
+   propre `div.el-h1`, donc tout H1 est le premier de son conteneur. On repère
+   les parties autrement : un bloc de titre précédé d'un autre bloc de titre,
+   c'est-à-dire tous sauf le premier. */
+.markdown-preview-view.python-lab .el-h1 ~ .el-h1 h1,
+.markdown-source-view.mod-cm6.python-lab .HyperMD-header-1 ~ .HyperMD-header-1 {
+  color: var(--color-blue);
+  margin-bottom: 1.6em;
+}

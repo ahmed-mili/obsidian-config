@@ -24,6 +24,57 @@
    exclus via :where() pour ne pas changer la spécificité du sélecteur.
    ============================================================ */
 
+/* ============================================================
+   normalisation de --callout-color pour les types NATIFS
+   ------------------------------------------------------------
+   Obsidian et le thème déclarent --callout-color des types natifs
+   sous la forme d'un TRIPLET nu (« 101,143,242 »), alors que le
+   bloc callout-glow ci-dessous consomme la variable comme une
+   COULEUR via color-mix(). Un triplet y est invalide : la
+   déclaration entière est ignorée en silence, et les callouts
+   natifs ressortaient sans fond teinté ni filet coloré — seuls
+   les callouts custom, déclarés en rgb(), étaient habillés.
+
+   On réécrit donc chaque type natif avec la variable de couleur
+   du thème, qui est déjà une couleur complète. Les teintes
+   restent celles du thème (rien n'est figé ici) : changer de
+   thème change les callouts, comme attendu.
+   ============================================================ */
+
+.callout[data-callout="note"],
+.callout[data-callout="info"],
+.callout[data-callout="todo"] { --callout-color: var(--color-blue); }
+
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"],
+.callout[data-callout="tip"],
+.callout[data-callout="hint"],
+.callout[data-callout="important"] { --callout-color: var(--color-cyan); }
+
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] { --callout-color: var(--color-green); }
+
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"],
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] { --callout-color: var(--color-orange); }
+
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"],
+.callout[data-callout="danger"],
+.callout[data-callout="error"],
+.callout[data-callout="bug"] { --callout-color: var(--color-red); }
+
+.callout[data-callout="example"] { --callout-color: var(--color-purple); }
+
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] { --callout-color: var(--text-muted); }
+
 .callout:where(:not(
   [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
   [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
@@ -64,6 +115,21 @@
   [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
 )) > .callout-title .callout-title-inner {
   font-weight: 700 !important; /* le theme force 500 avec un selecteur 0,5,0 */
+  color: var(--co-c) !important;
+}
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) > .callout-title .callout-icon {
+  color: var(--co-c) !important;
+}
+.callout:where(:not(
+  [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
+  [data-callout="cover"], [data-callout="quick"], [data-callout="sommaire"],
+  [data-callout="guide"], [data-callout="islam"], [data-callout="foi"]
+)) > .callout-title .callout-icon svg {
+  stroke: currentColor !important;
 }
 .callout:where(:not(
   [data-callout="portals"], [data-callout="multi-column"], [data-callout*="blank"],
