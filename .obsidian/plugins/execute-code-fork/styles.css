@@ -354,7 +354,7 @@ code.selectable-description-text {
    le seul a ne pas ressembler a du code fige. Tout ici vise la meme chose --
    qu'on voie au premier coup d'oeil que c'est une zone a remplir, et pas un
    enonce ni une correction (tous deux opaques et cadres pleins). */
-.python-lab pre.empty-code-block:has(> button.run-code-button) {
+.python-lab .block-language-run-python pre:has(> button.run-code-button) {
   /* Fond a peine teinte de la couleur d'accent, et surtout translucide :
      la page respire au travers, le bloc se lit comme un espace vide. */
   background: color-mix(in srgb, var(--interactive-accent) 5%, color-mix(in srgb, var(--code-background) 45%, transparent)) !important;
@@ -369,7 +369,7 @@ code.selectable-description-text {
 /* Invite explicite, a l'interieur du cadre vide. Elle ne peut apparaitre que
    sur .empty-code-block, donc elle disparait d'elle-meme des la premiere
    ligne ecrite -- aucun risque qu'elle se superpose au code. */
-.python-lab pre.empty-code-block:has(> button.run-code-button) > code:empty::before {
+.python-lab .block-language-run-python pre:has(> button.run-code-button) > code:empty::before {
   content: "Écrire ici...";
   display: block;
   color: color-mix(in srgb, var(--interactive-accent) 55%, var(--text-muted));
@@ -381,18 +381,18 @@ code.selectable-description-text {
 }
 
 /* Au survol, le cadre se precise : le bloc repond, donc il est cliquable. */
-.python-lab pre.empty-code-block:has(> button.run-code-button):hover {
+.python-lab .block-language-run-python pre:has(> button.run-code-button):hover {
   border-color: color-mix(in srgb, var(--interactive-accent) 75%, transparent) !important;
   background: color-mix(in srgb, var(--interactive-accent) 9%, color-mix(in srgb, var(--code-background) 45%, transparent)) !important;
 }
 
 /* Pendant la saisie, l'editeur inline prend le relais : l'invite n'a plus lieu
    d'etre et le cadre passe en trait plein, comme un champ actif. */
-.python-lab pre.empty-code-block.is-editing-code {
+.python-lab .block-language-run-python pre.is-editing-code {
   border-style: solid !important;
   border-color: var(--interactive-accent) !important;
 }
-.python-lab pre.empty-code-block.is-editing-code > code::before {
+.python-lab .block-language-run-python pre.is-editing-code > code::before {
   content: none;
 }
 
@@ -407,6 +407,23 @@ code.selectable-description-text {
 .python-lab .el-pre pre > code {
   background-color: rgb(from var(--code-background) r g b / 1) !important;
   background-image: none !important;
+}
+
+/* Exception : un bloc executable place DANS un callout est une correction, donc
+   du code a LIRE. Il doit etre visuellement indiscernable d'un bloc d'enonce.
+   Les valeurs sont celles que le snippet du vault (efrei.css, section
+   c-code-tokyo-night) applique a « .markdown-preview-view pre » : fond uni
+   #1a1b26 et filet #24283b. Duplication assumee -- le snippet ne peut pas
+   l'emporter ici, la regle du plugin ci-dessus etant en !important. Si la
+   palette du snippet change, aligner ces deux valeurs. */
+.python-lab .callout .block-language-run-python pre:has(> button.run-code-button),
+.python-lab .callout .block-language-run-python pre:has(> button.run-code-button):hover {
+  background: #1a1b26 !important;
+  background-image: none !important;
+  border: 1px solid #24283b !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  cursor: auto;
 }
 
 .code-indent-guides {
